@@ -95,7 +95,7 @@ textarea.input{min-height:84px;resize:vertical}
 .hero p.lead{font-size:18px;color:#BFD4C7;max-width:36ch;margin:0 0 26px}
 .hero .ctas{display:flex;gap:10px;flex-wrap:wrap}
 .hero .ctas .ghost{color:#fff;border-color:rgba(255,255,255,.3)}
-.hero-mark{font-family:var(--logo);color:var(--brass);font-size:clamp(70px,20vw,120px);line-height:.9;margin:0;display:flex;align-items:baseline;gap:14px}
+.hero-mark{font-family:var(--logo);color:var(--brass);font-size:clamp(70px,20vw,120px);line-height:1.15;margin:0 0 6px;display:flex;align-items:baseline;gap:14px}
 .hero-mark span{font-size:.42em;opacity:.85}
 
 /* the ledger: signature element */
@@ -431,12 +431,13 @@ const FB_VER = '10.12.2';
 
 const CUR = {
   USD:{name:'دولار أمريكي', short:'دولار', sym:'$', d:2, flag:'🇺🇸'},
-  SYP:{name:'ليرة سورية جديدة', short:'ليرة', sym:'ل.س', d:2, flag:'🇸🇾'},
+  SYP:{name:'ليرة سورية جديدة', short:'ليرة', sym:'ل.س', d:2, flag:'<svg viewBox="0 0 30 20" width="1.4em" height="0.95em" style="vertical-align:-0.12em;border-radius:2px;box-shadow:0 0 0 1px rgba(0,0,0,.12)"><rect width="30" height="20" fill="#fff"/><rect width="30" height="6.67" fill="#007A3D"/><rect y="13.33" width="30" height="6.67" fill="#000"/><polygon fill="#CE1126" points="8.00,6.80 8.76,8.95 11.04,9.01 9.24,10.40 9.88,12.59 8.00,11.30 6.12,12.59 6.76,10.40 4.96,9.01 7.24,8.95"/><polygon fill="#CE1126" points="15.00,6.80 15.76,8.95 18.04,9.01 16.24,10.40 16.88,12.59 15.00,11.30 13.12,12.59 13.76,10.40 11.96,9.01 14.24,8.95"/><polygon fill="#CE1126" points="22.00,6.80 22.76,8.95 25.04,9.01 23.24,10.40 23.88,12.59 22.00,11.30 20.12,12.59 20.76,10.40 18.96,9.01 21.24,8.95"/></svg>'},
   EUR:{name:'يورو', short:'يورو', sym:'€', d:2, flag:'🇪🇺'},
   KWD:{name:'دينار كويتي', short:'دينار', sym:'د.ك', d:3, flag:'🇰🇼'}
 };
 const CODES = ['USD','SYP','EUR','KWD'];
-const DEFAULT_RATES = {USD:1, EUR:0.86, KWD:0.307, SYP:120}; // units per 1 USD
+const DEFAULT_RATES = {USD:1, EUR:0.86, KWD:0.307, SYP:149}; // units per 1 USD
+const RATES_URL = 'https://raw.githubusercontent.com/xwerfor-del/Daly/main/rates.json';
 const TRASH_DAYS = 30;
 
 /* =====================================================
@@ -510,7 +511,7 @@ function toast(msg){
    ===================================================== */
 const S = {
   user:null, people:{}, debts:{}, loaded:{people:false, debts:false},
-  global:null, api:ls.get('daly_api_rates', null),
+  global:null, api:ls.get('daly_api_rates', null), spt:ls.get('daly_spt', null),
   prefs: Object.assign({theme:'auto', totalCur:'USD', sypOwn:null, sort:'recent'}, ls.get('daly_prefs', {})),
   ui:{filter:'all', q:''}
 };
@@ -533,15 +534,24 @@ try{ matchMedia('(prefers-color-scheme: dark)').addEventListener('change', apply
    ===================================================== */
 function rates(){
   const r = Object.assign({}, DEFAULT_RATES);
-  let src = 'تقديري';
+  let src = 'تقديري', at = 0;
   if (S.api && S.api.rates){
     ['EUR','KWD'].forEach(c => { if (S.api.rates[c] > 0) r[c] = S.api.rates[c]; });
     let syp = S.api.rates.SYP;
-    if (syp > 0){ if (syp > 1500) syp = syp / 100; r.SYP = syp; src = 'تلقائي'; }
+    if (syp > 0){ if (syp > 1500) syp = syp / 100; r.SYP = syp; src = 'تلقائي (رسمي غالباً)'; at = S.api.at; }
   }
-  if (S.global && S.global.SYP > 0){ r.SYP = +S.global.SYP; src = 'سعر السوق من مدير الموقع'; }
-  if (S.prefs.sypOwn > 0){ r.SYP = +S.prefs.sypOwn; src = 'سعرك الخاص'; }
-  return {r, src};
+  // سعر السوق من موقع الليرة اليوم (دمشق)
+  const sp = S.spt, spAt = sp ? sp.at : 0;
+  const gAt = S.global && S.global.SYP > 0 ? (+S.global.updatedAt || 0) : -1;
+  if (sp && sp.USD > 0 && spAt >= gAt){
+    r.SYP = sp.USD; src = 'الليرة اليوم، دمشق'; at = spAt;
+    if (sp.EUR > 0) r.EUR = sp.USD / sp.EUR;
+    if (sp.KWD > 0) r.KWD = sp.USD / sp.KWD;
+  } else if (gAt >= 0){
+    r.SYP = +S.global.SYP; src = 'سعر السوق من مدير الموقع'; at = gAt;
+  }
+  if (S.prefs.sypOwn > 0){ r.SYP = +S.prefs.sypOwn; src = 'سعرك الخاص'; at = 0; }
+  return {r, src, at};
 }
 function convert(amount, from, to){
   const {r} = rates();
@@ -550,23 +560,47 @@ function convert(amount, from, to){
 }
 async function fetchApiRates(force){
   const fresh = S.api && (Date.now() - S.api.at < 60*60*1000);
-  if (fresh && !force) return;
-  try{
-    const ctrl = new AbortController(); const tm = setTimeout(() => ctrl.abort(), 8000);
-    const res = await fetch('https://open.er-api.com/v6/latest/USD', {signal: ctrl.signal});
-    clearTimeout(tm);
-    const j = await res.json();
-    if (j && j.rates && j.rates.EUR){
-      S.api = {at: Date.now(), rates:{EUR:j.rates.EUR, KWD:j.rates.KWD, SYP:j.rates.SYP}};
-      ls.set('daly_api_rates', S.api);
-      onRatesChanged();
-    }
-  }catch(e){ if (force) toast('تعذّر تحديث الأسعار، يُستخدم آخر سعر محفوظ'); }
+  if (!(fresh && !force)){
+    try{
+      const ctrl = new AbortController(); const tm = setTimeout(() => ctrl.abort(), 8000);
+      const res = await fetch('https://open.er-api.com/v6/latest/USD', {signal: ctrl.signal});
+      clearTimeout(tm);
+      const j = await res.json();
+      if (j && j.rates && j.rates.EUR){
+        S.api = {at: Date.now(), rates:{EUR:j.rates.EUR, KWD:j.rates.KWD, SYP:j.rates.SYP}};
+        ls.set('daly_api_rates', S.api);
+      }
+    }catch(e){}
+  }
+  const ok = await fetchSpToday();
+  onRatesChanged();
+  if (force && !ok && !(S.api && S.api.at)) toast('تعذّر تحديث الأسعار، يُستخدم آخر سعر محفوظ');
+}
+/* أسعار الليرة اليوم: يحدّثها GitHub تلقائياً في ملف rates.json */
+async function fetchSpToday(){
+  const urls = [RATES_URL + '?t=' + Date.now(), 'rates.json?t=' + Date.now()];
+  for (const u of urls){
+    try{
+      const ctrl = new AbortController(); const tm = setTimeout(() => ctrl.abort(), 8000);
+      const res = await fetch(u, {signal: ctrl.signal, cache:'no-store'});
+      clearTimeout(tm);
+      if (!res.ok) continue;
+      const j = await res.json();
+      const s = j && j.syp;
+      if (s && s.USD && s.USD.mid > 0){
+        const t = Date.parse(s.USD.updated_at || j.fetchedAt) || Date.now();
+        S.spt = {at: t, USD: s.USD.mid, buy: s.USD.buy, sell: s.USD.sell,
+          EUR: s.EUR && s.EUR.mid, KWD: s.KWD && s.KWD.mid};
+        ls.set('daly_spt', S.spt);
+        return true;
+      }
+    }catch(e){}
+  }
+  return false;
 }
 function rateTime(){
-  if (S.global && S.global.updatedAt && rates().src.includes('مدير')) return dateAr(S.global.updatedAt, {day:'numeric', month:'short', hour:'2-digit', minute:'2-digit'});
-  if (S.api && S.api.at) return dateAr(S.api.at, {day:'numeric', month:'short', hour:'2-digit', minute:'2-digit'});
-  return '';
+  const {at} = rates();
+  return at ? dateAr(at, {day:'numeric', month:'short', hour:'2-digit', minute:'2-digit'}) : '';
 }
 function onRatesChanged(){
   landingConv();
@@ -876,7 +910,7 @@ function vHome(){
         <select data-change="totalCur" aria-label="عملة المجموع">${CODES.map(c => `<option value="${c}" ${c === tc ? 'selected' : ''}>${CUR[c].name}</option>`).join('')}</select></div>
       <div class="net-amt">${t.net < 0 ? '<bdi>−</bdi>' : ''}${fmtH(Math.abs(t.net), tc)}</div>
       <div class="split"><div class="in"><span>لي عند الناس</span><b>${fmtH(t.in, tc)}</b></div><div class="out"><span>عليّ للناس</span><b>${fmtH(t.out, tc)}</b></div></div>
-      <p class="rate-note">المجموع محوّل إلى ${CUR[tc].name} بسعر ${src === 'تقديري' ? 'تقديري' : 'الصرف الحالي'}.</p>
+      <p class="rate-note">سعر الدولار: ${S.spt && src.includes('الليرة اليوم') && S.spt.buy ? `شراء ${nfmt(S.spt.buy,'SYP')}، مبيع ${nfmt(S.spt.sell,'SYP')}` : nfmt(rates().r.SYP, 'SYP')} ل.س، ${esc(src)}${rateTime() ? '، ' + rateTime() : ''}.</p>
     </section>
     ${curRows ? `<section class="sec"><div class="sec-h"><h2>حسب العملة</h2><a href="#/report">الجرد الكامل</a></div>
       <div class="panel"><table class="curtable"><thead><tr><th>العملة</th><th>لي</th><th>عليّ</th></tr></thead><tbody>${curRows}</tbody></table></div></section>` : ''}
@@ -1133,7 +1167,7 @@ let cv = {amt:'5', from:'KWD', to:'SYP'};
 function vConvert(){
   topbar('صرف العملات');
   const {r, src} = rates();
-  const opts = sel => CODES.map(c => `<option value="${c}" ${c === sel ? 'selected' : ''}>${CUR[c].flag} ${CUR[c].name}</option>`).join('');
+  const opts = sel => CODES.map(c => `<option value="${c}" ${c === sel ? 'selected' : ''}>${CUR[c].name}</option>`).join('');
   return `<div class="panel cv">
       <label class="field"><span>المبلغ</span><input class="input big" id="cv-amt" inputmode="decimal" value="${esc(cv.amt)}"></label>
       <label class="field" style="margin-bottom:0"><span>من</span><select class="input" id="cv-from">${opts(cv.from)}</select></label>
@@ -1222,6 +1256,7 @@ function vAdmin(){
         <button class="btn block brass" type="submit">نشر السعر للجميع</button>
       </form>
       <p class="hint">السعر الحالي المنشور: ${g ? `${nfmt(g, 'SYP')} ل.س${S.global.updatedAt ? '، ' + dateAr(S.global.updatedAt, {day:'numeric', month:'short', hour:'2-digit', minute:'2-digit'}) : ''}` : 'لم يُنشر سعر بعد'}.
+      ${S.spt ? `<br>سعر الليرة اليوم (دمشق): ${nfmt(S.spt.USD, 'SYP')} ل.س، ${dateAr(S.spt.at, {day:'numeric', month:'short', hour:'2-digit', minute:'2-digit'})}. يُستخدم الأحدث بين سعرك المنشور وهذا السعر.` : ''}
       ${api ? `<br>السعر التلقائي (الرسمي غالباً): ${nfmt(api > 1500 ? api / 100 : api, 'SYP')} ل.س.` : ''}</p>
       ${g ? `<button class="btn ghost small" data-act="clearGlobal" style="margin-top:6px">إلغاء السعر المنشور والعودة للتلقائي</button>` : ''}
     </div>`;
@@ -1601,6 +1636,7 @@ async function boot(){
   B.onAuth(onUser);
   updateOnline();
   fetchApiRates();
+  setInterval(() => fetchApiRates(), 15*60*1000);
   setTimeout(() => $('#boot').classList.add('out'), 6000);
 }
 boot();

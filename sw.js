@@ -1,5 +1,5 @@
 // Service worker لموقع دلي: يجعل الموقع يفتح بسرعة وبدون إنترنت
-const CACHE = 'daly-v1';
+const CACHE = 'daly-v2';
 const SHELL = ['./', './index.html', './firebase-config.js', './manifest.webmanifest', './icon.svg', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', e => {
@@ -16,7 +16,7 @@ self.addEventListener('fetch', e => {
   const isStatic = sameOrigin || url.host === 'fonts.googleapis.com' || url.host === 'fonts.gstatic.com' || url.host === 'www.gstatic.com';
   if (!isStatic) return; // Firebase data & rates: always live
   // صفحات الموقع: الشبكة أولاً ثم النسخة المحفوظة
-  if (sameOrigin && (req.mode === 'navigate' || url.pathname.endsWith('.html') || url.pathname.endsWith('firebase-config.js'))) {
+  if (sameOrigin && (req.mode === 'navigate' || url.pathname.endsWith('.html') || url.pathname.endsWith('.json') || url.pathname.endsWith('firebase-config.js'))) {
     e.respondWith(fetch(req).then(res => { const copy = res.clone(); caches.open(CACHE).then(c => c.put(req, copy)); return res; })
       .catch(() => caches.match(req).then(r => r || caches.match('./index.html'))));
     return;
