@@ -127,6 +127,11 @@ textarea.input{min-height:84px;resize:vertical}
 .l-sec{max-width:1080px;margin:0 auto;padding:56px 20px}
 .l-sec h2{font-size:clamp(26px,6vw,36px);line-height:1.3;margin:0 0 10px}
 .l-sec p.sub{color:var(--muted);margin:0 0 28px;max-width:52ch}
+.get-app h2{text-align:center;margin:0 0 4px}.get-app>.sub{text-align:center;margin:0 auto 18px}
+.ga-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.ga-card{border:1px solid var(--line);border-radius:18px;padding:18px;display:grid;gap:10px;align-content:start}
+.ga-card h3{margin:0;font-size:18px}.ga-card ol{margin:0;padding-inline-start:20px;color:var(--muted);line-height:1.9}
+.ga-card .hint{margin:0}.ga-card a.btn{text-decoration:none}
 .feats{display:grid;gap:0;border-top:1px solid var(--line)}
 @media(min-width:760px){.feats{grid-template-columns:1fr 1fr;column-gap:40px}}
 .feat{display:grid;grid-template-columns:48px 1fr;gap:14px;padding:20px 0;border-bottom:1px solid var(--line)}
@@ -391,6 +396,29 @@ textarea.input{min-height:84px;resize:vertical}
           <p style="text-align:center;margin:14px 0 0"><button type="button" class="linkbtn" id="forgot" data-act="forgot" hidden>نسيت كلمة السر؟</button></p>
         </form>
         <div class="privacy"><svg class="i" viewBox="0 0 24 24" style="width:18px;height:18px"><path d="M12 3 4 6v6c0 5 3.4 8.4 8 9 4.6-.6 8-4 8-9V6z"/></svg><span>كلمة السر تُحفظ مشفّرة، وديونك لا يراها أي مستخدم آخر. احفظ كلمة السر في مكان آمن.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="l-sec" id="get-app">
+    <div class="get-app">
+      <h2>حمّل دلي على جوالك</h2>
+      <p class="sub">يفتح مثل أي تطبيق، بأيقونته على الشاشة الرئيسية.</p>
+      <div class="ga-grid">
+        <div class="ga-card" id="ga-android">
+          <h3>أندرويد</h3>
+          <button class="btn block brass" type="button" data-act="installApp" id="ga-install">تثبيت التطبيق</button>
+          <a class="btn block ghost" href="daly.apk" download="Daly.apk" id="ga-apk">تنزيل ملف APK</a>
+          <p class="hint" id="ga-hint">إن لم يظهر التثبيت، نزّل ملف APK وافتحه، واسمح بالتثبيت من هذا المصدر إذا سألك الجوال.</p>
+        </div>
+        <div class="ga-card" id="ga-ios">
+          <h3>آيفون</h3>
+          <ol>
+            <li>افتح الموقع من Safari.</li>
+            <li>اضغط زر المشاركة <svg class="i" viewBox="0 0 24 24" style="width:18px;height:18px;vertical-align:-3px"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg> في الأسفل.</li>
+            <li>اختر «إضافة إلى الشاشة الرئيسية».</li>
+          </ol>
+        </div>
       </div>
     </div>
   </section>
@@ -1425,6 +1453,23 @@ function statementHTML(pid){
     ${txRows.length ? `<h2>سجل الدفعات</h2><table><thead><tr><th>التاريخ</th>${pid ? '' : '<th>الشخص</th>'}<th>الحركة</th><th>المبلغ</th><th>ملاحظة</th></tr></thead><tbody>${txRows.map(({d, x}) => `<tr><td>${dateAr(x.d)}</td>${pid ? '' : `<td>${esc(personName(d.personId))}</td>`}<td>${txL[x.t]}</td><td>${fmt(x.a, d.cur)}</td><td>${esc(x.n || '')}</td></tr>`).join('')}</tbody></table>` : ''}
     <div class="foot">صدر هذا الكشف من تطبيق دلي Daly. المبالغ بعملاتها الأصلية بدون تحويل.</div></div>`;
 }
+
+/* ---------- تثبيت التطبيق ---------- */
+let installEvt = null;
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); installEvt = e; });
+window.addEventListener('appinstalled', () => { installEvt = null; toast('تم تثبيت دلي على جوالك'); });
+function setupGetApp(){
+  const box = document.getElementById('get-app'); if (!box) return;
+  const standalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+  if (standalone){ box.hidden = true; return; }
+  const ios = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  const android = /Android/i.test(navigator.userAgent);
+  if (ios) document.getElementById('ga-ios').parentNode.prepend(document.getElementById('ga-ios'));
+  if (android || ios){ document.getElementById(ios ? 'ga-android' : 'ga-ios').style.display = 'none'; }
+}
+document.addEventListener('DOMContentLoaded', setupGetApp);
+if (document.readyState !== 'loading') setupGetApp();
+
 const IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
 /* ---------- PDF حقيقي يُرسم داخل الموقع (بدون نافذة طباعة) ---------- */
@@ -1667,6 +1712,11 @@ const ACT = {
     toast('حُذف ' + p.name); go('#/people');
   },
   wa: el => { const p = S.people[el.dataset.id]; if (p) waSheet(p); },
+  installApp: async () => {
+    if (installEvt){ installEvt.prompt(); try{ await installEvt.userChoice; }catch(e){} installEvt = null; return; }
+    if (window.matchMedia('(display-mode: standalone)').matches){ toast('دلي مثبّت على جوالك'); return; }
+    toast('افتح قائمة Chrome ⋮ واختر «تثبيت التطبيق»، أو نزّل ملف APK');
+  },
   pdf: el => printPDF(el.dataset.id || null),
   csv: exportCSV,
   cvSwap: () => { const f = $('#cv-from'), t = $('#cv-to'); [f.value, t.value] = [t.value, f.value]; f.dispatchEvent(new Event('input')); },
