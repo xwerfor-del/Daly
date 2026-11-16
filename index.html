@@ -296,12 +296,16 @@ textarea.input{min-height:84px;resize:vertical}
 .st table{width:100%;border-collapse:collapse;margin:10px 0 18px;font-size:12.5px}
 .st th,.st td{border:1px solid #cfd6d1;padding:6px 8px;text-align:right;vertical-align:top}
 .st th{background:#EEF3EF}
-.st td{white-space:nowrap}.st td:last-child{white-space:normal;min-width:90px}
+.st table{table-layout:auto}.st td:last-child{min-width:70px}
 .st .sum{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0 16px}
 .st .sum div{border:1px solid #cfd6d1;border-radius:8px;padding:8px 12px;min-width:150px}
 .st .sum span{display:block;font-size:11px;color:#555}
 .st .foot{margin-top:24px;font-size:11px;color:#666;border-top:1px solid #ddd;padding-top:8px}
 .st h2{font-size:15px;margin:16px 0 4px}
+.pdf-preview{background:#fff;color:#000;border:1px solid var(--line);border-radius:12px;padding:14px;max-height:55vh;overflow:auto}
+.pdf-preview .st-wrap{font-size:12px}
+.pdf-preview .st table{font-size:11px}
+.pdf-preview .st td{white-space:normal}
 
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
@@ -356,7 +360,7 @@ textarea.input{min-height:84px;resize:vertical}
       <div class="feat"><div class="ic"><svg class="i" viewBox="0 0 24 24"><path d="M4 12h10M4 6h16M4 18h7"/><path d="m16 16 2 2 4-4"/></svg></div><div><h3>سداد على دفعات</h3><p>سجّل كل دفعة أو خصم، ودلي يحسب الباقي ويحفظ السجل كاملاً.</p></div></div>
       <div class="feat"><div class="ic"><svg class="i" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg></div><div><h3>كشف حساب PDF</h3><p>أصدر كشفاً مرتباً لكل شخص، أو جرداً كاملاً لكل ديونك.</p></div></div>
       <div class="feat"><div class="ic"><svg class="i" viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-13.4 7.9L3 21l1.2-4.4A9 9 0 1 1 21 12z"/></svg></div><div><h3>تذكير بالواتساب</h3><p>رسالة مهذبة جاهزة بالمبلغ المتبقي، تعدّلها وترسلها بضغطة.</p></div></div>
-      <div class="feat"><div class="ic"><svg class="i" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div><div><h3>بياناتك لك وحدك</h3><p>حسابك محمي بكلمة سر، ولا يرى أحد ديونك غيرك، وتبقى محفوظة لو غيّرت هاتفك.</p></div></div>
+      <div class="feat"><div class="ic"><svg class="i" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div><div><h3>بياناتك لك وحدك</h3><p>حسابك محمي بكلمة سر، ولا يرى أي مستخدم آخر ديونك، وتبقى محفوظة لو غيّرت هاتفك.</p></div></div>
     </div>
   </section>
 
@@ -467,7 +471,7 @@ function nfmt(n, cur){
   const d = CUR[cur] ? CUR[cur].d : 2;
   return new Intl.NumberFormat('en-US', {maximumFractionDigits: d, minimumFractionDigits: 0}).format(round(n, d));
 }
-const fmt = (n, cur) => `${nfmt(n, cur)} ${CUR[cur].sym}`;
+const fmt = (n, cur) => `${nfmt(n, cur)}\u00A0${CUR[cur].sym}`;
 const fmtH = (n, cur) => `<bdi>${nfmt(n, cur)}</bdi> <small>${CUR[cur].sym}</small>`;
 const dateAr = (iso, opts) => { if(!iso) return ''; const d = typeof iso === 'number' ? new Date(iso) : new Date(iso + 'T12:00:00'); return isNaN(d) ? '' : d.toLocaleDateString('ar-u-nu-latn', opts || {day:'numeric', month:'long', year:'numeric'}); };
 const initial = name => (String(name || '؟').trim()[0] || '؟');
@@ -1421,17 +1425,36 @@ function statementHTML(pid){
     ${txRows.length ? `<h2>سجل الدفعات</h2><table><thead><tr><th>التاريخ</th>${pid ? '' : '<th>الشخص</th>'}<th>الحركة</th><th>المبلغ</th><th>ملاحظة</th></tr></thead><tbody>${txRows.map(({d, x}) => `<tr><td>${dateAr(x.d)}</td>${pid ? '' : `<td>${esc(personName(d.personId))}</td>`}<td>${txL[x.t]}</td><td>${fmt(x.a, d.cur)}</td><td>${esc(x.n || '')}</td></tr>`).join('')}</tbody></table>` : ''}
     <div class="foot">صدر هذا الكشف من تطبيق دلي Daly. المبالغ بعملاتها الأصلية بدون تحويل.</div></div>`;
 }
-function printPDF(pid){
+const IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+let printCleanup = null;
+function doPrint(pid){
   const area = $('#print-area');
   area.innerHTML = statementHTML(pid);
   const old = document.title;
   const who = pid && S.people[pid] ? S.people[pid].name : 'الجرد';
   document.title = `دلي - كشف ${who} - ${today()}`;
-  toast('اختر «حفظ كملف PDF» من نافذة الطباعة');
+  // لا نمسح المحتوى إلا بعد إغلاق نافذة الطباعة (الهواتف لا توقف الصفحة أثناء الطباعة)
+  if (printCleanup) printCleanup();
+  let done = false;
+  const cleanup = () => { if (done) return; done = true; document.title = old; area.innerHTML = ''; window.removeEventListener('afterprint', cleanup); printCleanup = null; };
+  printCleanup = cleanup;
+  window.addEventListener('afterprint', cleanup);
   setTimeout(() => {
-    try{ window.print(); }catch(e){ toast('الطباعة غير متاحة في هذا المتصفح'); }
-    setTimeout(() => { document.title = old; area.innerHTML = ''; }, 1500);
-  }, 400);
+    try{ window.print(); }
+    catch(e){ cleanup(); toast('الطباعة غير متاحة هنا. افتح الموقع من المتصفح وحاول مجدداً'); }
+  }, 250);
+}
+function printPDF(pid){
+  const who = pid && S.people[pid] ? S.people[pid].name : null;
+  const hint = IS_IOS
+    ? 'في نافذة الطباعة اضغط زر المشاركة ⬆️ في الأعلى، ثم «حفظ في الملفات» أو أرسله مباشرة لواتساب.'
+    : 'في نافذة الطباعة اختر الطابعة «حفظ كملف PDF» (Save as PDF)، ثم اضغط تنزيل.';
+  openSheet(`<h3>${who ? 'كشف حساب ' + esc(who) : 'الجرد الكامل'}</h3>
+    <p class="sub">${hint}</p>
+    <div class="btns" style="margin-bottom:14px"><button class="btn ghost" data-act="closeSheet">إغلاق</button><button class="btn" id="pdf-go">${icon('pdf')} حفظ PDF</button></div>
+    <div class="pdf-preview"><div class="st-wrap">${statementHTML(pid)}</div></div>
+    ${IS_IOS && navigator.standalone ? '<p class="hint">إن لم تظهر نافذة الطباعة، افتح الموقع من Safari مباشرة واطبع من هناك.</p>' : ''}`,
+    el => { el.querySelector('#pdf-go').addEventListener('click', () => doPrint(pid)); });
 }
 
 /* =====================================================
