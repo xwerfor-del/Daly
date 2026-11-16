@@ -1465,6 +1465,11 @@ function setupGetApp(){
   const ios = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   const android = /Android/i.test(navigator.userAgent);
   if (ios) document.getElementById('ga-ios').parentNode.prepend(document.getElementById('ga-ios'));
+  fetch('daly.apk', {method:'HEAD', cache:'no-store'}).then(r => { if (!r.ok) throw 0; }).catch(() => {
+    const a = document.getElementById('ga-apk'), h = document.getElementById('ga-hint');
+    if (a) a.style.display = 'none';
+    if (h) h.textContent = 'إن لم تظهر نافذة التثبيت، افتح قائمة Chrome ⋮ واختر «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية».';
+  });
   if (android || ios){ document.getElementById(ios ? 'ga-android' : 'ga-ios').style.display = 'none'; }
 }
 document.addEventListener('DOMContentLoaded', setupGetApp);
