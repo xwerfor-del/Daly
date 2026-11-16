@@ -1426,35 +1426,180 @@ function statementHTML(pid){
     <div class="foot">صدر هذا الكشف من تطبيق دلي Daly. المبالغ بعملاتها الأصلية بدون تحويل.</div></div>`;
 }
 const IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+/* ---------- PDF حقيقي يُرسم داخل الموقع (بدون نافذة طباعة) ---------- */
+function statementData(pid){
+  const person = pid ? S.people[pid] : null;
+  const list = (pid ? personDebts(pid) : activeDebts()).slice().sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+  const tx = []; list.forEach(d => (d.tx || []).forEach(x => tx.push({d, x})));
+  tx.sort((a, b) => (a.x.d || '').localeCompare(b.x.d || ''));
+  return {person, list, b: balances(list), tx};
+}
+async function buildPDF(pid){
+  try{ if (document.fonts && document.fonts.ready) await document.fonts.ready; }catch(e){}
+  const {person, list, b, tx} = statementData(pid);
+  const W = 1240, H = 1754, M = 90, R = W - M;          // A4 @150dpi
+  const FONT = "'IBM Plex Sans Arabic', 'Segoe UI', Tahoma, sans-serif";
+  const LOGO = "'Aref Ruqaa', 'Amiri', serif";
+  const pages = []; let c, y;
+  const newPage = () => {
+    const cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+    c = cv.getContext('2d'); c.fillStyle = '#fff'; c.fillRect(0, 0, W, H);
+    c.textBaseline = 'alphabetic'; pages.push(cv); y = M;
+    if (pages.length > 1){ txt(`دلي Daly · ${person ? 'كشف ' + person.name : 'الجرد الكامل'} · تابع`, R, y + 20, 22, '#888'); y += 60; }
+  };
+  const txt = (t, x, yy, size, color = '#111', weight = 400, align = 'right', font = FONT, dir = 'rtl') => {
+    c.font = `${weight} ${size}px ${font}`; c.fillStyle = color; c.textAlign = align; c.direction = dir; c.fillText(String(t), x, yy);
+  };
+  const fit = (t, size, weight, maxW) => {
+    t = String(t || ''); c.font = `${weight} ${size}px ${FONT}`;
+    if (c.measureText(t).width <= maxW) return t;
+    while (t.length > 1 && c.measureText(t + '…').width > maxW) t = t.slice(0, -1);
+    return t + '…';
+  };
+  const ensure = h => { if (y + h > H - M) newPage(); };
+  const line = (x1, y1, x2, y2, color, w) => { c.strokeStyle = color; c.lineWidth = w; c.beginPath(); c.moveTo(x1, y1); c.lineTo(x2, y2); c.stroke(); };
+  const table = (cols, rows, opts = {}) => {
+    const rowH = 58, total = cols.reduce((a, x) => a + x.w, 0), scale = (R - M) / total;
+    const drawHead = () => {
+      ensure(rowH * 2);
+      c.fillStyle = '#EEF3EF'; c.fillRect(M, y, R - M, rowH);
+      let x = R; cols.forEach(col => { const w = col.w * scale; txt(col.h, x - 14, y + 38, 24, '#0F3D2E', 700); x -= w; });
+      line(M, y + rowH, R, y + rowH, '#cfd6d1', 2); y += rowH;
+    };
+    drawHead();
+    rows.forEach((r, i) => {
+      if (y + rowH > H - M){ newPage(); drawHead(); }
+      if (i % 2) { c.fillStyle = '#FAFBFA'; c.fillRect(M, y, R - M, rowH); }
+      let x = R;
+      cols.forEach((col, k) => { const w = col.w * scale; const v = fit(r[k], 24, col.bold ? 700 : 400, w - 26);
+        txt(v, x - 14, y + 38, 24, col.color ? col.color(r) : '#111', col.bold ? 700 : 400); x -= w; });
+      line(M, y + rowH, R, y + rowH, '#e3e8e4', 1); y += rowH;
+    });
+  };
+
+  newPage();
+  // الترويسة
+  txt('دلي', R, y + 70, 84, '#0F3D2E', 700, 'right', LOGO);
+  c.font = `700 84px ${LOGO}`; const lw = c.measureText('دلي').width;
+  txt('Daly', R - lw - 20, y + 66, 46, '#C39A44', 700, 'right', LOGO, 'ltr');
+  txt('دفتر الديون', R, y + 112, 24, '#666');
+  txt(`تاريخ الكشف: ${dateAr(today())}`, M, y + 34, 24, '#444', 400, 'left');
+  if (S.user.name) txt(S.user.name, M, y + 70, 24, '#444', 400, 'left');
+  txt(S.user.email || '', M, y + 104, 22, '#666', 400, 'left', FONT, 'ltr');
+  y += 140; line(M, y, R, y, '#0F3D2E', 6); y += 70;
+  txt(person ? `كشف حساب: ${person.name}` : 'الجرد الكامل للديون', R, y, 44, '#111', 700); y += 20;
+  if (person && person.phone){ y += 38; txt(`الهاتف: ${person.phone}`, R, y, 26, '#333'); }
+  y += 34;
+  // ملخص لكل عملة
+  const curs = CODES.filter(k => b[k].in || b[k].out);
+  if (!curs.length){ txt('لا توجد مبالغ متبقية.', R, y + 40, 26, '#555'); y += 70; }
+  else {
+    const bw = 330, bh = 128, gap = 22; let bx = R;
+    curs.forEach(k => {
+      if (bx - bw < M){ bx = R; y += bh + gap; }
+      ensure(bh + 10);
+      c.strokeStyle = '#cfd6d1'; c.lineWidth = 2; c.beginPath(); c.roundRect ? c.roundRect(bx - bw, y, bw, bh, 18) : c.rect(bx - bw, y, bw, bh); c.stroke();
+      txt(CUR[k].name, bx - 22, y + 38, 22, '#666');
+      if (b[k].in) txt(`لي: ${fmt(b[k].in, k)}`, bx - 22, y + 76, 28, '#157F50', 700);
+      if (b[k].out) txt(`عليّ: ${fmt(b[k].out, k)}`, bx - 22, y + (b[k].in ? 112 : 76), 28, '#BF3D35', 700);
+      bx -= bw + gap;
+    });
+    y += bh + 40;
+  }
+  // جدول الديون
+  const cols = [{h:'#', w:.5}, ...(pid ? [] : [{h:'الشخص', w:2}]), {h:'النوع', w:.8}, {h:'التاريخ', w:1.7}, {h:'المبلغ', w:1.5}, {h:'المسدَّد', w:1.5},
+    {h:'المتبقي', w:1.5, bold:true, color:r => r._settled ? '#666' : '#111'}, {h:'ملاحظات', w:1.8}];
+  const rows = list.map((d, i) => { const r = [i + 1, ...(pid ? [] : [personName(d.personId)]), d.dir === 'in' ? 'لي' : 'عليّ', dateAr(d.date),
+    fmt(debtTotal(d), d.cur), fmt(sumTx(d, 'pay') + sumTx(d, 'cut'), d.cur), isSettled(d) ? 'مسدَّد' : fmt(debtRem(d), d.cur), [d.note, d.due ? 'الموعد ' + dateAr(d.due) : ''].filter(Boolean).join('، ')];
+    r._settled = isSettled(d); return r; });
+  if (rows.length) table(cols, rows); else { txt('لا توجد ديون.', R, y + 40, 26, '#555'); y += 70; }
+  // سجل الدفعات
+  if (tx.length){
+    y += 50; ensure(160); txt('سجل الدفعات', R, y, 32, '#111', 700); y += 26;
+    const L = {pay:'دفعة', cut:'خصم', add:'زيادة'};
+    table([{h:'التاريخ', w:1.6}, ...(pid ? [] : [{h:'الشخص', w:1.8}]), {h:'الحركة', w:1}, {h:'المبلغ', w:1.4}, {h:'ملاحظة', w:2.2}],
+      tx.map(({d, x}) => [dateAr(x.d), ...(pid ? [] : [personName(d.personId)]), L[x.t], fmt(x.a, d.cur), x.n || '']));
+  }
+  y += 50; ensure(60); line(M, y, R, y, '#ddd', 1);
+  txt('صدر هذا الكشف من تطبيق دلي Daly. المبالغ بعملاتها الأصلية بدون تحويل.', R, y + 36, 20, '#777');
+  pages.forEach((cv, i) => { const cc = cv.getContext('2d'); cc.font = `400 20px ${FONT}`; cc.fillStyle = '#999'; cc.textAlign = 'center'; cc.direction = 'ltr'; cc.fillText(`${i + 1} / ${pages.length}`, W / 2, H - 40); });
+  return pagesToPDF(pages);
+}
+function pagesToPDF(pages){
+  const enc = new TextEncoder(), parts = [], offsets = []; let len = 0;
+  const push = d => { const u = typeof d === 'string' ? enc.encode(d) : d; parts.push(u); len += u.length; };
+  const obj = (n, body, stream) => { offsets[n] = len; push(`${n} 0 obj\n${body}\n`); if (stream){ push('stream\n'); push(stream); push('\nendstream\n'); } push('endobj\n'); };
+  const PW = 595.28, PH = 841.89, n = pages.length;
+  push('%PDF-1.4\n%\xE2\xE3\xCF\xD3\n');
+  const kids = pages.map((_, i) => `${3 + i * 3} 0 R`).join(' ');
+  obj(1, '<< /Type /Catalog /Pages 2 0 R >>');
+  obj(2, `<< /Type /Pages /Kids [${kids}] /Count ${n} >>`);
+  pages.forEach((cv, i) => {
+    const b64 = cv.toDataURL('image/jpeg', 0.9).split(',')[1], bin = atob(b64), img = new Uint8Array(bin.length);
+    for (let k = 0; k < bin.length; k++) img[k] = bin.charCodeAt(k);
+    const p = 3 + i * 3, content = enc.encode(`q ${PW} 0 0 ${PH} 0 0 cm /Im0 Do Q`);
+    obj(p, `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${PW} ${PH}] /Resources << /XObject << /Im0 ${p + 2} 0 R >> >> /Contents ${p + 1} 0 R >>`);
+    obj(p + 1, `<< /Length ${content.length} >>`, content);
+    obj(p + 2, `<< /Type /XObject /Subtype /Image /Width ${cv.width} /Height ${cv.height} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${img.length} >>`, img);
+  });
+  const total = 3 + n * 3, xref = len;
+  let x = `xref\n0 ${total}\n0000000000 65535 f \n`;
+  for (let k = 1; k < total; k++) x += String(offsets[k]).padStart(10, '0') + ' 00000 n \n';
+  push(x + `trailer\n<< /Size ${total} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF`);
+  return new Blob(parts, {type:'application/pdf'});
+}
+function pdfName(pid){
+  const who = pid && S.people[pid] ? S.people[pid].name : 'الجرد';
+  return `دلي - كشف ${who} - ${today()}.pdf`.replace(/[\\/:*?"<>|]/g, '-');
+}
+function deliverPDF(blob, name){
+  const file = new File([blob], name, {type:'application/pdf'});
+  if (navigator.canShare && navigator.share){
+    try{ if (navigator.canShare({files:[file]})){
+      return navigator.share({files:[file], title:name}).catch(e => { if (e && e.name !== 'AbortError') downloadBlob(blob, name); });
+    } }catch(e){}
+  }
+  downloadBlob(blob, name);
+}
+function downloadBlob(blob, name){
+  const url = URL.createObjectURL(blob), a = document.createElement('a');
+  a.href = url; a.download = name; a.rel = 'noopener';
+  document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 60000);
+  toast('نُزّل ملف PDF');
+}
+
+/* طباعة احتياطية: تُستدعى مباشرة من لمسة الزر (سفاري يمنعها إن تأخرت) */
 let printCleanup = null;
 function doPrint(pid){
   const area = $('#print-area');
   area.innerHTML = statementHTML(pid);
   const old = document.title;
-  const who = pid && S.people[pid] ? S.people[pid].name : 'الجرد';
-  document.title = `دلي - كشف ${who} - ${today()}`;
-  // لا نمسح المحتوى إلا بعد إغلاق نافذة الطباعة (الهواتف لا توقف الصفحة أثناء الطباعة)
+  document.title = pdfName(pid).replace(/\.pdf$/, '');
   if (printCleanup) printCleanup();
   let done = false;
   const cleanup = () => { if (done) return; done = true; document.title = old; area.innerHTML = ''; window.removeEventListener('afterprint', cleanup); printCleanup = null; };
   printCleanup = cleanup;
   window.addEventListener('afterprint', cleanup);
-  setTimeout(() => {
-    try{ window.print(); }
-    catch(e){ cleanup(); toast('الطباعة غير متاحة هنا. افتح الموقع من المتصفح وحاول مجدداً'); }
-  }, 250);
+  try{ window.print(); }catch(e){ cleanup(); toast('الطباعة غير متاحة هنا'); }
 }
 function printPDF(pid){
   const who = pid && S.people[pid] ? S.people[pid].name : null;
-  const hint = IS_IOS
-    ? 'في نافذة الطباعة اضغط زر المشاركة ⬆️ في الأعلى، ثم «حفظ في الملفات» أو أرسله مباشرة لواتساب.'
-    : 'في نافذة الطباعة اختر الطابعة «حفظ كملف PDF» (Save as PDF)، ثم اضغط تنزيل.';
   openSheet(`<h3>${who ? 'كشف حساب ' + esc(who) : 'الجرد الكامل'}</h3>
-    <p class="sub">${hint}</p>
-    <div class="btns" style="margin-bottom:14px"><button class="btn ghost" data-act="closeSheet">إغلاق</button><button class="btn" id="pdf-go">${icon('pdf')} حفظ PDF</button></div>
-    <div class="pdf-preview"><div class="st-wrap">${statementHTML(pid)}</div></div>
-    ${IS_IOS && navigator.standalone ? '<p class="hint">إن لم تظهر نافذة الطباعة، افتح الموقع من Safari مباشرة واطبع من هناك.</p>' : ''}`,
-    el => { el.querySelector('#pdf-go').addEventListener('click', () => doPrint(pid)); });
+    <p class="sub" id="pdf-sub">يجهّز ملف PDF…</p>
+    <div class="btns" style="margin-bottom:10px"><button class="btn ghost" data-act="closeSheet">إغلاق</button><button class="btn" id="pdf-go" disabled>${icon('pdf')} ${IS_IOS ? 'مشاركة / حفظ PDF' : 'تنزيل PDF'}</button></div>
+    <p style="text-align:center;margin:0 0 12px"><button class="linkbtn" id="pdf-print">أو اطبعه بالطابعة</button></p>
+    <div class="pdf-preview"><div class="st-wrap">${statementHTML(pid)}</div></div>`,
+    el => {
+      let blob = null; const name = pdfName(pid), go = el.querySelector('#pdf-go'), sub = el.querySelector('#pdf-sub');
+      buildPDF(pid).then(b => {
+        blob = b; go.disabled = false;
+        sub.textContent = IS_IOS ? 'اضغط الزر، ثم اختر «حفظ في الملفات» أو أرسله مباشرة لواتساب.' : 'اضغط الزر لتنزيل الملف، أو مشاركته.';
+      }).catch(e => { console.error(e); sub.textContent = 'تعذّر تجهيز الملف، استخدم الطباعة بدلاً منه.'; });
+      go.addEventListener('click', () => { if (blob) deliverPDF(blob, name); });
+      el.querySelector('#pdf-print').addEventListener('click', () => doPrint(pid));
+    });
 }
 
 /* =====================================================
