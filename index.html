@@ -312,6 +312,22 @@ textarea.input{min-height:84px;resize:vertical}
 .pdf-preview .st table{font-size:11px}
 .pdf-preview .st td{white-space:normal}
 
+/* ---------- الحركات ---------- */
+.fx-canvas{position:fixed;left:0;top:0;width:100vw;height:100vh;pointer-events:none;z-index:60}
+.d-hero{position:relative;overflow:hidden}
+.fx-stamp{position:absolute;top:66px;left:14px;transform:rotate(-12deg);border:3px solid var(--in);color:var(--in);border-radius:10px;padding:0 12px;font-size:20px;font-weight:800;line-height:1.7;opacity:.85;pointer-events:none}
+.fx-stamp.slam{animation:fx-slam .3s cubic-bezier(.55,0,.8,.2) both}
+@keyframes fx-slam{0%{transform:rotate(-12deg) scale(2.8);opacity:0}100%{transform:rotate(-12deg) scale(1);opacity:.85}}
+.fx-shake{animation:fx-shake .42s .28s}
+@keyframes fx-shake{0%,100%{transform:none}20%{transform:translate(-5px,2px)}40%{transform:translate(4px,-2px)}60%{transform:translate(-3px,1px)}80%{transform:translate(2px,0)}}
+.fx-drop{position:relative;animation:fx-drop .55s cubic-bezier(.2,.8,.2,1) both}
+.fx-drop::after{content:'';position:absolute;inset:0;background:var(--brass-soft);box-shadow:inset 0 0 0 2px var(--brass);animation:fx-fade 1.6s .3s ease-out both;pointer-events:none;z-index:-1}
+@keyframes fx-drop{0%{transform:translateY(-26px) scale(1.03);opacity:0}65%{transform:translateY(3px);opacity:1}100%{transform:none;opacity:1}}
+@keyframes fx-fade{from{opacity:1}to{opacity:0}}
+.fx-ghost .av,.fx-ghost .mid{opacity:.5;filter:grayscale(.8);transition:opacity .4s,filter .4s}
+.fx-ghost.fx-back .av,.fx-ghost.fx-back .mid{opacity:1;filter:none}
+.fx-glow{box-shadow:inset 0 0 0 2px var(--brass);background:var(--brass-soft);transition:background .3s,box-shadow .3s}
+
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
 }
@@ -882,6 +898,7 @@ function render(){
   if (fn.mount) fn.mount(r);
   window.scrollTo(0, keepScroll ? y : 0);
   render._last = location.hash;
+  try{ FX.after(r); }catch(e){ console.error(e); }
 }
 
 /* =====================================================
@@ -940,8 +957,8 @@ function vHome(){
     <section class="net" aria-label="صافي الحساب">
       <div class="net-head"><span>صافي حسابك</span>
         <select data-change="totalCur" aria-label="عملة المجموع">${CODES.map(c => `<option value="${c}" ${c === tc ? 'selected' : ''}>${CUR[c].name}</option>`).join('')}</select></div>
-      <div class="net-amt">${t.net < 0 ? '<bdi>−</bdi>' : ''}${fmtH(Math.abs(t.net), tc)}</div>
-      <div class="split"><div class="in"><span>لي عند الناس</span><b>${fmtH(t.in, tc)}</b></div><div class="out"><span>عليّ للناس</span><b>${fmtH(t.out, tc)}</b></div></div>
+      <div class="net-amt" data-n="${t.net}" data-c="${tc}">${t.net < 0 ? '<bdi>−</bdi>' : ''}${fmtH(Math.abs(t.net), tc)}</div>
+      <div class="split"><div class="in"><span>لي عند الناس</span><b data-n="${t.in}" data-c="${tc}">${fmtH(t.in, tc)}</b></div><div class="out"><span>عليّ للناس</span><b data-n="${t.out}" data-c="${tc}">${fmtH(t.out, tc)}</b></div></div>
       <p class="rate-note">سعر الدولار: ${S.spt && src.includes('الليرة اليوم') && S.spt.buy ? `شراء ${nfmt(S.spt.buy,'SYP')}، مبيع ${nfmt(S.spt.sell,'SYP')}` : nfmt(rates().r.SYP, 'SYP')} ل.س، ${esc(src)}${rateTime() ? '، ' + rateTime() : ''}.</p>
     </section>
     ${curRows ? `<section class="sec"><div class="sec-h"><h2>حسب العملة</h2><a href="#/report">الجرد الكامل</a></div>
@@ -1062,7 +1079,7 @@ function vDebt(r){
   return `<div class="panel d-hero">
       <div class="lbl">${d.dir === 'in' ? `المتبقي لك عند ${esc(pn)}` : `المتبقي عليك لـ ${esc(pn)}`}</div>
       <div class="big ${settled ? '' : (d.dir === 'in' ? 'c-in' : 'c-out')}">${fmtH(Math.max(rem, 0), d.cur)}</div>
-      ${settled ? '<span class="pill done">مسدَّد بالكامل</span>' : (isLate(d) ? '<span class="pill late">متأخر عن موعده</span>' : '')}
+      ${settled ? '<div class="fx-stamp" aria-label="مسدَّد بالكامل">مسدَّد</div>' : (isLate(d) ? '<span class="pill late">متأخر عن موعده</span>' : '')}
       <div class="bar" aria-label="نسبة السداد"><i style="width:${pct}%"></i></div>
       <div class="muted" style="font-size:14px">سُدّد ${Math.round(pct)}% من ${fmtH(tot, d.cur)}</div>
     </div>
@@ -1190,7 +1207,7 @@ function submitDebt(){
     save('debts', d); toast('حُفظ التعديل'); go('#/debt/' + d.id);
   } else {
     const d = {id:uid(), personId:pid, dir, cur, amount, date, due, note, tx:[], deleted:false, createdAt:Date.now()};
-    save('debts', d); toast('حُفظ الدين'); go('#/person/' + pid);
+    save('debts', d); FX.queue({t:'add', id:d.id, route:'person'}); toast('حُفظ الدين'); go('#/person/' + pid);
   }
 }
 
@@ -1243,6 +1260,8 @@ function vSettings(){
         <select class="input" style="width:auto;min-height:40px" data-change="totalCur">${CODES.map(c => `<option value="${c}" ${c === S.prefs.totalCur ? 'selected' : ''}>${CUR[c].short}</option>`).join('')}</select></div>
       <div class="setting"><div class="mid"><div>سعري الخاص لليرة</div><div class="s">${S.prefs.sypOwn ? `1 دولار = ${nfmt(S.prefs.sypOwn, 'SYP')} ل.س` : `الحالي: 1 دولار = ${nfmt(r.SYP, 'SYP')} ل.س`}</div></div>
         <button class="switch" role="switch" aria-checked="${!!S.prefs.sypOwn}" data-act="ownRate" aria-label="سعري الخاص لليرة"></button></div>
+      <div class="setting"><div class="mid"><div>أصوات الحركات</div><div class="s">أصوات خفيفة عند الإضافة والسداد والحذف</div></div>
+        <button class="switch" role="switch" aria-checked="${S.prefs.sound !== false}" data-act="toggleSound" aria-label="أصوات الحركات"></button></div>
     </div></section>
     <section class="sec"><div class="sec-h"><h2>بياناتي</h2></div><div class="panel list">
       <a class="row" href="#/report"><span class="av" style="width:38px;height:38px">${icon('report')}</span><div class="mid"><div class="t">الجرد الكامل</div><div class="s">ملخص كل الديون مع ملف PDF</div></div></a>
@@ -1267,7 +1286,7 @@ function vTrash(){
   return `<p class="muted" style="margin-top:0">تُحذف الديون نهائياً بعد ${TRASH_DAYS} يوماً من حذفها.</p>
     <div class="panel list">${list.map(d => {
       const left = Math.max(0, TRASH_DAYS - Math.floor((Date.now() - d.deletedAt) / 864e5));
-      return `<div class="row"><div class="av">${esc(initial(personName(d.personId)))}</div>
+      return `<div class="row fx-ghost"><div class="av">${esc(initial(personName(d.personId)))}</div>
         <div class="mid"><div class="t">${esc(personName(d.personId))}</div><div class="s">${fmt(debtTotal(d), d.cur)}، ${d.dir === 'in' ? 'لي' : 'عليّ'}، يبقى ${left} يوماً</div></div>
         <button class="btn small soft" data-act="restore" data-id="${esc(d.id)}">${icon('restore')} استرجاع</button>
         <button class="del-x" data-act="purge" data-id="${esc(d.id)}" aria-label="حذف نهائي">${icon('trash')}</button></div>`;
@@ -1375,6 +1394,7 @@ function submitTx(f){
   const rem = debtRem(d);
   if (t !== 'add' && a > rem + 1e-9){ err.innerHTML = `المبلغ أكبر من المتبقي (${fmtH(rem, d.cur)}).`; return; }
   const nd = Object.assign({}, d, {tx: (d.tx || []).concat([{id:uid(), t, a: round(a, CUR[d.cur].d), d: $('#tx-d').value || today(), n: $('#tx-n').value.trim(), at: Date.now()}])});
+  FX.queue({t: isSettled(nd) ? 'settle' : (t === 'add' ? 'inc' : 'pay'), id:d.id, route:'debt', rem:debtRem(d), pct:paidPct(d)});
   save('debts', nd);
   closeSheet(() => { render(); toast(isSettled(nd) ? 'سُدّد الدين بالكامل' : ({pay:'سُجّلت الدفعة', cut:'سُجّل الخصم', add:'سُجّلت الزيادة'})[t]); });
 }
@@ -1664,6 +1684,176 @@ function exportCSV(){
 /* =====================================================
    ACTIONS (event delegation)
    ===================================================== */
+/* =====================================================
+   الحركات والأصوات (FX)
+   ===================================================== */
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+function paidPct(d){ const tot = debtTotal(d); return tot > 0 ? Math.min(100, Math.max(0, (sumTx(d, 'pay') + sumTx(d, 'cut')) / tot * 100)) : 0; }
+const FX = {
+  next: null, holdUntil: 0, homeDone: false,
+  lite: (navigator.hardwareConcurrency || 8) <= 4 && (navigator.deviceMemory || 4) <= 2,
+  reduce(){ try{ return matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){ return false; } },
+  hold(ms){ FX.holdUntil = Math.max(FX.holdUntil, performance.now() + ms); },
+  queue(n){ n.at = Date.now(); FX.next = n; FX.hold(1500); },
+};
+let renderSoonT = null;
+function renderSoon(){
+  clearTimeout(renderSoonT);
+  const wait = FX.holdUntil - performance.now();
+  if (wait > 0){ renderSoonT = setTimeout(renderSoon, wait + 30); return; }
+  render();
+}
+const SND = (() => {
+  let ctx = null, noise = null;
+  function ac(){
+    if (!ctx){
+      const A = window.AudioContext || window.webkitAudioContext; if (!A) return null;
+      try{ if (navigator.audioSession) navigator.audioSession.type = 'ambient'; }catch(e){}
+      ctx = new A(); const n = ctx.sampleRate; noise = ctx.createBuffer(1, n, n);
+      const ch = noise.getChannelData(0); for (let i = 0; i < n; i++) ch[i] = Math.random() * 2 - 1;
+    }
+    if (ctx.state === 'suspended') ctx.resume();
+    return ctx;
+  }
+  function tone(f, t, d, g, type, f2){
+    const o = ctx.createOscillator(), v = ctx.createGain(); o.type = type || 'sine';
+    o.frequency.setValueAtTime(f, t); if (f2) o.frequency.exponentialRampToValueAtTime(f2, t + d);
+    v.gain.setValueAtTime(.0001, t); v.gain.exponentialRampToValueAtTime(g, t + .006); v.gain.exponentialRampToValueAtTime(.0001, t + d);
+    o.connect(v).connect(ctx.destination); o.start(t); o.stop(t + d + .03);
+  }
+  function hiss(t, d, lo, hi, g, rise){
+    const s = ctx.createBufferSource(), f = ctx.createBiquadFilter(), v = ctx.createGain();
+    s.buffer = noise; s.loop = true; f.type = 'bandpass'; f.Q.value = .8;
+    f.frequency.setValueAtTime(rise ? lo : hi, t); f.frequency.exponentialRampToValueAtTime(rise ? hi : lo, t + d);
+    v.gain.setValueAtTime(.0001, t);
+    if (rise){ v.gain.exponentialRampToValueAtTime(g, t + d * .85); } else { v.gain.exponentialRampToValueAtTime(g, t + .05); }
+    v.gain.exponentialRampToValueAtTime(.0001, t + d);
+    s.connect(f).connect(v).connect(ctx.destination); s.start(t); s.stop(t + d + .05);
+  }
+  const P = {
+    tick: t => tone(2300, t, .035, .035, 'triangle'),
+    add: t => { hiss(t, .3, 900, 4200, .07); tone(150, t + .28, .22, .22, 'sine', 55); },
+    coin: t => { tone(1975, t, .45, .09); tone(2637, t + .07, .42, .06); },
+    stamp: t => { tone(125, t, .3, .45, 'sine', 45); hiss(t, .12, 300, 2200, .18); tone(784, t + .1, .9, .05); tone(988, t + .16, .9, .045); tone(1175, t + .22, 1, .045); },
+    dust: t => hiss(t, 1.0, 700, 7000, .1),
+    gather: t => { hiss(t, .85, 500, 6000, .08, true); tone(988, t + .8, .7, .055); tone(1319, t + .87, .7, .04); },
+  };
+  return { play(name, delay){ if (S.prefs.sound === false) return; const c = ac(); if (!c) return; try{ P[name](c.currentTime + .01 + (delay || 0)); }catch(e){} } };
+})();
+function numHTML(v, cur){ return (v < 0 ? '<bdi>−</bdi>' : '') + fmtH(Math.abs(v), cur); }
+function animNum(el, from, to, cur, ms){
+  if (!el) return; const t0 = performance.now();
+  el.innerHTML = numHTML(from, cur);
+  const step = now => { const k = Math.min(1, (now - t0) / ms), e = 1 - Math.pow(1 - k, 3); el.innerHTML = numHTML(from + (to - from) * e, cur); if (k < 1) requestAnimationFrame(step); };
+  requestAnimationFrame(step);
+}
+function ticks(n, ms){ for (let i = 0; i < n; i++){ const k = i / n; SND.play('tick', (1 - Math.pow(1 - k, 2)) * ms / 1000); } }
+function fxCanvas(){
+  const cv = document.createElement('canvas'), dpr = Math.min(2, window.devicePixelRatio || 1);
+  cv.className = 'fx-canvas'; cv.width = innerWidth * dpr; cv.height = innerHeight * dpr;
+  document.body.appendChild(cv); const c = cv.getContext('2d'); c.scale(dpr, dpr); return [cv, c];
+}
+function themeCols(names){ const cs = getComputedStyle(document.documentElement); return names.map(v => cs.getPropertyValue(v).trim() || '#888'); }
+/* الحذف: الورقة تتفكك لذرات تطير وتتلاشى */
+function dissolve(els){
+  return new Promise(res => {
+    els = els.filter(e => e && e.getBoundingClientRect);
+    if (!els.length || FX.reduce()){ res(); return; }
+    FX.hold(1500);
+    const vis = els.map(e => { const r = e.getBoundingClientRect(); return {e, r, top: Math.max(0, r.top), bot: Math.min(innerHeight, r.bottom)}; }).filter(o => o.bot > o.top);
+    const [cv, c] = fxCanvas(), cols = themeCols(['--ink', '--muted', '--brass', '--muted']);
+    const area = vis.reduce((a, o) => a + o.r.width * (o.bot - o.top), 0);
+    const N = Math.min(FX.lite ? 280 : 700, Math.round(area / 55)), P = [];
+    for (let i = 0; i < N && vis.length; i++){
+      const o = vis[Math.floor(Math.random() * vis.length)], x = o.r.left + Math.random() * o.r.width, y = o.top + Math.random() * (o.bot - o.top);
+      P.push({x, y, b: (o.r.right - x) / Math.max(1, o.r.width) * .5 + Math.random() * .06, vx: -(25 + Math.random() * 70), vy: -(30 + Math.random() * 110), s: 1.2 + Math.random() * 2.6, w: Math.random() * 6, c: cols[Math.floor(Math.random() * cols.length)]});
+    }
+    const T = 1050, t0 = performance.now();
+    const step = now => {
+      const k = (now - t0) / T, sw = Math.min(1, k / .5) * 100;
+      const m = `linear-gradient(to left, transparent ${sw}%, #000 ${Math.min(100, sw + 14)}%)`;
+      els.forEach(e => { e.style.webkitMaskImage = e.style.maskImage = m; });
+      c.clearRect(0, 0, innerWidth, innerHeight);
+      for (const p of P){ const a = k - p.b; if (a < 0 || a > .55) continue; const q = a / .55;
+        c.globalAlpha = (1 - q) * .85; c.fillStyle = p.c;
+        c.fillRect(p.x + p.vx * a * 1.6 + Math.sin(p.w + a * 9) * 5, p.y + p.vy * a * 1.6, p.s, p.s); }
+      if (k < 1.12) requestAnimationFrame(step); else { cv.remove(); res(); }
+    };
+    requestAnimationFrame(step);
+  });
+}
+/* الاسترجاع: الذرات تتجمّع وتعود ورقة */
+function gather(el){
+  return new Promise(res => {
+    if (!el || FX.reduce()){ res(); return; }
+    FX.hold(1700);
+    const r = el.getBoundingClientRect(), [cv, c] = fxCanvas(), [mu, br] = themeCols(['--muted', '--brass']);
+    const N = FX.lite ? 160 : 380, P = [];
+    for (let i = 0; i < N; i++) P.push({x0: r.left + r.width / 2 + (Math.random() - .5) * innerWidth, y0: r.top + r.height / 2 + (Math.random() - .5) * 420, x1: r.left + Math.random() * r.width, y1: r.top + Math.random() * r.height, d: Math.random() * .3, s: 1.4 + Math.random() * 2.6});
+    const T = 950, t0 = performance.now(); let lit = false;
+    const step = now => {
+      const k = (now - t0) / T; c.clearRect(0, 0, innerWidth, innerHeight);
+      for (const p of P){ let q = (k - p.d) / .65; if (q < 0) continue; if (q > 1) continue; q = q < .5 ? 4 * q * q * q : 1 - Math.pow(-2 * q + 2, 3) / 2;
+        c.globalAlpha = Math.min(1, k * 3) * .9; c.fillStyle = q > .75 ? br : mu;
+        c.fillRect(p.x0 + (p.x1 - p.x0) * q, p.y0 + (p.y1 - p.y0) * q, p.s, p.s); }
+      if (!lit && k > .62){ lit = true; el.classList.add('fx-back', 'fx-glow'); }
+      if (k < 1) requestAnimationFrame(step); else { cv.remove(); setTimeout(res, 380); }
+    };
+    requestAnimationFrame(step);
+  });
+}
+function collapse(el){
+  return new Promise(res => {
+    if (!el || FX.reduce() || !el.animate){ res(); return; }
+    el.style.overflow = 'hidden';
+    const a = el.animate([{height: el.offsetHeight + 'px', opacity: 1}, {height: '0px', opacity: 0, paddingTop: '0px', paddingBottom: '0px'}], {duration: 260, easing: 'ease-in', fill: 'forwards'});
+    a.onfinish = () => res();
+  });
+}
+function confetti(from){
+  if (FX.reduce() || !document.body.animate) return;
+  const r = from.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+  const cols = themeCols(['--in', '--brass', '--green2', '--in']).concat(['#fff']);
+  for (let i = 0; i < (FX.lite ? 14 : 28); i++){
+    const el = document.createElement('i'), a = -Math.PI / 2 + (Math.random() - .5) * 2.4, v = 260 + Math.random() * 320, rot = (Math.random() - .5) * 900;
+    el.style.cssText = `position:fixed;left:${cx}px;top:${cy}px;width:9px;height:5px;border-radius:2px;background:${cols[i % cols.length]};z-index:61;pointer-events:none`;
+    document.body.appendChild(el);
+    const kf = []; for (let s = 0; s <= 6; s++){ const t = s / 6 * 1.3; kf.push({transform: `translate(${Math.cos(a) * v * t}px,${Math.sin(a) * v * t + 520 * t * t}px) rotate(${rot * t}deg)`, opacity: s === 6 ? 0 : 1}); }
+    el.animate(kf, {duration: 1300, easing: 'linear', fill: 'forwards'}).onfinish = () => el.remove();
+  }
+}
+FX.after = r => {
+  if (r.name === 'home' && !FX.homeDone && dataReady()){
+    FX.homeDone = true;
+    const els = $$('#view [data-n]');
+    if (els.length && !FX.reduce()){ FX.hold(1100); els.forEach(el => animNum(el, 0, +el.dataset.n, el.dataset.c, 1000)); ticks(8, 900); }
+  }
+  const n = FX.next; if (!n) return;
+  if (Date.now() - n.at > 4000){ FX.next = null; return; }
+  if (r.name !== n.route) return;
+  FX.next = null;
+  const d = S.debts[n.id]; if (!d) return;
+  if (n.t === 'add'){
+    SND.play('add');
+    const row = document.querySelector(`#view a.row[href="#/debt/${CSS.escape(n.id)}"]`);
+    if (row && !FX.reduce()){ FX.hold(900); row.classList.add('fx-drop'); row.scrollIntoView({block: 'nearest', behavior: 'smooth'}); }
+    return;
+  }
+  if (r.id !== n.id) return;
+  const hero = $('#view .d-hero'); if (!hero) return;
+  const big = hero.querySelector('.big'), bar = hero.querySelector('.bar i'), to = Math.max(debtRem(d), 0);
+  SND.play(n.t === 'inc' ? 'add' : 'coin');
+  if (FX.reduce()){ if (n.t === 'settle') SND.play('stamp', .3); return; }
+  FX.hold(n.t === 'settle' ? 2300 : 1000);
+  animNum(big, n.rem, to, d.cur, 800); ticks(6, 700);
+  if (bar){ const w = bar.style.width; bar.style.transition = 'none'; bar.style.width = n.pct + '%'; void bar.offsetWidth; bar.style.transition = ''; requestAnimationFrame(() => { bar.style.width = w; }); }
+  if (n.t === 'settle'){
+    const st = hero.querySelector('.fx-stamp'); if (!st) return;
+    st.style.opacity = '0';
+    setTimeout(() => { st.style.opacity = ''; st.classList.add('slam'); hero.classList.add('fx-shake'); SND.play('stamp'); try{ navigator.vibrate && navigator.vibrate(30); }catch(e){} setTimeout(() => confetti(st), 280); }, 850);
+  }
+};
+
 const ACT = {
   go: el => go(el.dataset.to),
   back: el => { go(el.dataset.to); },
@@ -1684,6 +1874,7 @@ const ACT = {
     const d = S.debts[el.dataset.id]; if (!d) return;
     const rem = debtRem(d);
     if (!await confirmBox('سداد كامل المبلغ', `سيُسجَّل دفع ${fmtH(rem, d.cur)} ويصبح الدين مسدَّداً.`, 'تأكيد السداد')) return;
+    FX.queue({t:'settle', id:d.id, route:'debt', rem, pct:paidPct(d)});
     save('debts', Object.assign({}, d, {tx:(d.tx || []).concat([{id:uid(), t:'pay', a:rem, d:today(), n:'سداد كامل', at:Date.now()}])}));
     render(); toast('سُدّد الدين بالكامل');
   },
@@ -1696,16 +1887,25 @@ const ACT = {
   delDebt: async el => {
     const d = S.debts[el.dataset.id]; if (!d) return;
     if (!await confirmBox('حذف هذا الدين؟', `سيُنقل إلى سلة المحذوفات، ويمكنك استرجاعه خلال ${TRASH_DAYS} يوماً.`, 'نقل إلى السلة', true)) return;
+    SND.play('dust'); await dissolve([...$('#view').children]);
     save('debts', Object.assign({}, d, {deleted:true, deletedAt:Date.now()}));
     toast('نُقل الدين إلى السلة'); go('#/person/' + d.personId);
   },
-  restore: el => { const d = S.debts[el.dataset.id]; if (!d) return; const p = S.people[d.personId]; if (p && p.deleted) save('people', Object.assign({}, p, {deleted:false})); save('debts', Object.assign({}, d, {deleted:false, deletedAt:null})); render(); toast('استُرجع الدين'); },
+  restore: async el => {
+    const d = S.debts[el.dataset.id]; if (!d || el.disabled) return; el.disabled = true;
+    const row = el.closest('.row'); SND.play('gather');
+    await gather(row); await collapse(row);
+    const p = S.people[d.personId]; if (p && p.deleted) save('people', Object.assign({}, p, {deleted:false}));
+    save('debts', Object.assign({}, d, {deleted:false, deletedAt:null})); render(); toast('استُرجع الدين');
+  },
+  toggleSound: () => { S.prefs.sound = S.prefs.sound === false; savePrefs(); render(); if (S.prefs.sound) SND.play('coin'); toast(S.prefs.sound ? 'شُغّلت الأصوات' : 'أُطفئت الأصوات'); },
   purge: async el => { if (!await confirmBox('حذف نهائي؟', 'لن تستطيع استرجاع هذا الدين أبداً.', 'حذف نهائي', true)) return; remove('debts', el.dataset.id); render(); toast('حُذف نهائياً'); },
   editPerson: el => { const p = S.people[el.dataset.id]; if (p) personSheet(p); },
   delPerson: async el => {
     const p = S.people[el.dataset.id]; if (!p) return;
     const ds = personDebts(p.id);
     if (!await confirmBox(`حذف ${p.name}؟`, ds.length ? `سيُنقل ${ds.length === 1 ? 'دينه' : 'ديونه (' + ds.length + ')'} إلى سلة المحذوفات.` : 'لا توجد ديون مسجّلة له.', 'حذف', true)) return;
+    SND.play('dust'); await dissolve([...$('#view').children]);
     const now = Date.now();
     ds.forEach(d => save('debts', Object.assign({}, d, {deleted:true, deletedAt:now})));
     save('people', Object.assign({}, p, {deleted:true, deletedAt:now}));
@@ -1837,7 +2037,7 @@ function onUser(u){
     S[col] = m; S.loaded[col] = true;
     if (!purged && S.loaded.debts){ purged = true; purgeOldTrash(); }
     const onForm = ['add','edit'].includes(route().name);
-    if (!sheetOpen && !(onForm && formShown)) render();
+    if (!sheetOpen && !(onForm && formShown)) renderSoon();
   });
 }
 function updateOnline(){ const o = $('#offline'); if (o) o.hidden = navigator.onLine !== false; }
