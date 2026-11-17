@@ -85,6 +85,56 @@ textarea.input{min-height:84px;resize:vertical}
 
 /* ---------- landing ---------- */
 #landing{min-height:100vh;background:var(--bg)}
+/* ---------- قصة صفحة الهبوط ---------- */
+#landing.has-story .l-top{position:fixed;left:0;right:0;top:0;transition:background .35s}
+#landing.has-story .l-top.ov{background:linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,0))}
+#auth{scroll-margin-top:72px}
+#story{position:relative;height:650vh;background:#040907}
+.st-stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:#040907;color:#fff;contain:strict}
+#st-tree,#st-fx{position:absolute;left:0;top:0;width:100%;height:100%;display:block}
+#st-tree{z-index:1}#st-fx{z-index:6;pointer-events:none}
+.st-plate{position:absolute;opacity:0;z-index:2;will-change:transform,opacity;backface-visibility:hidden}
+.st-plate img{width:100%;height:100%;display:block;user-select:none;-webkit-user-select:none;-webkit-user-drag:none;pointer-events:none}
+.st-dark{position:absolute;inset:0;background:#000;opacity:0;z-index:5;pointer-events:none}
+.st-vig{position:absolute;inset:0;z-index:7;pointer-events:none;background:radial-gradient(ellipse at 50% 42%,rgba(0,0,0,0) 40%,rgba(0,0,0,.5) 100%),linear-gradient(to top,rgba(0,0,0,.7),rgba(0,0,0,0) 42%)}
+.st-flash{position:absolute;inset:0;z-index:8;pointer-events:none;opacity:0;background:radial-gradient(circle at 50% 55%,#fff8e0 0%,#f0cf7a 28%,rgba(240,207,122,0) 72%)}
+.st-txt{position:absolute;left:22px;right:22px;bottom:15vh;bottom:15svh;z-index:9;margin:0;text-align:center;font-weight:700;font-size:clamp(32px,8vw,64px);line-height:1.3;color:#fff;letter-spacing:-.3px;text-shadow:0 2px 28px rgba(0,0,0,.65);opacity:0;pointer-events:none;will-change:transform,opacity,filter}
+.st-txt span{color:#E6C578}
+.st-txt small{display:block;font-size:max(13px,.3em);font-weight:500;color:#cbd6cf;margin-top:14px;letter-spacing:0}
+[dir=ltr].st-chip,.st-chip:not([dir]){direction:ltr}
+.st-chip{position:absolute;transform:translate(-50%,-50%);unicode-bidi:isolate;padding:.4em .95em;border-radius:999px;background:rgba(8,22,17,.78);border:.08em solid rgba(230,197,120,.7);color:#F1D58E;font-weight:700;font-size:clamp(13px,1em,22px);white-space:nowrap;opacity:0;box-shadow:0 .4em 1.4em rgba(0,0,0,.45),0 0 1.2em rgba(230,197,120,.18)}
+.st-scr{position:absolute;left:0;top:0;width:390px;height:844px;transform-origin:0 0;background:#0A1A14;color:#E4ECE7;border-radius:46px;overflow:hidden;padding:64px 26px 0;direction:rtl;font-family:var(--font);opacity:.97}
+.st-scr .ss-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:34px}
+.st-scr .ss-top b{font-family:var(--logo);color:#D8B566;font-size:44px;line-height:1}
+.st-scr .ss-top i{width:44px;height:44px;border-radius:50%;background:#183328;display:block}
+.st-scr .ss-lbl{font-size:22px;color:#8EA197}
+.st-scr .ss-net{font-size:64px;font-weight:700;color:#86D3AC;direction:ltr;text-align:right;margin:4px 0 26px}
+.st-scr .ss-split{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:30px}
+.st-scr .ss-split div{background:#11271E;border-radius:22px;padding:18px}
+.st-scr .ss-split span{display:block;font-size:20px;color:#8EA197}
+.st-scr .ss-split b{font-size:30px;color:#86D3AC;direction:ltr;display:block;text-align:right}
+.st-scr .ss-split .o b,.st-scr em.o{color:#F0877C}
+.st-scr .ss-row{display:flex;align-items:center;gap:14px;padding:18px 0;border-top:1px solid #1E352B;font-size:26px}
+.st-scr .ss-row i{width:52px;height:52px;border-radius:50%;background:#183328;color:#D8B566;display:grid;place-items:center;font-style:normal;font-weight:700}
+.st-scr .ss-row span{flex:1}.st-scr .ss-row em{font-style:normal;font-weight:700;color:#86D3AC;direction:ltr}
+.st-scr .ss-glare{position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.16),rgba(255,255,255,0) 40%);pointer-events:none}
+.st-cta{position:absolute;inset:0;z-index:11;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:24px;text-align:center;opacity:0;pointer-events:none;background:radial-gradient(ellipse at 50% 50%,rgba(4,9,7,.35),rgba(4,9,7,.88) 75%)}
+.st-cta.on{pointer-events:auto}
+.st-logo{font-size:clamp(58px,15vw,120px);margin:0;justify-content:center;flex-wrap:wrap}
+.st-lead{margin:0 0 10px;font-size:18px;color:#cfdad3}
+.st-btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.st-btns .ghost{color:#fff;border-color:rgba(255,255,255,.35)}
+.st-hint{position:absolute;left:0;right:0;bottom:5vh;bottom:5svh;z-index:10;display:flex;flex-direction:column;align-items:center;gap:2px;color:#dfe8e2;font-size:14px;pointer-events:none;transition:opacity .4s}
+.st-hint .i{width:26px;height:26px;animation:st-bob 1.6s ease-in-out infinite}
+@keyframes st-bob{0%,100%{transform:translateY(0);opacity:.6}50%{transform:translateY(7px);opacity:1}}
+.st-skip{position:absolute;left:14px;bottom:14px;z-index:10;background:rgba(0,0,0,.35);color:#e9efeb;border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:8px 14px;font:inherit;font-size:13px;opacity:0;transition:opacity .4s;cursor:pointer;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.st-snd{position:absolute;left:14px;top:78px;z-index:10;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:rgba(0,0,0,.35);color:#fff;border:1px solid rgba(255,255,255,.22);cursor:pointer;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.st-snd .i{width:20px;height:20px}.st-snd .x{display:none}.st-snd.off .x{display:inline}.st-snd.off .w{display:none}
+.st-after{height:90px;background:linear-gradient(#040907,var(--bg))}
+@media (min-aspect-ratio:1/1){.st-txt.st-up{bottom:auto;top:16vh}}
+#story.static{height:auto}
+#story.static .st-stage{position:relative;height:100vh;height:100svh}
+
 .l-top{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;background:var(--green);position:sticky;top:0;z-index:5}
 .l-top .logo{font-size:20px}
 .l-top .btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);min-height:40px;padding:8px 16px}
@@ -343,31 +393,75 @@ textarea.input{min-height:84px;resize:vertical}
 <!-- ================= LANDING ================= -->
 <div id="landing" hidden>
   <div class="demo-flag" id="demo-flag" hidden>وضع التجربة: البيانات تُحفظ على هذا الجهاز فقط إلى أن يُربط الموقع بـ Firebase.</div>
-  <header class="l-top">
+  <header class="l-top" id="l-top">
     <a class="logo" href="#top" aria-label="دلي Daly"><b>دلي</b><i>Daly</i></a>
     <button class="btn" data-act="toAuth" data-tab="in">دخول</button>
   </header>
 
-  <section class="hero" id="top">
-    <div class="hero-in">
-      <div>
-        <p class="hero-mark" aria-hidden="true">دلي<span>Daly</span></p>
-        <h1>دفتر ديونك،<br>في جيبك.</h1>
-        <p class="lead">سجّل ما لك وما عليك بأربع عملات، وتابع كل دفعة حتى آخر ليرة.</p>
-        <div class="ctas">
-          <button class="btn brass" data-act="toAuth" data-tab="up">أنشئ حسابك مجاناً</button>
-          <button class="btn ghost" data-act="toAuth" data-tab="in">لدي حساب</button>
+  <section id="story" aria-label="قصة دلي">
+    <div class="st-stage" id="st-stage">
+      <canvas id="st-tree" aria-hidden="true"></canvas>
+      <div class="st-plate" data-p="1"><img data-k="st-1" alt="" decoding="async"></div>
+      <div class="st-plate" data-p="2"><img data-k="st-2" alt="" decoding="async">
+        <span class="st-chip" style="left:30%;top:30%">250 $</span>
+        <span class="st-chip" dir="rtl" style="left:52%;top:20%">32,500 ل.س</span>
+        <span class="st-chip" style="left:72%;top:33%">215 €</span>
+        <span class="st-chip" dir="rtl" style="left:42%;top:12%">76.5 د.ك</span>
+      </div>
+      <div class="st-plate" data-p="3"><img data-k="st-3" alt="" decoding="async"></div>
+      <div class="st-plate" data-p="4"><img data-k="st-4" alt="" decoding="async">
+        <div class="st-scr" id="st-scr" aria-hidden="true">
+          <div class="ss-top"><b>دلي</b><i></i></div>
+          <div class="ss-lbl">صافي حسابك</div>
+          <div class="ss-net" id="ss-net">0 $</div>
+          <div class="ss-split"><div><span>لي</span><b>1,250 $</b></div><div class="o"><span>عليّ</span><b>340 $</b></div></div>
+          <div class="ss-row"><i>أ</i><span>أبو سامي</span><em>250 $</em></div>
+          <div class="ss-row"><i>خ</i><span>خالد</span><em>400 $</em></div>
+          <div class="ss-row"><i>م</i><span>أم محمد</span><em class="o">340 $</em></div>
+          <div class="ss-glare"></div>
         </div>
       </div>
+      <div class="st-dark" id="st-dark"></div>
+      <canvas id="st-fx" aria-hidden="true"></canvas>
+      <div class="st-vig"></div>
+      <div class="st-flash" id="st-flash"></div>
+      <h1 class="st-txt" data-a=".015" data-b=".14">كلّ دَينٍ...<br><span>له قصة</span></h1>
+      <p class="st-txt" data-a=".19" data-b=".30">والأوراق تتطاير...<br><span>وتضيع معها الحقوق</span></p>
+      <p class="st-txt" data-a=".38" data-b=".49">دفترٌ واحد<br><span>لكل ديونك</span></p>
+      <p class="st-txt" data-a=".565" data-b=".675">كل دفعة محسوبة<br><span>حتى آخر ليرة</span><small>دولار · ليرة سورية جديدة · يورو · دينار كويتي</small></p>
+      <p class="st-txt" data-a=".725" data-b=".805">لا شيء يضيع<br><span>بعد اليوم</span></p>
+      <p class="st-txt st-up" data-a=".875" data-b=".945">من الورق...<br><span>إلى جيبك</span></p>
+      <div class="st-cta" id="st-cta">
+        <p class="logo st-logo"><b>دلي</b><i>Daly</i></p>
+        <p class="st-lead">دفتر ديونك، في جيبك. مجاناً.</p>
+        <div class="st-btns"><button class="btn brass" data-act="toAuth" data-tab="up">أنشئ حسابك مجاناً</button><button class="btn ghost" data-act="toAuth" data-tab="in">لدي حساب</button></div>
+      </div>
+      <div class="st-hint" id="st-hint"><span>مرّر لتبدأ القصة</span><svg class="i" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div>
+      <button class="st-skip" id="st-skip" data-act="toAuth" data-tab="up">تخطَّ إلى التسجيل</button>
+      <button class="st-snd" id="st-snd" type="button" aria-label="صوت القصة"><svg class="i" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4z"/><path class="w" d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/><path class="x" d="m16 9 6 6m0-6-6 6"/></svg></button>
+    </div>
+  </section>
+  <div class="st-after"></div>
 
-      <div class="ledger" id="ledger" aria-label="مثال متحرك: دين بقيمة 250 دولار، سُدد منه 100، والباقي يظهر بعدة عملات">
-        <div class="lg-head"><b>دلي</b><span id="lg-date"></span></div>
-        <div class="lg-row" data-k="1"><span class="lg-tag">لي</span><span class="who">أبو سامي <small>دين جديد</small></span><span class="amt">250 $</span></div>
-        <div class="lg-row pay" data-k="2"><span class="who">دفعة أولى <small>سداد جزئي</small></span><span class="amt">− 100 $</span></div>
-        <div class="lg-row cut" data-k="3"><span class="who">خصم <small>سامحته</small></span><span class="amt">− 20 $</span></div>
-        <div class="lg-total"><span>المتبقي</span><b id="lg-total">250 $</b></div>
-        <div class="lg-curs" id="lg-curs"><i data-c="USD">دولار</i><i data-c="SYP">ليرة</i><i data-c="EUR">يورو</i><i data-c="KWD">دينار</i></div>
-        <div class="stamp" id="lg-stamp">مسدَّد</div>
+  <section class="l-sec" id="auth" style="padding-top:8px">
+    <div class="auth-wrap">
+      <h2 id="auth-title" style="text-align:center">أنشئ حسابك</h2>
+      <p class="sub" style="text-align:center;margin-inline:auto">إيميل وكلمة سر فقط، بدون رموز تحقق.</p>
+      <div class="auth-card">
+        <div class="seg" role="tablist">
+          <button type="button" data-act="authTab" data-tab="up" aria-pressed="true">حساب جديد</button>
+          <button type="button" data-act="authTab" data-tab="in" aria-pressed="false">تسجيل الدخول</button>
+        </div>
+        <form id="auth-form" novalidate data-form="auth">
+          <label class="field" id="f-name"><span>اسمك</span><input class="input" name="name" autocomplete="name" placeholder="مثلاً: عبد الله"></label>
+          <label class="field"><span>الإيميل</span><input class="input" name="email" type="email" inputmode="email" autocomplete="email" dir="ltr" placeholder="name@gmail.com" required></label>
+          <label class="field"><span>كلمة السر</span><div class="pw"><input class="input" name="pass" type="password" autocomplete="current-password" dir="ltr" required minlength="6"><button type="button" data-act="togglePw" aria-label="إظهار كلمة السر"><svg class="i" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button></div></label>
+          <label class="field" id="f-pass2"><span>أعد كتابة كلمة السر</span><input class="input" name="pass2" type="password" autocomplete="new-password" dir="ltr"></label>
+          <div class="err" id="auth-err" role="alert"></div>
+          <button class="btn block brass" id="auth-btn" type="submit">إنشاء الحساب</button>
+          <p style="text-align:center;margin:14px 0 0"><button type="button" class="linkbtn" id="forgot" data-act="forgot" hidden>نسيت كلمة السر؟</button></p>
+        </form>
+        <div class="privacy"><svg class="i" viewBox="0 0 24 24" style="width:18px;height:18px"><path d="M12 3 4 6v6c0 5 3.4 8.4 8 9 4.6-.6 8-4 8-9V6z"/></svg><span>كلمة السر تُحفظ مشفّرة، وديونك لا يراها أي مستخدم آخر. احفظ كلمة السر في مكان آمن.</span></div>
       </div>
     </div>
   </section>
@@ -390,29 +484,6 @@ textarea.input{min-height:84px;resize:vertical}
       <div class="q" id="cd-q">كم تساوي 5 دنانير كويتية بالليرة السورية الجديدة؟</div>
       <div class="a" id="cd-a">…</div>
       <div class="r" id="cd-r">حسب سعر الصرف الحالي</div>
-    </div>
-  </section>
-
-  <section class="l-sec" id="auth" style="padding-top:8px">
-    <div class="auth-wrap">
-      <h2 id="auth-title" style="text-align:center">أنشئ حسابك</h2>
-      <p class="sub" style="text-align:center;margin-inline:auto">إيميل وكلمة سر فقط، بدون رموز تحقق.</p>
-      <div class="auth-card">
-        <div class="seg" role="tablist">
-          <button type="button" data-act="authTab" data-tab="up" aria-pressed="true">حساب جديد</button>
-          <button type="button" data-act="authTab" data-tab="in" aria-pressed="false">تسجيل الدخول</button>
-        </div>
-        <form id="auth-form" novalidate data-form="auth">
-          <label class="field" id="f-name"><span>اسمك</span><input class="input" name="name" autocomplete="name" placeholder="مثلاً: عبد الله"></label>
-          <label class="field"><span>الإيميل</span><input class="input" name="email" type="email" inputmode="email" autocomplete="email" dir="ltr" placeholder="name@gmail.com" required></label>
-          <label class="field"><span>كلمة السر</span><div class="pw"><input class="input" name="pass" type="password" autocomplete="current-password" dir="ltr" required minlength="6"><button type="button" data-act="togglePw" aria-label="إظهار كلمة السر"><svg class="i" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button></div></label>
-          <label class="field" id="f-pass2"><span>أعد كتابة كلمة السر</span><input class="input" name="pass2" type="password" autocomplete="new-password" dir="ltr"></label>
-          <div class="err" id="auth-err" role="alert"></div>
-          <button class="btn block brass" id="auth-btn" type="submit">إنشاء الحساب</button>
-          <p style="text-align:center;margin:14px 0 0"><button type="button" class="linkbtn" id="forgot" data-act="forgot" hidden>نسيت كلمة السر؟</button></p>
-        </form>
-        <div class="privacy"><svg class="i" viewBox="0 0 24 24" style="width:18px;height:18px"><path d="M12 3 4 6v6c0 5 3.4 8.4 8 9 4.6-.6 8-4 8-9V6z"/></svg><span>كلمة السر تُحفظ مشفّرة، وديونك لا يراها أي مستخدم آخر. احفظ كلمة السر في مكان آمن.</span></div>
-      </div>
     </div>
   </section>
 
@@ -833,6 +904,289 @@ function landingConv(){
   const t = rateTime();
   $('#cd-r').textContent = 'حسب سعر الصرف الحالي' + (t ? `، آخر تحديث ${t}` : '');
 }
+
+/* =====================================================
+   قصة صفحة الهبوط: سكرول سينمائي
+   ===================================================== */
+const STORY = (() => {
+  const IW = 1376, IH = 768, FW = 720, FH = 405, NF = 40, PER = 20, COLS = 5;
+  const cl = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+  const rng = (a, b, p) => cl((p - a) / (b - a));
+  const eio = x => { x = cl(x); return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+  const eo = x => 1 - Math.pow(1 - cl(x), 3);
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const FOC = {1: [.74, .5], 2: [.5, .5], 3: [.55, .5], 4: [.5, .6]};
+  const QUAD = [[491, 456], [608, 428], [893, 514], [766, 557]];
+  let inited = false, running = false, reduce = false, lite = false;
+  let st, stage, cT, xT, cF, xF, W = 0, H = 0, dpr = 1, P = 0, Y = 0, lastY = 0, lastT = 0, vel = 0, now = 0;
+  const atlas = [null, null], plates = {}, rect = {};
+  let texts = [], chips = [], top, flash, dark, cta, hint, skip, sndBtn, net;
+  let leaves = [], motes = [], golds = [];
+
+  function seeded(seed){ let s = seed; return () => (s = (s * 16807) % 2147483647) / 2147483647; }
+  function assets(){ // الصور محفوظة كنص في story-assets.js لأن رفع الصور من الجوال إلى GitHub لا يعمل
+    if (window.DALY_STORY) return Promise.resolve(window.DALY_STORY);
+    return new Promise(res => { const sc = document.createElement('script'); sc.src = 'story-assets.js?v=1'; sc.async = true;
+      sc.onload = () => res(window.DALY_STORY || {}); sc.onerror = () => res({}); document.head.appendChild(sc); });
+  }
+  function load(src){ return new Promise(res => { const im = new Image(); im.decoding = 'async'; im.onload = () => res(im); im.onerror = () => res(null); im.src = src; }); }
+
+  function size(){
+    W = stage.clientWidth; H = stage.clientHeight; dpr = Math.min(lite ? 1.25 : 2, window.devicePixelRatio || 1);
+    [cT, cF].forEach(c => { c.width = Math.round(W * dpr); c.height = Math.round(H * dpr); });
+    xT.setTransform(dpr, 0, 0, dpr, 0, 0); xF.setTransform(dpr, 0, 0, dpr, 0, 0);
+    for (const k in plates){
+      const s0 = Math.max(W / IW, H / IH), pw = IW * s0, ph = IH * s0, [fx, fy] = FOC[k];
+      const left = cl(W / 2 - fx * pw, W - pw, 0), tp = cl(H / 2 - fy * ph, H - ph, 0);
+      Object.assign(plates[k].style, {width: pw + 'px', height: ph + 'px', left: left + 'px', top: tp + 'px', fontSize: (pw / 58) + 'px'});
+      rect[k] = {pw, ph, left, top: tp, s0};
+    }
+    const vf = Math.min(1, W / rect[2].pw), cx2 = (W / 2 - rect[2].left) / rect[2].pw;
+    [[-.3, .3], [.12, .2], [.3, .36], [-.1, .1]].forEach(([dx, y], i) => { if (chips[i]){ chips[i].style.left = (cl(cx2 + dx * vf * (W < H ? .95 : .55), cx2 - vf * .36, cx2 + vf * .36) * 100) + '%'; chips[i].style.top = (y * 100) + '%'; } });
+    // شاشة الجوال: تحويل منظوري يطابق زاوية الهاتف في الصورة
+    const r = rect[4], q = QUAD.map(([x, y]) => [x / IW * r.pw, y / IH * r.ph]);
+    $('#st-scr').style.transform = 'matrix3d(' + homography(390, 844, q).join(',') + ')';
+    draw(true);
+  }
+  function homography(w, h, q){
+    const src = [[0, 0], [w, 0], [w, h], [0, h]], A = [], B = [];
+    for (let i = 0; i < 4; i++){
+      const [x, y] = src[i], [u, v] = q[i];
+      A.push([x, y, 1, 0, 0, 0, -u * x, -u * y]); B.push(u);
+      A.push([0, 0, 0, x, y, 1, -v * x, -v * y]); B.push(v);
+    }
+    for (let c = 0; c < 8; c++){
+      let m = c; for (let r = c + 1; r < 8; r++) if (Math.abs(A[r][c]) > Math.abs(A[m][c])) m = r;
+      [A[c], A[m]] = [A[m], A[c]]; [B[c], B[m]] = [B[m], B[c]];
+      for (let r = 0; r < 8; r++){ if (r === c) continue; const f = A[r][c] / A[c][c]; for (let k = c; k < 8; k++) A[r][k] -= f * A[c][k]; B[r] -= f * B[c]; }
+    }
+    const h8 = B.map((b, i) => b / A[i][i]);
+    return [h8[0], h8[3], 0, h8[6], h8[1], h8[4], 0, h8[7], 0, 0, 1, 0, h8[2], h8[5], 0, 1];
+  }
+
+  // ----- الكاميرا لكل صورة -----
+  function cam(k, o, s, ox, oy, rx, rz, blur, tx, ty){
+    const el = plates[k];
+    if (o <= 0.001){ if (el.style.opacity !== '0'){ el.style.opacity = '0'; el.style.visibility = 'hidden'; } return; }
+    el.style.visibility = 'visible'; el.style.opacity = o;
+    el.style.transformOrigin = `${ox * 100}% ${oy * 100}%`;
+    el.style.transform = `translate3d(${tx || 0}px,${ty || 0}px,0) perspective(1600px) rotateX(${rx || 0}deg) rotateZ(${rz || 0}deg) scale(${s})`;
+    const f = blur > .3 ? `blur(${blur.toFixed(1)}px)` : 'none'; if (el.style.filter !== f) el.style.filter = f;
+  }
+  function plateToScreen(k, x, y, s, ox, oy){ // نقطة من الصورة إلى الشاشة (تقريب بلا ميلان)
+    const r = rect[k], px = x * r.pw, py = y * r.ph, cx = ox * r.pw, cy = oy * r.ph;
+    return [r.left + cx + (px - cx) * s, r.top + cy + (py - cy) * s];
+  }
+
+  // ----- الشجرة (إطارات الفيديو) -----
+  function drawTree(p){
+    const vis = 1 - rng(.33, .38, p);
+    cT.style.opacity = vis; if (vis <= 0) return;
+    const f = rng(0, .17, p) * (NF - 1), push = 1 + .22 * eio(rng(.17, .37, p));
+    xT.clearRect(0, 0, W, H);
+    const sc = Math.max(W / FW, H / FH) * push, dw = FW * sc, dh = FH * sc;
+    const dx = cl(W / 2 - .42 * dw, W - dw, 0), dy = cl(H / 2 - .45 * dh, H - dh, 0);
+    const i0 = Math.floor(f), t = f - i0;
+    frame(i0, dx, dy, dw, dh, 1); if (t > .02 && i0 + 1 < NF) frame(i0 + 1, dx, dy, dw, dh, t);
+  }
+  function frame(i, dx, dy, dw, dh, a){
+    let k = i < PER ? 0 : 1;
+    if (!atlas[k]){ if (k === 1 && atlas[0]){ k = 0; i = PER - 1; } else return; }
+    const j = i % PER;
+    xT.globalAlpha = a; xT.drawImage(atlas[k], (j % COLS) * FW, Math.floor(j / COLS) * FH, FW, FH, dx, dy, dw, dh); xT.globalAlpha = 1;
+  }
+
+  // ----- الجزيئات: أوراق زيتون تصير ورق دفتر، غبار الضوء، شرر الذهب -----
+  function initParticles(){
+    const r = seeded(17), n = lite ? 26 : 44;
+    leaves = Array.from({length: n}, (_, j) => ({b: .175 + j / n * .12 + r() * .01, x: .1 + .8 * r(), y: .1 + .4 * r(), r0: r() * 6.3, spin: (r() - .5) * 7, sz: .7 + r() * .6, sway: r() * 6.3, k: r()}));
+    motes = Array.from({length: lite ? 22 : 40}, () => ({x: r(), y: r(), s: .6 + r() * 1.8, v: .2 + r() * .6, ph: r() * 6.3}));
+    golds = Array.from({length: lite ? 50 : 110}, () => ({x: .3 + r() * .55, y: r(), s: .5 + r() * 2, v: .25 + r() * .7, ph: r() * 6.3, w: (r() - .5) * .08}));
+  }
+  function drawLeaf(x, y, size, rot, m, alpha){
+    if (alpha <= .01) return;
+    xF.save(); xF.translate(x, y); xF.rotate(rot); xF.globalAlpha = alpha;
+    const L = 15 * size, Wd = 5 * size;
+    if (m < 1){ // ورقة زيتون
+      xF.globalAlpha = alpha * (1 - m); xF.fillStyle = '#7f8f5e';
+      xF.beginPath(); xF.moveTo(-L, 0); xF.quadraticCurveTo(0, -Wd * 1.4, L, 0); xF.quadraticCurveTo(0, Wd * 1.4, -L, 0); xF.fill();
+      xF.strokeStyle = 'rgba(220,230,190,.35)'; xF.lineWidth = .8; xF.beginPath(); xF.moveTo(-L * .9, 0); xF.lineTo(L * .9, 0); xF.stroke();
+    }
+    if (m > 0){ // ورقة دفتر
+      const pw = 11 * size * (.6 + .4 * m), ph = 14 * size * (.6 + .4 * m);
+      xF.globalAlpha = alpha * m; xF.fillStyle = '#efe5cc'; xF.fillRect(-pw, -ph, pw * 2, ph * 2);
+      xF.strokeStyle = 'rgba(120,105,75,.45)'; xF.lineWidth = .7;
+      for (let l = 1; l < 5; l++){ const yy = -ph + l * ph * 2 / 5; xF.beginPath(); xF.moveTo(-pw * .75, yy); xF.lineTo(pw * .75, yy); xF.stroke(); }
+    }
+    xF.restore();
+  }
+  function drawFx(p){
+    xF.clearRect(0, 0, W, H);
+    const tt = now / 1000;
+    // أوراق تطير نحو الكاميرا وتتحول لورق، ثم تهبط إلى الدفتر
+    if (p > .17 && p < .44){
+      const [nx, ny] = plateToScreen(1, .785, .5, curCam1.s, curCam1.ox, curCam1.oy);
+      for (const L of leaves){
+        const a = (p - L.b) / .11; if (a < 0) continue;
+        const A = Math.min(a, 1), sx = L.x * W, sy = L.y * H;
+        let x = sx + (sx - W / 2) * A * 1.1 + Math.sin(L.sway + A * 5 + tt * .8) * 26 * A;
+        let y = sy + H * .18 * A + (sy - H * .4) * .5 * A + Math.cos(L.sway + tt * .7) * 10 * A;
+        let sz = (.3 + 1.25 * A * A) * L.sz, rot = L.r0 + L.spin * A + Math.sin(tt + L.sway) * .15;
+        const m = rng(.3, .8, A);
+        let al = rng(0, .08, a);
+        const tb = eio(rng(.31 + L.k * .03, .405, p));
+        if (tb > 0){ x = lerp(x, nx + (L.k - .5) * 20, tb); y = lerp(y, ny + (L.x - .5) * 20, tb); sz = lerp(sz, .35, tb); rot = lerp(rot, 0, tb); al *= 1 - rng(.8, 1, tb); }
+        drawLeaf(x, y, sz, rot, m, al);
+      }
+    }
+    // غبار في ضوء اللمبة
+    const mo = rng(.36, .42, p) * (1 - rng(.66, .7, p));
+    if (mo > 0){
+      xF.globalCompositeOperation = 'lighter';
+      for (const d of motes){
+        const x = ((d.x + Math.sin(tt * .15 * d.v + d.ph) * .04) % 1) * W, y = ((d.y - tt * .012 * d.v - p * .3 + 2) % 1) * H;
+        const g = xF.createRadialGradient(x, y, 0, x, y, d.s * 4);
+        g.addColorStop(0, `rgba(255,222,150,${.55 * mo})`); g.addColorStop(1, 'rgba(255,222,150,0)');
+        xF.fillStyle = g; xF.fillRect(x - d.s * 4, y - d.s * 4, d.s * 8, d.s * 8);
+      }
+      xF.globalCompositeOperation = 'source-over';
+    }
+    // شرر الذهب يصعد من الحبر
+    const go = rng(.69, .74, p) * (1 - rng(.84, .87, p));
+    if (go > 0){
+      xF.globalCompositeOperation = 'lighter';
+      for (const g of golds){
+        const yy = ((g.y + tt * .05 * g.v + p * 1.6 * g.v) % 1), y = H * (1 - yy), x = (g.x + Math.sin(tt * g.v + g.ph) * .03 + g.w * yy) * W;
+        const a = go * Math.sin(Math.PI * yy) * .9, rr = g.s * (1.5 + yy);
+        const gr = xF.createRadialGradient(x, y, 0, x, y, rr * 3);
+        gr.addColorStop(0, `rgba(255,236,170,${a})`); gr.addColorStop(.4, `rgba(232,190,90,${a * .5})`); gr.addColorStop(1, 'rgba(232,190,90,0)');
+        xF.fillStyle = gr; xF.fillRect(x - rr * 3, y - rr * 3, rr * 6, rr * 6);
+      }
+      xF.globalCompositeOperation = 'source-over';
+    }
+  }
+
+  // ----- كل إطار -----
+  let curCam1 = {s: 1, ox: .785, oy: .5};
+  function draw(force){
+    const p = P;
+    drawTree(p);
+    dark.style.opacity = .55 * rng(.25, .36, p) * (1 - rng(.36, .4, p));
+    // 1) الدفتر من الأعلى: الأوراق تهبط فيه، ثم الغوص داخله
+    const in1 = eo(rng(.32, .37, p)), dive1 = eio(rng(.49, .535, p));
+    curCam1 = {s: lerp(1.32, 1.06, eio(rng(.32, .49, p))) * lerp(1, 3.2, dive1), ox: .785, oy: .5};
+    cam(1, in1 * (1 - rng(.51, .54, p)), curCam1.s, .785, .5, lerp(8, 0, eio(rng(.32, .45, p))), lerp(-4, 0, eio(rng(.32, .49, p))), 9 * dive1);
+    // 2) الدفتر مفتوح: صورة تتضح من الضباب، الكاميرا تميل وتقترب، والعملات تطفو
+    const in2 = eo(rng(.515, .55, p)), dive2 = eio(rng(.67, .715, p));
+    cam(2, in2 * (1 - rng(.695, .72, p)), lerp(1.28, 1, eio(rng(.515, .57, p))) * lerp(1, 1.14, rng(.57, .67, p)) * lerp(1, 3, dive2), .52, .55, lerp(14, 0, eio(rng(.515, .6, p))), 0, 10 * (1 - eo(rng(.515, .56, p))) + 9 * dive2);
+    chips.forEach((c, i) => { const k = eo(rng(.575 + i * .022, .6 + i * .022, p)), out = 1 - rng(.66, .69, p);
+      c.style.opacity = k * out; c.style.transform = `translate(-50%,-50%) translateY(${(1 - k) * 1.6 + Math.sin(now / 900 + i) * .12}em) scale(${.8 + .2 * k})`; });
+    // 3) الحبر الذهبي: الكاميرا تتبع الخطوط صعوداً
+    const in3 = eo(rng(.695, .74, p)), r3 = rng(.72, .84, p);
+    cam(3, in3 * (1 - rng(.835, .855, p)), lerp(1.35, 1.12, eio(rng(.695, .75, p))) * lerp(1, 1.22, r3), .58, .45, 0, lerp(0, -2, r3), 9 * (1 - eo(rng(.695, .74, p))), 0, lerp(0, H * .06, r3));
+    flash.style.opacity = Math.max(0, 1 - Math.abs(p - .842) / .03) * .95;
+    // 4) الجوال ودمشق: الكاميرا تبتعد وتنكشف المدينة
+    const in4 = rng(.835, .85, p), back4 = eio(rng(.845, .955, p));
+    cam(4, in4, lerp(1.9, 1.0, back4), lerp(.5, .56, back4), lerp(.62, .55, back4), lerp(10, 0, back4), 0, 6 * (1 - rng(.84, .87, p)), lerp(0, -W * .06 * (W < H ? 1 : 0), back4));
+    if (net){ const v = Math.round(910 * eo(rng(.87, .93, p))); const t = v.toLocaleString('en-US') + ' $'; if (net.textContent !== t) net.textContent = t; }
+    // النصوص
+    for (const t of texts){
+      const i = rng(t.a, t.a + .025, p), o = 1 - rng(t.b - .02, t.b, p), v = Math.min(i, o);
+      if (v <= 0){ if (t.el.style.opacity !== '0') t.el.style.opacity = '0'; continue; }
+      t.el.style.opacity = v; t.el.style.transform = `translateY(${(1 - eo(i)) * 26 - (1 - o) * 18}px)`; t.el.style.filter = v < .98 ? `blur(${((1 - v) * 8).toFixed(1)}px)` : 'none';
+    }
+    const ce = eo(rng(.955, .985, p)); cta.style.opacity = ce; cta.classList.toggle('on', ce > .5);
+    hint.style.opacity = 1 - rng(0, .02, p);
+    skip.style.opacity = (rng(.02, .04, p) * (1 - rng(.93, .95, p))) ? .9 : 0;
+    skip.style.pointerEvents = skip.style.opacity === '0' ? 'none' : 'auto';
+    drawFx(p);
+  }
+
+  // ----- الصوت: هواء وحفيف أوراق -----
+  const SN = {ctx: null, wind: null, rust: null, on: true};
+  function sndOn(){ return S.prefs.sound !== false; }
+  function startSound(){
+    if (SN.ctx || !sndOn()) return;
+    const A = window.AudioContext || window.webkitAudioContext; if (!A) return;
+    try{ if (navigator.audioSession) navigator.audioSession.type = 'ambient'; }catch(e){}
+    const c = SN.ctx = new A(), n = c.sampleRate * 2, buf = c.createBuffer(1, n, c.sampleRate), d = buf.getChannelData(0);
+    let b0 = 0; for (let i = 0; i < n; i++){ const w = Math.random() * 2 - 1; b0 = .985 * b0 + .015 * w; d[i] = b0 * 6 + w * .02; }
+    const nb = c.createBuffer(1, n, c.sampleRate), d2 = nb.getChannelData(0); for (let i = 0; i < n; i++) d2[i] = Math.random() * 2 - 1;
+    const s1 = c.createBufferSource(); s1.buffer = buf; s1.loop = true;
+    const lp = c.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 700;
+    SN.wind = c.createGain(); SN.wind.gain.value = 0; s1.connect(lp).connect(SN.wind).connect(c.destination); s1.start();
+    const s2 = c.createBufferSource(); s2.buffer = nb; s2.loop = true;
+    const hp = c.createBiquadFilter(); hp.type = 'bandpass'; hp.frequency.value = 4200; hp.Q.value = .6;
+    const am = c.createGain(); am.gain.value = 0;
+    const lfo = c.createOscillator(); lfo.frequency.value = 9; const lg = c.createGain(); lg.gain.value = .5; lfo.connect(lg).connect(am.gain); lfo.start();
+    SN.rust = c.createGain(); SN.rust.gain.value = 0; s2.connect(hp).connect(am).connect(SN.rust).connect(c.destination); s2.start();
+    SN.lp = lp;
+  }
+  function soundTick(p, visible){
+    if (!SN.ctx) return;
+    const t = SN.ctx.currentTime, on = sndOn() && visible && !document.hidden;
+    const v = Math.min(1, vel);
+    const wind = on ? (p < .72 ? .05 + .22 * v : .03 + .08 * v) * (1 - rng(.9, 1, p)) : 0;
+    const rust = on ? (rng(.15, .2, p) * (1 - rng(.33, .4, p)) * (.25 + .9 * v) + rng(.02, .06, p) * (1 - rng(.17, .2, p)) * .12 * v) : 0;
+    SN.wind.gain.setTargetAtTime(wind, t, .25); SN.rust.gain.setTargetAtTime(rust * .35, t, .15);
+    SN.lp.frequency.setTargetAtTime(500 + 900 * v, t, .3);
+  }
+
+  // ----- الحلقة -----
+  function measure(){
+    const r = st.getBoundingClientRect(), total = st.offsetHeight - H;
+    P = total > 0 ? cl(-r.top / total) : 0;
+    return r.bottom > 0 && r.top < H;
+  }
+  function loop(ts){
+    if (!running) return;
+    now = ts;
+    if ($('#landing').hidden){ running = false; soundTick(P, false); return; }
+    const y = window.scrollY, dt = Math.max(16, ts - lastT); lastT = ts;
+    vel = lerp(vel, Math.abs(y - lastY) / dt * 1000 / Math.max(H, 1) / 1.2, .12); lastY = y;
+    const visible = measure();
+    if (visible) draw();
+    top.classList.toggle('ov', st.getBoundingClientRect().bottom > 80);
+    soundTick(P, visible);
+    requestAnimationFrame(loop);
+  }
+  function init(){
+    st = $('#story'); if (!st) return;
+    if (!inited){
+      inited = true;
+      stage = $('#st-stage'); cT = $('#st-tree'); cF = $('#st-fx'); xT = cT.getContext('2d'); xF = cF.getContext('2d');
+      top = $('#l-top'); flash = $('#st-flash'); dark = $('#st-dark'); cta = $('#st-cta'); hint = $('#st-hint'); skip = $('#st-skip'); sndBtn = $('#st-snd'); net = $('#ss-net');
+      $$('.st-plate', st).forEach(el => plates[el.dataset.p] = el);
+      texts = $$('.st-txt', st).map(el => ({el, a: +el.dataset.a, b: +el.dataset.b}));
+      chips = $$('.st-chip', st);
+      $('#landing').classList.add('has-story');
+      reduce = (() => { try{ return matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){ return false; } })();
+      lite = (navigator.hardwareConcurrency || 8) <= 4 && (navigator.deviceMemory || 4) <= 2;
+      initParticles();
+      if (reduce){
+        st.classList.add('static'); P = .99; size();
+        Object.values(plates).forEach(el => { el.style.visibility = 'hidden'; });
+        cam(4, 1, 1, .56, .55, 0, 0, 0); texts.forEach(t => t.el.style.opacity = 0); cta.style.opacity = 1; cta.classList.add('on'); hint.style.display = 'none'; skip.style.display = 'none'; sndBtn.style.display = 'none'; cT.style.opacity = 0;
+        return;
+      }
+      assets().then(A => {
+        const src = k => A[k] || (k + '.webp');
+        $$('.st-plate img[data-k]', st).forEach(im => { im.src = src(im.dataset.k); });
+        load(src('st-tree-a')).then(im => { atlas[0] = im; draw(); return load(src('st-tree-b')); }).then(im => { atlas[1] = im; draw(); });
+      });
+      window.addEventListener('resize', () => { if (!$('#landing').hidden) size(); });
+      const gesture = () => { startSound(); if (SN.ctx && SN.ctx.state === 'suspended') SN.ctx.resume(); };
+      ['pointerdown', 'touchend', 'keydown', 'click'].forEach(e => window.addEventListener(e, gesture, {passive: true}));
+      document.addEventListener('visibilitychange', () => { if (SN.ctx){ if (document.hidden) SN.ctx.suspend(); else SN.ctx.resume(); } });
+      sndBtn.classList.toggle('off', !sndOn());
+      sndBtn.addEventListener('click', e => { e.stopPropagation(); S.prefs.sound = !sndOn(); savePrefs(); sndBtn.classList.toggle('off', !sndOn()); if (sndOn()) startSound(); });
+    }
+    if (reduce) return;
+    size(); measure(); draw();
+    if (!running){ running = true; lastY = window.scrollY; requestAnimationFrame(t => { lastT = t; loop(t); }); }
+  }
+  return {init};
+})();
 
 let ledgerTimer = [];
 function runLedger(){
@@ -2024,7 +2378,7 @@ function onUser(u){
   if (!u){
     $('#app').hidden = true; $('#landing').hidden = false;
     if (location.hash.startsWith('#/')) history.replaceState(null, '', location.pathname + location.search);
-    runLedger(); landingConv();
+    landingConv(); requestAnimationFrame(() => STORY.init());
     return;
   }
   ledgerTimer.forEach(clearTimeout);
