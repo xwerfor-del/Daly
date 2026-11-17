@@ -926,7 +926,7 @@ function landingConv(){
    قصة صفحة الهبوط: سكرول سينمائي
    ===================================================== */
 const STORY = (() => {
-  const IW = 1376, IH = 768, FW = 1024, FH = 576, NF = 24, PER = 12, COLS = 4;
+  const IW = 1376, IH = 768, FW = 1024, FH = 576, NF = 24;
   const cl = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
   const rng = (a, b, p) => cl((p - a) / (b - a));
   const eio = x => { x = cl(x); return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
@@ -936,14 +936,14 @@ const STORY = (() => {
   const QUAD = [[491, 456], [608, 428], [893, 514], [766, 557]];
   let inited = false, running = false, reduce = false, lite = false;
   let st, stage, cT, xT, cF, xF, W = 0, H = 0, dpr = 1, P = 0, Y = 0, lastY = 0, lastT = 0, vel = 0, now = 0;
-  const atlas = [null, null], plates = {}, rect = {}; let still = null, blurC = null, blurX = null;
+  const frames = [], plates = {}, rect = {}; let still = null, blurC = null, blurX = null;
   let texts = [], chips = [], top, flash, dark, cta, hint, skip, sndBtn, net;
   let leaves = [], motes = [], golds = [];
 
   function seeded(seed){ let s = seed; return () => (s = (s * 16807) % 2147483647) / 2147483647; }
   function assets(){ // الصور محفوظة كنص في story-assets.js لأن رفع الصور من الجوال إلى GitHub لا يعمل
     if (window.DALY_STORY) return Promise.resolve(window.DALY_STORY);
-    return new Promise(res => { const sc = document.createElement('script'); sc.src = 'story-assets.js?v=2'; sc.async = true;
+    return new Promise(res => { const sc = document.createElement('script'); sc.src = 'story-assets.js?v=3'; sc.async = true;
       sc.onload = () => res(window.DALY_STORY || {}); sc.onerror = () => res({}); document.head.appendChild(sc); });
   }
   function load(src){ return new Promise(res => { const im = new Image(); im.decoding = 'async'; im.onload = () => res(im); im.onerror = () => res(null); im.src = src; }); }
@@ -1019,22 +1019,19 @@ const STORY = (() => {
   }
   function backdrop(i, dy, dh){ // نسخة ضبابية معتمة من اللقطة تملأ الفراغ فوق وتحت
     if (!blurC){ blurC = document.createElement('canvas'); blurC.width = 40; blurC.height = 22; blurX = blurC.getContext('2d'); }
-    const src = i === 0 && still ? still : null;
-    blurX.clearRect(0, 0, 40, 22);
-    if (src) blurX.drawImage(src, 0, 0, 40, 22);
-    else { let k = i < PER ? 0 : 1; if (!atlas[k]){ if (atlas[0]){ k = 0; i = PER - 1; } else if (still){ blurX.drawImage(still, 0, 0, 40, 22); k = -1; } else return; }
-      if (k >= 0){ const j = i % PER; blurX.drawImage(atlas[k], (j % COLS) * FW, Math.floor(j / COLS) * FH, FW, FH, 0, 0, 40, 22); } }
+    const src = (i > 0 && frameAt(i)) || still; if (!src) return;
+    blurX.clearRect(0, 0, 40, 22); blurX.drawImage(src, 0, 0, 40, 22);
     const sc = Math.max(W / 40, H / 22), bw = 40 * sc, bh = 22 * sc;
     xT.save(); xT.imageSmoothingEnabled = true; xT.imageSmoothingQuality = 'high'; xT.globalAlpha = .55;
     xT.drawImage(blurC, (W - bw) / 2, (H - bh) / 2, bw, bh); xT.restore();
     xT.fillStyle = 'rgba(5,9,10,.45)'; xT.fillRect(0, 0, W, H);
   }
-  function frame(i, dx, dy, dw, dh, a){
-    let k = i < PER ? 0 : 1;
-    if (!atlas[k]){ if (k === 1 && atlas[0]){ k = 0; i = PER - 1; } else { if (still) xT.drawImage(still, dx, dy, dw, dh); return; } }
-    const j = i % PER;
-    xT.globalAlpha = a; xT.drawImage(atlas[k], (j % COLS) * FW, Math.floor(j / COLS) * FH, FW, FH, dx, dy, dw, dh); xT.globalAlpha = 1;
+  function frameAt(i){ for (let k = i; k >= 0; k--) if (frames[k]) return frames[k]; return null; }
+  function frame(i, dx, dy, dw, dh, a){ // كل إطار صورة مستقلة (الصور العملاقة يصغّرها سفاري الآيفون فتختلط الإطارات)
+    const im = frameAt(i) || still; if (!im) return;
+    xT.globalAlpha = a; xT.drawImage(im, dx, dy, dw, dh); xT.globalAlpha = 1;
   }
+
 
   // ----- الجزيئات: أوراق زيتون تصير ورق دفتر، غبار الضوء، شرر الذهب -----
   function initParticles(){
@@ -1212,7 +1209,10 @@ const STORY = (() => {
       assets().then(A => {
         const src = k => A[k] || (k + '.webp');
         $$('.st-plate img[data-k]', st).forEach(im => { im.src = src(im.dataset.k); });
-        load(src('st-tree-0')).then(im => { still = im; draw(); return load(src('st-tree-a')); }).then(im => { atlas[0] = im; draw(); return load(src('st-tree-b')); }).then(im => { atlas[1] = im; draw(); });
+        load(src('st-tree-0')).then(im => { still = im; draw();
+          const next = i => { if (i >= NF) return; load(src('st-f' + String(i).padStart(2, '0'))).then(im => { frames[i] = im; if (i % 4 === 3) draw(); next(i + 1); }); };
+          next(0);
+        });
       });
       window.addEventListener('resize', () => { if (!$('#landing').hidden) size(); });
       const gesture = () => { startSound(); if (SN.ctx && SN.ctx.state === 'suspended') SN.ctx.resume(); };
