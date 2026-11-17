@@ -197,6 +197,10 @@ textarea.input{min-height:84px;resize:vertical}
 .auth-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:22px;box-shadow:var(--shadow)}
 .auth-card .seg{margin-bottom:18px}
 .privacy{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--muted);margin-top:14px}
+.conv-demo .q,.conv-demo .a{transition:opacity .38s ease,transform .38s ease}
+.conv-demo.swap .q,.conv-demo.swap .a{opacity:0;transform:translateY(8px)}
+@media (prefers-reduced-motion: reduce){.conv-demo .q,.conv-demo .a{transition:none}}
+.l-copy{margin-top:14px;font-size:13px;color:var(--muted)}.l-copy b{color:var(--brass);font-weight:700}
 .l-foot{text-align:center;padding:30px 20px calc(30px + var(--safe-b));color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
 .l-foot .logo{font-size:18px;margin-bottom:6px}
 .demo-flag{background:var(--brass-soft);color:var(--brass-ink);font-size:13px;padding:8px 16px;text-align:center}
@@ -513,6 +517,7 @@ textarea.input{min-height:84px;resize:vertical}
   <footer class="l-foot">
     <div class="logo"><b>دلي</b><i>Daly</i></div>
     <div>دفتر ديونك، في جيبك.</div>
+    <div class="l-copy">© 2026 دلي · تطوير <b>علي حسن الدلي</b></div>
   </footer>
 </div>
 
@@ -897,19 +902,31 @@ function setAuthTab(t){
   $('#auth-form [name=pass]').autocomplete = t === 'up' ? 'new-password' : 'current-password';
   $('#auth-err').textContent = '';
 }
+const CONV_DEMO = [
+  {c:'USD', n:100, q:'كم تساوي 100 دولار أمريكي بالليرة السورية الجديدة؟', s:'$'},
+  {c:'EUR', n:100, q:'كم تساوي 100 يورو بالليرة السورية الجديدة؟', s:'€'},
+  {c:'KWD', n:5, q:'كم تساوي 5 دنانير كويتية بالليرة السورية الجديدة؟', s:'د.ك'},
+];
+let convIdx = 0, convTimer = null;
 function landingConv(){
   const a = $('#cd-a'); if (!a) return;
-  const v = convert(5, 'KWD', 'SYP');
-  a.innerHTML = `5 <small>د.ك</small> = ${nfmt(v, 'SYP')} <small>ل.س</small>`;
+  const d = CONV_DEMO[convIdx % CONV_DEMO.length];
+  a.innerHTML = `${d.n} <small>${d.s}</small> = ${nfmt(convert(d.n, d.c, 'SYP'), 'SYP')} <small>ل.س</small>`;
+  $('#cd-q').textContent = d.q;
   const t = rateTime();
   $('#cd-r').textContent = 'حسب سعر الصرف الحالي' + (t ? `، آخر تحديث ${t}` : '');
+  if (!convTimer) convTimer = setInterval(() => {
+    const box = $('.conv-demo'); if (!box || $('#landing').hidden || document.hidden) return;
+    box.classList.add('swap');
+    setTimeout(() => { convIdx++; landingConv(); box.classList.remove('swap'); }, 380);
+  }, 4500);
 }
 
 /* =====================================================
    قصة صفحة الهبوط: سكرول سينمائي
    ===================================================== */
 const STORY = (() => {
-  const IW = 1376, IH = 768, FW = 720, FH = 405, NF = 40, PER = 20, COLS = 5;
+  const IW = 1376, IH = 768, FW = 1024, FH = 576, NF = 24, PER = 12, COLS = 4;
   const cl = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
   const rng = (a, b, p) => cl((p - a) / (b - a));
   const eio = x => { x = cl(x); return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
@@ -919,14 +936,14 @@ const STORY = (() => {
   const QUAD = [[491, 456], [608, 428], [893, 514], [766, 557]];
   let inited = false, running = false, reduce = false, lite = false;
   let st, stage, cT, xT, cF, xF, W = 0, H = 0, dpr = 1, P = 0, Y = 0, lastY = 0, lastT = 0, vel = 0, now = 0;
-  const atlas = [null, null], plates = {}, rect = {};
+  const atlas = [null, null], plates = {}, rect = {}; let still = null, blurC = null, blurX = null;
   let texts = [], chips = [], top, flash, dark, cta, hint, skip, sndBtn, net;
   let leaves = [], motes = [], golds = [];
 
   function seeded(seed){ let s = seed; return () => (s = (s * 16807) % 2147483647) / 2147483647; }
   function assets(){ // الصور محفوظة كنص في story-assets.js لأن رفع الصور من الجوال إلى GitHub لا يعمل
     if (window.DALY_STORY) return Promise.resolve(window.DALY_STORY);
-    return new Promise(res => { const sc = document.createElement('script'); sc.src = 'story-assets.js?v=1'; sc.async = true;
+    return new Promise(res => { const sc = document.createElement('script'); sc.src = 'story-assets.js?v=2'; sc.async = true;
       sc.onload = () => res(window.DALY_STORY || {}); sc.onerror = () => res({}); document.head.appendChild(sc); });
   }
   function load(src){ return new Promise(res => { const im = new Image(); im.decoding = 'async'; im.onload = () => res(im); im.onerror = () => res(null); im.src = src; }); }
@@ -983,15 +1000,38 @@ const STORY = (() => {
     const vis = 1 - rng(.33, .38, p);
     cT.style.opacity = vis; if (vis <= 0) return;
     const f = rng(0, .17, p) * (NF - 1), push = 1 + .22 * eio(rng(.17, .37, p));
-    xT.clearRect(0, 0, W, H);
-    const sc = Math.max(W / FW, H / FH) * push, dw = FW * sc, dh = FH * sc;
-    const dx = cl(W / 2 - .42 * dw, W - dw, 0), dy = cl(H / 2 - .45 * dh, H - dh, 0);
+    const cover = Math.max(W / FW, H / FH);
+    // على الشاشة الطولية: نبدأ بلقطة واسعة واضحة ثم تقترب الكاميرا حتى تملأ الشاشة
+    const fit = Math.min(cover, W / FW * 1.3), sc = lerp(fit, cover, eio(rng(0, .17, p))) * push;
+    const dw = FW * sc, dh = FH * sc;
+    const dx = cl(W / 2 - .42 * dw, W - dw, 0), dy = dh >= H ? cl(H / 2 - .45 * dh, H - dh, 0) : (H - dh) * .4;
     const i0 = Math.floor(f), t = f - i0;
-    frame(i0, dx, dy, dw, dh, 1); if (t > .02 && i0 + 1 < NF) frame(i0 + 1, dx, dy, dw, dh, t);
+    xT.fillStyle = '#05090a'; xT.fillRect(0, 0, W, H);
+    if (dh < H - 1) backdrop(i0, dy, dh);
+    if (i0 === 0 && still){ xT.drawImage(still, dx, dy, dw, dh); if (t > .02) frame(1, dx, dy, dw, dh, t); }
+    else { frame(i0, dx, dy, dw, dh, 1); if (t > .02 && i0 + 1 < NF) frame(i0 + 1, dx, dy, dw, dh, t); }
+    if (dh < H - 1){ // دمج حواف اللقطة مع الخلفية الضبابية: الحافة نفسها بلون واحد من الجهتين
+      const band = dh * .26, out = Math.min(70, dy);
+      const fade = (y0, y1) => { const g = xT.createLinearGradient(0, y0, 0, y1); g.addColorStop(0, 'rgba(5,9,10,1)'); g.addColorStop(.35, 'rgba(5,9,10,.55)'); g.addColorStop(1, 'rgba(5,9,10,0)'); xT.fillStyle = g; xT.fillRect(0, Math.min(y0, y1), W, Math.abs(y1 - y0) + 1); };
+      fade(dy, dy + band); fade(dy, dy - out);
+      fade(dy + dh, dy + dh - band); fade(dy + dh, dy + dh + out);
+    }
+  }
+  function backdrop(i, dy, dh){ // نسخة ضبابية معتمة من اللقطة تملأ الفراغ فوق وتحت
+    if (!blurC){ blurC = document.createElement('canvas'); blurC.width = 40; blurC.height = 22; blurX = blurC.getContext('2d'); }
+    const src = i === 0 && still ? still : null;
+    blurX.clearRect(0, 0, 40, 22);
+    if (src) blurX.drawImage(src, 0, 0, 40, 22);
+    else { let k = i < PER ? 0 : 1; if (!atlas[k]){ if (atlas[0]){ k = 0; i = PER - 1; } else if (still){ blurX.drawImage(still, 0, 0, 40, 22); k = -1; } else return; }
+      if (k >= 0){ const j = i % PER; blurX.drawImage(atlas[k], (j % COLS) * FW, Math.floor(j / COLS) * FH, FW, FH, 0, 0, 40, 22); } }
+    const sc = Math.max(W / 40, H / 22), bw = 40 * sc, bh = 22 * sc;
+    xT.save(); xT.imageSmoothingEnabled = true; xT.imageSmoothingQuality = 'high'; xT.globalAlpha = .55;
+    xT.drawImage(blurC, (W - bw) / 2, (H - bh) / 2, bw, bh); xT.restore();
+    xT.fillStyle = 'rgba(5,9,10,.45)'; xT.fillRect(0, 0, W, H);
   }
   function frame(i, dx, dy, dw, dh, a){
     let k = i < PER ? 0 : 1;
-    if (!atlas[k]){ if (k === 1 && atlas[0]){ k = 0; i = PER - 1; } else return; }
+    if (!atlas[k]){ if (k === 1 && atlas[0]){ k = 0; i = PER - 1; } else { if (still) xT.drawImage(still, dx, dy, dw, dh); return; } }
     const j = i % PER;
     xT.globalAlpha = a; xT.drawImage(atlas[k], (j % COLS) * FW, Math.floor(j / COLS) * FH, FW, FH, dx, dy, dw, dh); xT.globalAlpha = 1;
   }
@@ -1172,7 +1212,7 @@ const STORY = (() => {
       assets().then(A => {
         const src = k => A[k] || (k + '.webp');
         $$('.st-plate img[data-k]', st).forEach(im => { im.src = src(im.dataset.k); });
-        load(src('st-tree-a')).then(im => { atlas[0] = im; draw(); return load(src('st-tree-b')); }).then(im => { atlas[1] = im; draw(); });
+        load(src('st-tree-0')).then(im => { still = im; draw(); return load(src('st-tree-a')); }).then(im => { atlas[0] = im; draw(); return load(src('st-tree-b')); }).then(im => { atlas[1] = im; draw(); });
       });
       window.addEventListener('resize', () => { if (!$('#landing').hidden) size(); });
       const gesture = () => { startSound(); if (SN.ctx && SN.ctx.state === 'suspended') SN.ctx.resume(); };
@@ -1629,7 +1669,7 @@ function vSettings(){
       <button class="row" data-act="changePass"><span class="av" style="width:38px;height:38px">${icon('key')}</span><div class="mid"><div class="t">تغيير كلمة السر</div></div></button>
       <button class="row" data-act="logout"><span class="av" style="width:38px;height:38px;background:var(--out-soft);color:var(--out)">${icon('out')}</span><div class="mid"><div class="t" style="color:var(--out)">تسجيل الخروج</div></div></button>
     </div></section>
-    <p class="hint" style="text-align:center;margin-top:26px"><span class="logo" style="font-size:15px"><b>دلي</b><i>Daly</i></span><br>دفتر ديونك، في جيبك.</p>`;
+    <p class="hint" style="text-align:center;margin-top:26px"><span class="logo" style="font-size:15px"><b>دلي</b><i>Daly</i></span><br>دفتر ديونك، في جيبك.<br><span style="font-size:12px">© 2026 دلي · تطوير علي حسن الدلي</span></p>`;
 }
 
 /* ---------- TRASH ---------- */
@@ -1825,7 +1865,7 @@ function statementHTML(pid){
     <div class="sum">${sumBox}</div>
     <table><thead><tr><th>#</th>${pid ? '' : '<th>الشخص</th>'}<th>النوع</th><th>التاريخ</th><th>المبلغ</th><th>المسدَّد</th><th>المتبقي</th><th>ملاحظات</th></tr></thead><tbody>${rows || '<tr><td colspan="8">لا توجد ديون</td></tr>'}</tbody></table>
     ${txRows.length ? `<h2>سجل الدفعات</h2><table><thead><tr><th>التاريخ</th>${pid ? '' : '<th>الشخص</th>'}<th>الحركة</th><th>المبلغ</th><th>ملاحظة</th></tr></thead><tbody>${txRows.map(({d, x}) => `<tr><td>${dateAr(x.d)}</td>${pid ? '' : `<td>${esc(personName(d.personId))}</td>`}<td>${txL[x.t]}</td><td>${fmt(x.a, d.cur)}</td><td>${esc(x.n || '')}</td></tr>`).join('')}</tbody></table>` : ''}
-    <div class="foot">صدر هذا الكشف من تطبيق دلي Daly. المبالغ بعملاتها الأصلية بدون تحويل.</div></div>`;
+    <div class="foot">صدر هذا الكشف من تطبيق دلي · تطوير علي حسن الدلي. المبالغ بعملاتها الأصلية بدون تحويل.</div></div>`;
 }
 
 /* ---------- تثبيت التطبيق ---------- */
@@ -1940,8 +1980,9 @@ async function buildPDF(pid){
     table([{h:'التاريخ', w:1.6}, ...(pid ? [] : [{h:'الشخص', w:1.8}]), {h:'الحركة', w:1}, {h:'المبلغ', w:1.4}, {h:'ملاحظة', w:2.2}],
       tx.map(({d, x}) => [dateAr(x.d), ...(pid ? [] : [personName(d.personId)]), L[x.t], fmt(x.a, d.cur), x.n || '']));
   }
-  y += 50; ensure(60); line(M, y, R, y, '#ddd', 1);
-  txt('صدر هذا الكشف من تطبيق دلي Daly. المبالغ بعملاتها الأصلية بدون تحويل.', R, y + 36, 20, '#777');
+  y += 50; ensure(100); line(M, y, R, y, '#ddd', 1);
+  txt('صدر هذا الكشف من تطبيق دلي · تطوير علي حسن الدلي', R, y + 36, 20, '#777');
+  txt('المبالغ بعملاتها الأصلية بدون تحويل.', R, y + 66, 18, '#999');
   pages.forEach((cv, i) => { const cc = cv.getContext('2d'); cc.font = `400 20px ${FONT}`; cc.fillStyle = '#999'; cc.textAlign = 'center'; cc.direction = 'ltr'; cc.fillText(`${i + 1} / ${pages.length}`, W / 2, H - 40); });
   return pagesToPDF(pages);
 }
