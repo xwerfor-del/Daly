@@ -2,25 +2,25 @@
   "source": "sp-today",
   "city": "damascus",
   "unit": "new SYP per 1 unit",
-  "fetchedAt": "2026-11-17T17:29:04.189Z",
+  "fetchedAt": "2026-11-18T06:57:54.457Z",
   "syp": {
     "USD": {
       "buy": 149.5,
       "sell": 150,
       "mid": 149.75,
-      "updated_at": "2026-11-17T14:36:03+03:00"
+      "updated_at": "2026-11-18T00:11:34+03:00"
     },
     "EUR": {
       "buy": 163.3,
       "sell": 165.2,
       "mid": 164.25,
-      "updated_at": "2026-11-17T19:28:02+03:00"
+      "updated_at": "2026-11-18T00:11:34+03:00"
     },
     "KWD": {
       "buy": 474.54,
       "sell": 480.94,
       "mid": 477.74,
-      "updated_at": "2026-11-17T19:16:02+03:00"
+      "updated_at": "2026-11-18T00:11:34+03:00"
     }
   }
 }
