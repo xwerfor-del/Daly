@@ -359,7 +359,7 @@ body.auth-lock{overflow:hidden}
 @keyframes up{from{transform:translateY(100%)}to{transform:none}}
 @keyframes fade{from{opacity:0}}
 
-#toast{position:fixed;bottom:calc(100px + var(--safe-b));left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:14px;font-weight:600;font-size:15px;opacity:0;pointer-events:none;transition:all .25s;z-index:80;max-width:90vw;text-align:center}
+#toast{z-index:110;position:fixed;bottom:calc(100px + var(--safe-b));left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:14px;font-weight:600;font-size:15px;opacity:0;pointer-events:none;transition:all .25s;z-index:80;max-width:90vw;text-align:center}
 #toast.on{opacity:1;transform:translateX(-50%)}
 .offline{background:var(--out);color:#fff;text-align:center;font-size:13px;padding:6px}
 .setting{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px;border-bottom:1px solid var(--line)}
@@ -419,6 +419,92 @@ body.auth-lock{overflow:hidden}
 @media(min-width:900px){
   .tabbar{max-width:720px;margin:0 auto;border:1px solid var(--line);border-bottom:0;border-radius:20px 20px 0 0}
 }
+
+/* ---------- قفل التطبيق ---------- */
+#lock{position:fixed;inset:0;z-index:100;background:radial-gradient(ellipse at 50% 0%,#17513C,var(--green) 60%);color:#fff;display:flex;align-items:center;justify-content:center;padding:calc(20px + env(safe-area-inset-top)) 20px calc(20px + var(--safe-b));overflow:auto}
+#lock[hidden]{display:none}
+.lk-in{width:100%;max-width:330px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.lk-logo{font-size:30px;margin-bottom:22px}
+.lk-t{font-size:18px;font-weight:600;margin:0 0 18px;min-height:1.5em}
+.lk-dots{display:flex;gap:18px;justify-content:center;margin-bottom:10px}
+.lk-dots i{width:15px;height:15px;border-radius:50%;border:2px solid rgba(255,255,255,.55);transition:background .15s,border-color .15s,transform .15s}
+.lk-dots i.on{background:var(--brass);border-color:var(--brass);transform:scale(1.1)}
+.lk-dots.shake{animation:lkshake .42s}
+@keyframes lkshake{0%,100%{transform:none}20%{transform:translateX(-12px)}40%{transform:translateX(10px)}60%{transform:translateX(-7px)}80%{transform:translateX(4px)}}
+.lk-e{color:#FFB4A8;font-size:14px;min-height:1.4em;margin:6px 0 16px}
+.lk-pad{display:grid;grid-template-columns:repeat(3,76px);gap:16px 22px;justify-content:center}
+.lk-pad button{width:76px;height:76px;border-radius:50%;border:0;background:rgba(255,255,255,.09);color:#fff;font:600 28px/1 system-ui,-apple-system,sans-serif;display:grid;place-items:center;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .12s,transform .12s}
+.lk-pad button:active{background:rgba(255,255,255,.22);transform:scale(.94)}
+.lk-pad .lk-txt{background:none;font-family:inherit;font-size:14px;font-weight:600;line-height:1.25;color:#CFE0D6}
+.lk-pad .lk-txt .i{width:26px;height:26px}
+.lk-x{position:absolute;top:calc(14px + env(safe-area-inset-top));left:14px;width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;display:grid;place-items:center}
+.lk-conf{margin-top:8px;background:rgba(0,0,0,.25);border-radius:18px;padding:16px;font-size:15px;line-height:1.7}
+.lk-conf .btns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.lk-conf .btn{min-height:44px;font-size:15px}
+/* ---------- صور الإيصالات ---------- */
+.vh{position:absolute!important;width:1px;height:1px;opacity:0;overflow:hidden;clip:rect(0 0 0 0)}
+.rc-add{cursor:pointer;position:relative;display:inline-flex;align-items:center;gap:4px}
+.rc-box{padding:12px}
+.rc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:10px}
+.rc-th{position:relative;aspect-ratio:1;border-radius:14px;overflow:hidden;border:1px solid var(--line);padding:0;background:var(--bg);cursor:pointer}
+.rc-th img{width:100%;height:100%;object-fit:cover;display:block}
+.rc-th em{position:absolute;bottom:4px;right:4px;background:rgba(0,0,0,.6);color:#fff;font-style:normal;font-size:11px;padding:1px 7px;border-radius:9px}
+.rc-empty{margin:0;color:var(--muted);font-size:14px;display:flex;align-items:center;gap:10px}
+.rc-empty .i{flex:none;width:22px;height:22px;color:var(--brass-ink)}
+.rc-clip{border:0;background:var(--brass-soft);color:var(--brass-ink);width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex:none;padding:0}
+.rc-clip .i{width:18px;height:18px}
+.rc-pick{display:flex;align-items:center;gap:10px;border:1.5px dashed var(--line);border-radius:var(--r-md);padding:12px 14px;color:var(--muted);font-weight:600;font-size:15px;cursor:pointer;margin-bottom:12px;position:relative}
+.rc-pick .i{color:var(--brass-ink)}
+.rc-prev{display:flex;align-items:center;gap:12px;margin:-4px 0 12px}
+.rc-prev img{width:64px;height:64px;object-fit:cover;border-radius:12px;border:1px solid var(--line)}
+#viewer{position:fixed;inset:0;z-index:55;background:rgba(3,8,6,.94);display:flex;flex-direction:column}
+#viewer[hidden]{display:none}
+.vw-top{display:flex;justify-content:space-between;align-items:center;padding:calc(12px + env(safe-area-inset-top)) 14px 10px;color:#fff;gap:10px}
+.vw-top .t{font-weight:600;font-size:15px;color:#CFE0D6;flex:1;text-align:center}
+.vw-top button{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:#fff;display:grid;place-items:center;flex:none}
+.vw-top .del{color:#FFB4A8}
+.vw-img{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:10px 10px calc(16px + var(--safe-b))}
+.vw-img img{max-width:100%;max-height:100%;object-fit:contain;border-radius:10px;animation:fade .25s}
+/* ---------- رابط الكشف ---------- */
+.share-row{display:flex;align-items:center;gap:12px;width:100%;margin-top:10px;padding:13px 14px;border:1px solid var(--line);background:var(--card);border-radius:var(--r-md);color:var(--ink);text-align:right;font:inherit;cursor:pointer}
+.share-row .ic{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:var(--bg);color:var(--green2);flex:none}
+.share-row.on .ic{background:var(--in-soft);color:var(--in)}
+.share-row .mid{flex:1;min-width:0;display:grid;gap:1px}
+.share-row .mid b{font-size:15px}.share-row .mid span{font-size:13px;color:var(--muted)}
+.share-row.on .mid b{color:var(--in)}
+.share-row>.i{color:var(--muted);width:18px;height:18px}
+.sh-link{display:flex;gap:8px;align-items:center;margin-bottom:12px}
+.sh-link input{flex:1;font-size:14px;min-height:46px}
+.sh-stop{display:block;margin:14px auto 0;color:var(--out)!important}
+#share{min-height:100vh;background:var(--bg)}
+#share[hidden]{display:none}
+.sh-top{background:var(--green);color:#fff;display:flex;justify-content:space-between;align-items:center;padding:calc(14px + env(safe-area-inset-top)) 20px 14px}
+.sh-top .logo{font-size:20px}
+.sh-badge{font-size:13px;border:1px solid rgba(255,255,255,.3);border-radius:99px;padding:4px 12px;color:#D7E6DD}
+.sh-main{max-width:600px;margin:0 auto;padding:22px 18px 10px}
+.sh-hi{color:var(--muted);margin:0 0 2px}
+.sh-main h1{font-size:24px;margin:0 0 16px;line-height:1.35}
+.sh-main h2{font-size:17px;margin:26px 0 10px}
+.sh-bal{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sh-bal>div{border-radius:var(--r-lg);padding:14px;display:grid;gap:4px;align-content:start}
+.sh-bal span{font-size:14px;font-weight:600}
+.sh-bal b{font-size:22px;line-height:1.3}
+.sh-bal .owe{background:var(--out-soft);color:var(--out)}
+.sh-bal .get{background:var(--in-soft);color:var(--in)}
+.sh-clear{margin-top:12px;background:var(--in-soft);color:var(--in);border-radius:var(--r-md);padding:12px 14px;font-weight:600}
+.sh-debt{padding:14px;margin-bottom:10px}
+.sh-dh{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.sh-meta{font-size:13px;color:var(--muted);margin-top:4px}
+.sh-tx{list-style:none;margin:10px 0 0;padding:10px 0 0;border-top:1px dashed var(--line);display:grid;gap:6px;font-size:14px}
+.sh-tx li{display:flex;justify-content:space-between;gap:8px}
+.sh-tx li span{color:var(--muted)}
+.sh-upd{color:var(--muted);font-size:13px;text-align:center;margin:18px 0 2px}
+.sh-ro{color:var(--muted);font-size:12px;text-align:center;margin:0}
+.sh-foot{text-align:center;padding:26px 20px calc(30px + var(--safe-b));margin-top:24px;border-top:1px solid var(--line)}
+.sh-foot p{margin:0 0 12px;font-weight:600}
+.sh-miss{text-align:center;padding-top:60px}
+.sh-miss p{color:var(--muted)}
+#share .btn{text-decoration:none}
 </style>
 </head>
 <body>
@@ -569,6 +655,31 @@ body.auth-lock{overflow:hidden}
 </div>
 
 <div id="sheet-wrap" hidden><div class="scrim" data-act="closeSheet"></div><div class="sheet" role="dialog" aria-modal="true" id="sheet"></div></div>
+<div id="lock" hidden role="dialog" aria-modal="true" aria-label="قفل دلي">
+  <button class="lk-x" id="lk-x" type="button" aria-label="إلغاء" hidden><svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  <div class="lk-in">
+    <div class="logo lk-logo"><b>دلي</b><i>Daly</i></div>
+    <p class="lk-t" id="lk-t">اكتب رمز القفل</p>
+    <div class="lk-dots" id="lk-dots" dir="ltr"><i></i><i></i><i></i><i></i></div>
+    <p class="lk-e" id="lk-e" role="alert"></p>
+    <div class="lk-pad" id="lk-pad" dir="ltr">
+      <button type="button" data-k="1">1</button><button type="button" data-k="2">2</button><button type="button" data-k="3">3</button>
+      <button type="button" data-k="4">4</button><button type="button" data-k="5">5</button><button type="button" data-k="6">6</button>
+      <button type="button" data-k="7">7</button><button type="button" data-k="8">8</button><button type="button" data-k="9">9</button>
+      <button type="button" class="lk-txt" data-k="forgot" id="lk-forgot">نسيت الرمز؟</button><button type="button" data-k="0">0</button>
+      <button type="button" class="lk-txt" data-k="del" aria-label="حذف رقم"><svg class="i" viewBox="0 0 24 24"><path d="M21 5H9l-6 7 6 7h12z"/><path d="m11 9 6 6m0-6-6 6"/></svg></button>
+    </div>
+    <div class="lk-conf" id="lk-conf" hidden>
+      لإعادة تعيين الرمز سنخرجك من حسابك. ادخل بعدها بالإيميل وكلمة السر، واختر رمزاً جديداً من «حسابي».
+      <div class="btns"><button type="button" class="btn ghost" style="color:#fff;border-color:rgba(255,255,255,.3)" data-k="no">إلغاء</button><button type="button" class="btn brass" data-k="yes">خروج</button></div>
+    </div>
+  </div>
+</div>
+<div id="viewer" hidden role="dialog" aria-modal="true" aria-label="صورة الإيصال">
+  <div class="vw-top"><button type="button" data-act="rcClose" aria-label="إغلاق"><svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button><div class="t" id="vw-t">صورة الإيصال</div><button type="button" class="del" data-act="rcDel" aria-label="حذف الصورة"><svg class="i" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div>
+  <div class="vw-img" data-act="rcClose"><img id="vw-img" alt="صورة الإيصال"></div>
+</div>
+<div id="share" hidden></div>
 <div id="toast" role="status" aria-live="polite"></div>
 <div id="print-area"></div>
 
@@ -652,6 +763,12 @@ function icon(name){
     file:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/>',
     key:'<circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l3 3"/>',
     out:'<path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h11"/>',
+    lock:'<rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>',
+    link:'<path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1.2 1.2"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1.2-1.2"/>',
+    clip:'<path d="m20 11.5-8.2 8.2a5 5 0 0 1-7.1-7.1l8.6-8.6a3.4 3.4 0 0 1 4.8 4.8l-8.6 8.6a1.7 1.7 0 0 1-2.4-2.4l7.9-7.9"/>',
+    camera:'<path d="M3 8a2 2 0 0 1 2-2h2.5L9 4h6l1.5 2H19a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><circle cx="12" cy="13" r="3.5"/>',
+    share:'<path d="M12 3v12M8 7l4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/>',
+    chev:'<path d="M15 6l-6 6 6 6"/>',
     eye:'<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>'
   }[name] || '';
   return `<svg class="i" viewBox="0 0 24 24" aria-hidden="true">${p}</svg>`;
@@ -835,6 +952,12 @@ function LocalBackend(){
     async put(u, col, obj){ const d = ls.get(key(u), {people:{}, debts:{}}); d[col][obj.id] = obj; ls.set(key(u), d); dataCb && dataCb(col, Object.values(d[col])); },
     async del(u, col, id){ const d = ls.get(key(u), {people:{}, debts:{}}); delete d[col][id]; ls.set(key(u), d); dataCb && dataCb(col, Object.values(d[col])); },
     watchRates(cb){ rateCb = cb; setTimeout(() => cb(ls.get('daly_demo_global', null)), 0); return () => {}; },
+    async putReceipt(u, r){ const k = 'daly_demo_rc_' + u; const m = ls.get(k, {}); m[r.id] = r; localStorage.setItem(k, JSON.stringify(m)); },
+    async listReceipts(u, debtId){ return Object.values(ls.get('daly_demo_rc_' + u, {})).filter(r => r.debtId === debtId); },
+    async delReceipt(u, id){ const k = 'daly_demo_rc_' + u; const m = ls.get(k, {}); delete m[id]; ls.set(k, m); },
+    async putShare(t, o){ const m = ls.get('daly_demo_shares', {}); m[t] = JSON.parse(JSON.stringify(o)); ls.set('daly_demo_shares', m); },
+    async delShare(t){ const m = ls.get('daly_demo_shares', {}); delete m[t]; ls.set('daly_demo_shares', m); },
+    watchShare(t, cb){ setTimeout(() => cb(ls.get('daly_demo_shares', {})[t] || null), 0); return () => {}; },
     async setRates(v){ const g = Object.assign({}, ls.get('daly_demo_global', {}), v); ls.set('daly_demo_global', g); rateCb && rateCb(g); },
     isAdmin(){ return true; }
   };
@@ -883,6 +1006,12 @@ async function FirebaseBackend(){
     del(u, col, id){ return fs.deleteDoc(fs.doc(db, 'users', u, col, id)); },
     watchRates(cb){ return fs.onSnapshot(fs.doc(db, 'public', 'rates'), s => cb(s.exists() ? s.data() : null), () => cb(null)); },
     setRates(v){ return fs.setDoc(fs.doc(db, 'public', 'rates'), v, {merge:true}); },
+    putReceipt(u, r){ return fs.setDoc(fs.doc(db, 'users', u, 'receipts', r.id), clean(r)); },
+    async listReceipts(u, debtId){ const q = await fs.getDocs(fs.query(fs.collection(db, 'users', u, 'receipts'), fs.where('debtId', '==', debtId))); return q.docs.map(d => d.data()); },
+    delReceipt(u, id){ return fs.deleteDoc(fs.doc(db, 'users', u, 'receipts', id)); },
+    putShare(t, o){ return fs.setDoc(fs.doc(db, 'shares', t), clean(o)); },
+    delShare(t){ return fs.deleteDoc(fs.doc(db, 'shares', t)); },
+    watchShare(t, cb){ return fs.onSnapshot(fs.doc(db, 'shares', t), {includeMetadataChanges:true}, s => { if (!s.exists() && s.metadata.fromCache) return cb(undefined); cb(s.exists() ? s.data() : null); }, e => { console.error(e); cb(null); }); },
     isAdmin(){ return !!S.user && ADMINS.includes(String(S.user.email || '').toLowerCase()); }
   };
 }
@@ -891,6 +1020,7 @@ async function FirebaseBackend(){
 function save(col, obj){
   obj.updatedAt = Date.now();
   S[col][obj.id] = obj;
+  if (col === 'debts') queueShare(obj.personId); else if (col === 'people') queueShare(obj.id);
   Promise.resolve(B.put(S.user.uid, col, obj)).catch(e => { console.error(e); toast('لم يُحفظ التعديل، تحقّق من الاتصال'); });
 }
 function remove(col, id){
@@ -1361,7 +1491,13 @@ function route(){
   return {name: parts[0] || 'home', id: parts[1] || '', q};
 }
 const go = h => { if (location.hash === h) render(); else location.hash = h; };
-window.addEventListener('hashchange', () => { if (S.user) render(); });
+window.addEventListener('hashchange', () => {
+  const t = shareRouteToken();
+  if (!B) return; // التطبيق لم يجهز بعد، وonUser سيفتح الصفحة الصحيحة
+  if (t){ if (shareOpen !== t) openShareView(t); return; }
+  if (shareOpen){ closeShareView(); onUser(S.user); return; }
+  if (S.user) render();
+});
 
 function topbar(title, back){
   const tb = $('#topbar');
@@ -1376,7 +1512,7 @@ function topbar(title, back){
 function setTab(name){ $$('#tabbar a').forEach(a => { if (a.dataset.tab === name) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current'); }); }
 
 function render(){
-  if (!S.user) return;
+  if (!S.user || shareOpen) return;
   const r = route();
   const views = {home:vHome, people:vPeople, person:vPerson, debt:vDebt, add:vAdd, edit:vAdd, convert:vConvert, settings:vSettings, trash:vTrash, admin:vAdmin, report:vReport};
   const fn = views[r.name] || vHome;
@@ -1548,6 +1684,7 @@ function vPerson(r){
       <button class="act" data-act="pdf" data-id="${esc(p.id)}"><span class="ico">${icon('pdf')}</span>كشف PDF</button>
       <button class="act" data-act="editPerson" data-id="${esc(p.id)}"><span class="ico">${icon('edit')}</span>تعديل</button>
     </div>
+    <button class="share-row ${p.share ? 'on' : ''}" data-act="share" data-id="${esc(p.id)}"><span class="ic">${icon('link')}</span><span class="mid"><b>${p.share ? 'رابط الكشف فعّال' : 'رابط كشف لـ ' + esc(p.name)}</b><span>${p.share ? 'يتحدّث تلقائياً. اضغط للمشاركة أو الإيقاف' : 'يرى فيه رصيده ودفعاته بدون حساب'}</span></span>${icon('chev')}</button>
     <section class="sec"><div class="sec-h"><h2>ديون مفتوحة (${open.length})</h2></div>
       <div class="panel list">${open.length ? open.map(d => debtRow(d, false)).join('') : `<div class="empty" style="padding:22px"><p style="margin:0">لا توجد ديون مفتوحة.</p></div>`}</div></section>
     ${done.length ? `<section class="sec"><div class="sec-h"><h2>مسدَّدة (${done.length})</h2></div><div class="panel list">${done.map(d => debtRow(d, false)).join('')}</div></section>` : ''}
@@ -1598,13 +1735,21 @@ function vDebt(r){
     <section class="sec tx"><div class="sec-h"><h2>السجل (${txs.length})</h2></div>
       <div class="panel list">${txs.length ? txs.map(x => `<div class="row"><div class="mid"><div class="t">${txLabel[x.t]}</div><div class="s">${dateAr(x.d)}${x.n ? '، ' + esc(x.n) : ''}</div></div>
         <div class="end"><b class="tx-${x.t}">${x.t === 'add' ? '+' : '−'} ${fmtH(x.a, d.cur)}</b></div>
+        ${x.rc ? `<button class="rc-clip" data-act="rcView" data-d="${esc(d.id)}" data-id="${esc(x.rc)}" aria-label="صورة الوصل">${icon('clip')}</button>` : ''}
         <button class="del-x" data-act="delTx" data-id="${esc(d.id)}" data-tx="${esc(x.id)}" aria-label="حذف هذه الحركة">${icon('x')}</button></div>`).join('')
         : `<div class="empty" style="padding:20px"><p style="margin:0">لا توجد دفعات بعد.</p></div>`}</div></section>
+    <section class="sec"><div class="sec-h"><h2>صور وإيصالات</h2><label class="linkbtn rc-add">${icon('camera')} إرفاق صورة<input type="file" accept="image/*" class="vh" data-rc="${esc(d.id)}"></label></div>
+      <div class="panel rc-box" id="rc-box">${rcGridHTML(d.id)}</div></section>
     <div style="margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:10px">
       <button class="btn ghost" data-act="go" data-to="#/edit/${esc(d.id)}">${icon('edit')} تعديل</button>
       <button class="btn ghost" style="color:var(--out)" data-act="delDebt" data-id="${esc(d.id)}">${icon('trash')} حذف</button>
     </div>`;
 }
+
+vDebt.mount = r => {
+  const d = S.debts[r.id]; if (!d || d.deleted || !S.user) return;
+  if (!RC[d.id]) loadRc(d.id).then(() => { const b = $('#rc-box'); if (b && route().name === 'debt' && route().id === d.id) b.innerHTML = rcGridHTML(d.id); });
+};
 
 /* ---------- ADD / EDIT ---------- */
 let form = null, formShown = false;
@@ -1763,6 +1908,7 @@ function vSettings(){
     ${admin ? `<section class="sec"><div class="sec-h"><h2>إدارة الموقع</h2></div><div class="panel list">
       <a class="row" href="#/admin"><span class="av" style="width:38px;height:38px">${icon('shield')}</span><div class="mid"><div class="t">سعر الليرة في السوق</div><div class="s">يصل لكل المستخدمين فوراً</div></div></a></div></section>` : ''}
     <section class="sec"><div class="sec-h"><h2>الحساب</h2></div><div class="panel list">
+      <button class="row" data-act="lockToggle"><span class="av" style="width:38px;height:38px">${icon('lock')}</span><div class="mid"><div class="t">قفل التطبيق برمز</div><div class="s">${LOCK.on() ? 'مفعّل على هذا الجهاز' : 'رمز من 4 أرقام عند فتح دلي'}</div></div><span class="switch" role="switch" aria-checked="${LOCK.on()}" aria-label="قفل التطبيق"></span></button>
       <button class="row" data-act="editName"><span class="av" style="width:38px;height:38px">${icon('edit')}</span><div class="mid"><div class="t">تغيير الاسم</div></div></button>
       <button class="row" data-act="changePass"><span class="av" style="width:38px;height:38px">${icon('key')}</span><div class="mid"><div class="t">تغيير كلمة السر</div></div></button>
       <button class="row" data-act="logout"><span class="av" style="width:38px;height:38px;background:var(--out-soft);color:var(--out)">${icon('out')}</span><div class="mid"><div class="t" style="color:var(--out)">تسجيل الخروج</div></div></button>
@@ -1871,10 +2017,25 @@ function txSheet(d, t){
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
         <label class="field"><span>التاريخ</span><input class="input" id="tx-d" type="date" value="${today()}"></label>
         <label class="field"><span>ملاحظة</span><input class="input" id="tx-n" maxlength="80" placeholder="اختياري"></label></div>
+      <label class="rc-pick" id="tx-rc-l">${icon('camera')}<span id="tx-rc-s">إرفاق صورة الوصل (اختياري)</span><input type="file" accept="image/*" class="vh" id="tx-rc"></label>
+      <div class="rc-prev" id="tx-rc-prev" hidden></div>
       <div class="err" id="tx-err"></div>
       <div class="btns"><button type="button" class="btn ghost" data-act="closeSheet">إلغاء</button><button class="btn ${t === 'pay' ? 'in' : t === 'add' ? 'danger' : 'brass'}" type="submit">حفظ</button></div>
     </form>`, el => {
       el.addEventListener('click', e => { const b = e.target.closest('[data-fill]'); if (b){ $('#tx-a').value = b.dataset.fill; } });
+      txRc = null; txRcBusy = false;
+      el.querySelector('#tx-rc').addEventListener('change', async e => {
+        const f = e.target.files && e.target.files[0]; e.target.value = ''; if (!f) return;
+        const s = $('#tx-rc-s'), pv = $('#tx-rc-prev'); txRc = null; txRcBusy = true; s.textContent = 'تجهيز الصورة…'; pv.hidden = true;
+        try{
+          const out = await compressImage(f);
+          if (!$('#tx-rc-prev')) return;
+          txRc = out; s.textContent = 'تغيير الصورة';
+          pv.innerHTML = `<img src="${out.th}" alt="صورة الوصل"><button type="button" class="linkbtn" style="color:var(--out)" id="tx-rc-x">إزالة</button>`; pv.hidden = false;
+          $('#tx-rc-x').addEventListener('click', () => { txRc = null; pv.hidden = true; pv.innerHTML = ''; $('#tx-rc-s').textContent = 'إرفاق صورة الوصل (اختياري)'; });
+        }catch(err){ console.error(err); if ($('#tx-rc-s')) s.textContent = 'تعذّرت قراءة الصورة، جرّب صورة أخرى'; }
+        finally{ txRcBusy = false; }
+      });
       el.querySelector('form').dataset.debt = d.id; el.querySelector('form').dataset.t = t;
     });
 }
@@ -1885,7 +2046,10 @@ function submitTx(f){
   if (!(a > 0)){ err.textContent = 'اكتب مبلغاً أكبر من صفر.'; return; }
   const rem = debtRem(d);
   if (t !== 'add' && a > rem + 1e-9){ err.innerHTML = `المبلغ أكبر من المتبقي (${fmtH(rem, d.cur)}).`; return; }
-  const nd = Object.assign({}, d, {tx: (d.tx || []).concat([{id:uid(), t, a: round(a, CUR[d.cur].d), d: $('#tx-d').value || today(), n: $('#tx-n').value.trim(), at: Date.now()}])});
+  if (txRcBusy){ err.textContent = 'لحظة، الصورة قيد التجهيز…'; return; }
+  const txo = {id:uid(), t, a: round(a, CUR[d.cur].d), d: $('#tx-d').value || today(), n: $('#tx-n').value.trim(), at: Date.now()};
+  if (txRc){ const rc = Object.assign({id:uid(), debtId:d.id, txId:txo.id, at:Date.now()}, txRc); txo.rc = rc.id; addRc(rc); txRc = null; }
+  const nd = Object.assign({}, d, {tx: (d.tx || []).concat([txo])});
   FX.queue({t: isSettled(nd) ? 'settle' : (t === 'add' ? 'inc' : 'pay'), id:d.id, route:'debt', rem:debtRem(d), pct:paidPct(d)});
   save('debts', nd);
   closeSheet(() => { render(); toast(isSettled(nd) ? 'سُدّد الدين بالكامل' : ({pay:'سُجّلت الدفعة', cut:'سُجّل الخصم', add:'سُجّلت الزيادة'})[t]); });
@@ -2362,6 +2526,11 @@ const ACT = {
     catch(e){ err.style.color = ''; err.textContent = authMsg(e); }
   },
   closeSheet: () => closeSheet(),
+  lockToggle: () => LOCK.show(LOCK.on() ? 'off' : 'set1'),
+  rcView: el => rcOpen(el.dataset.d, el.dataset.id),
+  rcClose: (el, e) => { if (e && e.target && e.target.tagName === 'IMG') return; rcClose(); },
+  rcDel: () => rcDelete(),
+  share: el => { const p = S.people[el.dataset.id]; if (p) shareSheet(p); },
   filter: el => { S.ui.filter = el.dataset.v; $$('.chip[data-act=filter]').forEach(c => c.setAttribute('aria-pressed', String(c === el))); $('#plist').innerHTML = peopleList(); },
   tx: el => { const d = S.debts[el.dataset.id]; if (d) txSheet(d, el.dataset.t); },
   payAll: async el => {
@@ -2375,6 +2544,7 @@ const ACT = {
   delTx: async el => {
     const d = S.debts[el.dataset.id]; if (!d) return;
     if (!await confirmBox('حذف هذه الحركة؟', 'سيُعاد حساب المتبقي بدونها.', 'حذف', true)) return;
+    const gone = (d.tx || []).find(x => x.id === el.dataset.tx); if (gone && gone.rc) dropRc(d.id, gone.rc);
     save('debts', Object.assign({}, d, {tx:(d.tx || []).filter(x => x.id !== el.dataset.tx)}));
     render(); toast('حُذفت الحركة');
   },
@@ -2393,7 +2563,7 @@ const ACT = {
     save('debts', Object.assign({}, d, {deleted:false, deletedAt:null})); render(); toast('استُرجع الدين');
   },
   toggleSound: () => { S.prefs.sound = S.prefs.sound === false; savePrefs(); render(); if (S.prefs.sound) SND.play('coin'); toast(S.prefs.sound ? 'شُغّلت الأصوات' : 'أُطفئت الأصوات'); },
-  purge: async el => { if (!await confirmBox('حذف نهائي؟', 'لن تستطيع استرجاع هذا الدين أبداً.', 'حذف نهائي', true)) return; remove('debts', el.dataset.id); render(); toast('حُذف نهائياً'); },
+  purge: async el => { if (!await confirmBox('حذف نهائي؟', 'لن تستطيع استرجاع هذا الدين أبداً.', 'حذف نهائي', true)) return; purgeRc(el.dataset.id); remove('debts', el.dataset.id); render(); toast('حُذف نهائياً'); },
   editPerson: el => { const p = S.people[el.dataset.id]; if (p) personSheet(p); },
   delPerson: async el => {
     const p = S.people[el.dataset.id]; if (!p) return;
@@ -2503,10 +2673,295 @@ document.addEventListener('submit', e => {
 /* =====================================================
    AUTH FLOW & BOOT
    ===================================================== */
+
+/* =====================================================
+   قفل التطبيق برمز (على هذا الجهاز فقط)
+   ===================================================== */
+const LOCK = (() => {
+  let mode = null, buf = '', first = '', fails = 0, until = 0, hiddenAt = 0, busy = false;
+  const T = {unlock:'اكتب رمز القفل', set1:'اختر رمزاً من 4 أرقام', set2:'أعد كتابة الرمز للتأكيد', off:'اكتب الرمز لإلغاء القفل'};
+  const get = () => { const v = ls.get('daly_lock', null); return v && v.h && S.user && v.u === S.user.uid ? v : null; };
+  const on = () => !!get();
+  const hash = pin => sha256('daly-pin:' + S.user.uid + ':' + pin);
+  const dots = () => $$('#lk-dots i').forEach((d, i) => d.classList.toggle('on', i < buf.length));
+  function setT(m){ $('#lk-t').textContent = T[m]; }
+  function show(m){
+    if (!S.user) return;
+    mode = m; buf = ''; first = ''; busy = false;
+    $('#lock').hidden = false; document.body.classList.add('auth-lock');
+    setT(m); $('#lk-e').textContent = ''; $('#lk-conf').hidden = true; $('#lk-pad').hidden = false;
+    $('#lk-x').hidden = m === 'unlock'; $('#lk-forgot').style.visibility = m === 'unlock' ? 'visible' : 'hidden';
+    dots();
+  }
+  function hide(){ const l = $('#lock'); if (!l || l.hidden) return; l.hidden = true; mode = null; buf = ''; if ($('#auth') && $('#auth').hidden) document.body.classList.remove('auth-lock'); }
+  function bad(msg){
+    const el = $('#lk-dots'); el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake');
+    try{ navigator.vibrate && navigator.vibrate(120); }catch(e){}
+    $('#lk-e').textContent = msg || ''; buf = ''; setTimeout(dots, 200);
+  }
+  async function full(){
+    const pin = buf; busy = true;
+    try{
+      if (mode === 'set1'){ first = pin; buf = ''; mode = 'set2'; setT('set2'); $('#lk-e').textContent = ''; dots(); return; }
+      if (mode === 'set2'){
+        if (pin !== first){ mode = 'set1'; setT('set1'); first = ''; return bad('الرمزان مختلفان، جرّب من جديد'); }
+        ls.set('daly_lock', {u:S.user.uid, h:await hash(pin)}); hide(); toast('فُعّل قفل التطبيق'); render(); return;
+      }
+      const v = get(); const ok = !!v && (await hash(pin)) === v.h;
+      if (!ok){
+        if (++fails >= 5){ fails = 0; until = Date.now() + 30000; return bad('محاولات كثيرة، انتظر 30 ثانية'); }
+        return bad('رمز غير صحيح');
+      }
+      fails = 0;
+      if (mode === 'off'){ ls.del('daly_lock'); hide(); toast('أُلغي قفل التطبيق'); render(); return; }
+      hide();
+    } finally { busy = false; }
+  }
+  function press(k){
+    if (!mode || busy) return;
+    if (k === 'forgot'){ $('#lk-conf').hidden = false; $('#lk-pad').hidden = true; return; }
+    if (k === 'no'){ $('#lk-conf').hidden = true; $('#lk-pad').hidden = false; return; }
+    if (k === 'yes'){ ls.del('daly_lock'); hide(); B.signOut(); return; }
+    if (Date.now() < until){ $('#lk-e').textContent = 'انتظر قليلاً ثم حاول'; return; }
+    if (k === 'del'){ buf = buf.slice(0, -1); dots(); return; }
+    if (!/^\d$/.test(k) || buf.length >= 4) return;
+    buf += k; dots(); $('#lk-e').textContent = '';
+    if (buf.length === 4) setTimeout(full, 140);
+  }
+  $('#lock').addEventListener('click', e => { const b = e.target.closest('[data-k]'); if (b) press(b.dataset.k); });
+  $('#lk-x').addEventListener('click', () => hide());
+  document.addEventListener('keydown', e => {
+    if (!mode) return;
+    if (/^\d$/.test(e.key)){ e.preventDefault(); press(e.key); }
+    else if (e.key === 'Backspace'){ e.preventDefault(); press('del'); }
+    else if (e.key === 'Escape' && mode !== 'unlock') hide();
+  });
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden){ hiddenAt = Date.now(); return; }
+    if (S.user && on() && !mode && !shareOpen && hiddenAt && Date.now() - hiddenAt > 60000) show('unlock');
+  });
+  return {on, show, hide, check(){ if (on()) show('unlock'); else hide(); }};
+})();
+
+/* =====================================================
+   صور الإيصالات
+   ===================================================== */
+const RC = {}; // debtId -> [{id, debtId, txId, img, th, at}]
+let txRc = null, txRcBusy = false, rcCur = null;
+async function compressImage(file){
+  if (!file || (file.type && !/^image\//.test(file.type))) throw new Error('not-image');
+  const url = URL.createObjectURL(file);
+  try{
+    const img = await new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = () => rej(new Error('decode')); i.src = url; });
+    const W = img.naturalWidth, H = img.naturalHeight; if (!W || !H) throw new Error('empty');
+    const draw = (max, q) => {
+      const k = Math.min(1, max / Math.max(W, H));
+      const c = document.createElement('canvas'); c.width = Math.max(1, Math.round(W * k)); c.height = Math.max(1, Math.round(H * k));
+      const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, c.width, c.height); x.drawImage(img, 0, 0, c.width, c.height);
+      const out = c.toDataURL('image/jpeg', q); c.width = c.height = 0; return out;
+    };
+    let max = 1400, q = .72, out = draw(max, q);
+    while (out.length > 700000 && max > 480){ max = Math.round(max * .8); q = Math.max(.5, q - .06); out = draw(max, q); }
+    return {img: out, th: draw(260, .62)};
+  } finally { URL.revokeObjectURL(url); }
+}
+async function loadRc(debtId){
+  try{ RC[debtId] = (await B.listReceipts(S.user.uid, debtId)).sort((a, b) => a.at - b.at); }
+  catch(e){ console.error(e); RC[debtId] = RC[debtId] || []; }
+  return RC[debtId];
+}
+function rcGridHTML(debtId){
+  const l = RC[debtId];
+  if (!l) return `<p class="rc-empty">يحمّل الصور…</p>`;
+  if (!l.length) return `<p class="rc-empty">${icon('camera')}صوّر الوصل أو الورقة واحفظها مع هذا الدين كإثبات.</p>`;
+  const d = S.debts[debtId];
+  return `<div class="rc-grid">${l.map(r => {
+    const tx = r.txId && d && (d.tx || []).find(x => x.id === r.txId);
+    const tag = tx ? ({pay:'دفعة', cut:'خصم', add:'زيادة'})[tx.t] : '';
+    return `<button class="rc-th" data-act="rcView" data-d="${esc(debtId)}" data-id="${esc(r.id)}" aria-label="عرض الصورة"><img src="${r.th}" alt="" loading="lazy">${tag ? `<em>${tag}</em>` : ''}</button>`;
+  }).join('')}</div>`;
+}
+function refreshRcBox(debtId){ const b = $('#rc-box'); if (b && route().name === 'debt' && route().id === debtId) b.innerHTML = rcGridHTML(debtId); }
+function addRc(rc){
+  (RC[rc.debtId] = RC[rc.debtId] || []).push(rc);
+  Promise.resolve().then(() => B.putReceipt(S.user.uid, rc)).catch(e => {
+    console.error(e);
+    RC[rc.debtId] = (RC[rc.debtId] || []).filter(x => x.id !== rc.id); refreshRcBox(rc.debtId);
+    toast(e && e.name === 'QuotaExceededError' ? 'لا توجد مساحة كافية لحفظ الصورة' : 'لم تُحفظ الصورة، تحقّق من الاتصال');
+  });
+}
+function dropRc(debtId, id){
+  if (RC[debtId]) RC[debtId] = RC[debtId].filter(x => x.id !== id);
+  Promise.resolve(B.delReceipt(S.user.uid, id)).catch(e => console.error(e));
+}
+function purgeRc(debtId){
+  const u = S.user && S.user.uid; if (!u) return;
+  Promise.resolve(B.listReceipts(u, debtId)).then(l => l.forEach(r => B.delReceipt(u, r.id))).catch(e => console.error(e));
+  delete RC[debtId];
+}
+document.addEventListener('change', async e => {
+  const inp = e.target.closest && e.target.closest('input[data-rc]'); if (!inp) return;
+  const f = inp.files && inp.files[0]; const debtId = inp.dataset.rc; inp.value = '';
+  if (!f || !S.debts[debtId]) return;
+  toast('تجهيز الصورة…');
+  try{
+    const out = await compressImage(f);
+    addRc(Object.assign({id:uid(), debtId, txId:null, at:Date.now()}, out));
+    refreshRcBox(debtId); toast('حُفظت الصورة');
+  }catch(err){ console.error(err); toast('تعذّرت قراءة الصورة، جرّب صورة أخرى'); }
+});
+async function rcOpen(debtId, id){
+  let r = (RC[debtId] || []).find(x => x.id === id);
+  if (!r){ await loadRc(debtId); r = (RC[debtId] || []).find(x => x.id === id); }
+  if (!r){ toast('الصورة غير متوفرة الآن، تحقّق من الاتصال'); return; }
+  rcCur = {debtId, id}; $('#vw-img').src = r.img;
+  const d = S.debts[debtId], tx = r.txId && d && (d.tx || []).find(x => x.id === r.txId);
+  $('#vw-t').textContent = tx ? `وصل ${({pay:'دفعة', cut:'خصم', add:'زيادة'})[tx.t]}، ${dateAr(tx.d, {day:'numeric', month:'short'})}` : 'صورة الإيصال';
+  $('#viewer').hidden = false; document.body.classList.add('auth-lock');
+}
+function rcClose(){ const v = $('#viewer'); if (v.hidden) return; v.hidden = true; $('#vw-img').removeAttribute('src'); rcCur = null; if ($('#auth').hidden && $('#lock').hidden) document.body.classList.remove('auth-lock'); }
+async function rcDelete(){
+  if (!rcCur) return; const {debtId, id} = rcCur;
+  if (!await confirmBox('حذف الصورة؟', 'ستُحذف صورة الإيصال نهائياً، ولن يتأثر الدين.', 'حذف', true)) return;
+  const r = (RC[debtId] || []).find(x => x.id === id);
+  dropRc(debtId, id);
+  const d = S.debts[debtId];
+  if (d && r && r.txId && (d.tx || []).some(x => x.rc === id)) save('debts', Object.assign({}, d, {tx: d.tx.map(x => x.rc === id ? Object.assign({}, x, {rc:null}) : x)}));
+  rcClose(); render(); toast('حُذفت الصورة');
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') rcClose(); });
+
+/* =====================================================
+   رابط كشف للطرف الثاني (للاطلاع فقط)
+   ===================================================== */
+let shareOpen = null, shareUnsub = null, shareT = null, shareWarned = false;
+const shareQ = new Set();
+const BASE_TITLE = document.title;
+function shareRouteToken(){ const m = /^#\/s\/([A-Za-z0-9]{12,40})$/.exec(location.hash || ''); return m ? m[1] : null; }
+function newShareToken(){
+  const A = 'abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789', a = new Uint8Array(22);
+  crypto.getRandomValues(a); return Array.from(a, b => A[b % A.length]).join('');
+}
+const shareUrl = t => location.origin + location.pathname + '#/s/' + t;
+function shareDoc(p){
+  const ds = personDebts(p.id).slice().sort((a, b) => (a.date || '').localeCompare(b.date || '') || (a.createdAt || 0) - (b.createdAt || 0));
+  return {uid:S.user.uid, v:1, owner:(S.user.name || '').trim(), name:p.name, at:Date.now(),
+    debts: ds.map(d => ({dir:d.dir, cur:d.cur, total:debtTotal(d), rem:Math.max(0, debtRem(d)), date:d.date || '', due:d.due || '', settled:isSettled(d),
+      tx:(d.tx || []).slice().sort((a, b) => (a.d || '').localeCompare(b.d || '') || (a.at || 0) - (b.at || 0)).map(x => ({t:x.t, a:+x.a || 0, d:x.d || ''}))}))};
+}
+function queueShare(pid){
+  const p = S.people[pid]; if (!p || !p.share || !S.user) return;
+  shareQ.add(pid); clearTimeout(shareT); shareT = setTimeout(flushShares, 900);
+}
+function flushShares(){
+  const ids = [...shareQ]; shareQ.clear(); if (!S.user) return;
+  ids.forEach(pid => {
+    const p = S.people[pid]; if (!p || !p.share) return;
+    Promise.resolve(p.deleted ? B.delShare(p.share) : B.putShare(p.share, shareDoc(p))).catch(e => {
+      console.error(e);
+      if (!shareWarned){ shareWarned = true; toast('لم يتحدّث رابط الكشف، تحقّق من الاتصال أو قواعد Firebase'); }
+    });
+  });
+}
+const withTimeout = (pr, ms) => Promise.race([pr, new Promise((_, rej) => setTimeout(() => { const e = new Error('timeout'); e.code = 'timeout'; rej(e); }, ms))]);
+function shareText(p, url){ const me = (S.user.name || '').trim(); return `مرحباً ${p.name}،\nهذا كشف حسابك${me ? ' مع ' + me : ''} على دلي، ويتحدّث تلقائياً مع كل دفعة:\n${url}`; }
+function shareSheet(p){
+  if (!p.share){
+    openSheet(`<h3>رابط كشف لـ ${esc(p.name)}</h3>
+      <p class="sub">رابط يفتحه ${esc(p.name)} بدون حساب، ويرى فيه رصيده ودفعاته فقط. لا يستطيع التعديل، ولا تظهر ملاحظاتك ولا صورك ولا ديون غيره.</p>
+      <div class="err" id="sh-err"></div>
+      <div class="btns"><button class="btn ghost" data-act="closeSheet">إلغاء</button><button class="btn" id="sh-go">${icon('link')} إنشاء الرابط</button></div>`, el => {
+      el.querySelector('#sh-go').addEventListener('click', async ev => {
+        const btn = ev.currentTarget; if (btn.disabled) return; btn.disabled = true; btn.textContent = 'لحظة…';
+        const t = newShareToken(); const cur = S.people[p.id] || p;
+        try{
+          await withTimeout(Promise.resolve(B.putShare(t, shareDoc(cur))), 12000);
+          const np = Object.assign({}, S.people[p.id] || p, {share:t, shareAt:Date.now()});
+          save('people', np); SND.play('coin');
+          closeSheet(() => { render(); shareSheet(np); });
+        }catch(e){
+          console.error(e); btn.disabled = false; btn.innerHTML = `${icon('link')} إنشاء الرابط`;
+          const c = (e && e.code) || '';
+          $('#sh-err').textContent = c === 'timeout' || c === 'unavailable' ? 'تحتاج اتصالاً بالإنترنت لإنشاء الرابط.'
+            : c === 'permission-denied' ? 'الرابط يحتاج تفعيل «قواعد الكشف» في Firebase مرة واحدة.' : 'تعذّر إنشاء الرابط، حاول مجدداً.';
+        }
+      });
+    });
+    return;
+  }
+  const url = shareUrl(p.share);
+  openSheet(`<h3>رابط كشف ${esc(p.name)}</h3>
+    <p class="sub">الرابط فعّال ويتحدّث تلقائياً مع كل دفعة أو دين جديد.</p>
+    <div class="sh-link"><input class="input" id="sh-url" readonly dir="ltr" value="${esc(url)}"></div>
+    <div class="btns"><button class="btn" style="background:#1FA855" id="sh-wa">${icon('wa')} واتساب</button><button class="btn ghost" id="sh-share">${icon('share')} مشاركة</button></div>
+    <button class="linkbtn sh-stop" id="sh-stop">إيقاف الرابط</button>`, el => {
+    el.querySelector('#sh-url').addEventListener('focus', e => e.target.select());
+    el.querySelector('#sh-wa').addEventListener('click', () => {
+      const ph = waPhone(p.phone), text = encodeURIComponent(shareText(p, url));
+      window.open(ph ? `https://wa.me/${ph}?text=${text}` : `https://wa.me/?text=${text}`, '_blank', 'noopener');
+    });
+    el.querySelector('#sh-share').addEventListener('click', async () => {
+      if (navigator.share){ try{ await navigator.share({title:'كشف حساب · دلي', text:shareText(p, '').trim(), url}); return; }catch(e){ if (e && e.name === 'AbortError') return; } }
+      try{ await navigator.clipboard.writeText(url); toast('نُسخ الرابط'); }
+      catch(e){ const i = $('#sh-url'); i.focus(); i.select(); toast('انسخ الرابط من الخانة'); }
+    });
+    let armed = false;
+    el.querySelector('#sh-stop').addEventListener('click', ev => {
+      if (!armed){ armed = true; ev.currentTarget.textContent = 'اضغط مرة ثانية لتأكيد الإيقاف'; return; }
+      const cur = S.people[p.id] || p, t = cur.share;
+      if (t) Promise.resolve(B.delShare(t)).catch(e => console.error(e));
+      save('people', Object.assign({}, cur, {share:null, shareAt:null}));
+      closeSheet(() => { render(); toast('أُوقف الرابط، ولن يفتح بعد الآن'); });
+    });
+  });
+}
+
+/* صفحة الكشف التي يراها الطرف الثاني */
+function shareViewHTML(doc){
+  const head = `<header class="sh-top"><span class="logo"><b>دلي</b><i>Daly</i></span><span class="sh-badge">كشف حساب</span></header>`;
+  const foot = `<footer class="sh-foot"><p>سجّل ديونك أنت أيضاً، مجاناً.</p><a class="btn brass" href="#top">جرّب دلي</a><div class="l-copy">© 2026 دلي · تطوير <b>علي حسن الدلي</b></div></footer>`;
+  if (doc === undefined) return head + `<main class="sh-main sh-miss"><h1>يحمّل الكشف…</h1><p>إن طال الانتظار، تأكّد من اتصالك بالإنترنت.</p></main>`;
+  if (!doc) return head + `<main class="sh-main sh-miss"><h1>الرابط غير متاح</h1><p>ربما أوقفه صاحب الدفتر، أو أن الرابط غير صحيح.</p><a class="btn" href="#top">الذهاب إلى دلي</a></main>` + foot;
+  const debts = (Array.isArray(doc.debts) ? doc.debts : []).filter(d => d && CUR[d.cur] && (d.dir === 'in' || d.dir === 'out'));
+  const owe = {}, get = {};
+  debts.forEach(d => { if (d.settled || !(d.rem > 0)) return; const m = d.dir === 'in' ? owe : get; m[d.cur] = (m[d.cur] || 0) + (+d.rem || 0); });
+  const amt = m => { const c = CODES.filter(k => m[k] > 0); return c.length ? c.map(k => `<b>${fmtH(m[k], k)}</b>`).join('') : '<b>—</b>'; };
+  const clear = !Object.keys(owe).length && !Object.keys(get).length;
+  const owner = esc(doc.owner || 'صاحب الدفتر');
+  const ord = debts.slice().sort((a, b) => (a.settled - b.settled));
+  const lbl = {pay:'دفعة', cut:'خصم', add:'زيادة'};
+  const cards = ord.map(d => `<div class="panel sh-debt">
+      <div class="sh-dh"><b>${d.dir === 'in' ? 'دين عليك' : 'دين لك'}</b>${d.settled ? '<span class="pill done">مسدَّد</span>' : `<span class="pill ${d.dir === 'in' ? 'out' : 'in'}">باقي ${fmtH(d.rem, d.cur)}</span>`}</div>
+      <div class="sh-meta">المبلغ ${fmtH(d.total, d.cur)}${d.date ? '، ' + esc(dateAr(d.date)) : ''}${d.due && !d.settled ? '، موعد السداد ' + esc(dateAr(d.due)) : ''}</div>
+      ${Array.isArray(d.tx) && d.tx.length ? `<ul class="sh-tx">${d.tx.filter(x => lbl[x.t]).map(x => `<li><span>${lbl[x.t]}${x.d ? '، ' + esc(dateAr(x.d, {day:'numeric', month:'short', year:'numeric'})) : ''}</span><b class="tx-${x.t}">${x.t === 'add' ? '+' : '−'} ${fmtH(+x.a || 0, d.cur)}</b></li>`).join('')}</ul>` : ''}
+    </div>`).join('');
+  return head + `<main class="sh-main">
+      <p class="sh-hi">مرحباً ${esc(doc.name || '')}</p>
+      <h1>كشف حسابك مع ${owner}</h1>
+      <div class="sh-bal"><div class="owe"><span>المتبقي عليك</span>${amt(owe)}</div><div class="get"><span>المتبقي لك</span>${amt(get)}</div></div>
+      ${clear ? '<div class="sh-clear">✓ لا يوجد أي مبلغ متبقٍ، الحساب صافٍ.</div>' : ''}
+      ${cards ? `<h2>التفاصيل</h2>${cards}` : ''}
+      <p class="sh-upd">آخر تحديث: ${esc(dateAr(+doc.at || Date.now(), {day:'numeric', month:'long', hour:'2-digit', minute:'2-digit'}))}</p>
+      <p class="sh-ro">هذه الصفحة للاطلاع فقط، ولا يمكن التعديل عليها.</p>
+    </main>` + foot;
+}
+function openShareView(t){
+  if (shareUnsub){ try{ shareUnsub(); }catch(e){} shareUnsub = null; }
+  shareOpen = t; closeAuth(); closeSheet(); rcClose();
+  $('#boot').classList.add('out'); $('#landing').hidden = true; $('#app').hidden = true;
+  const el = $('#share'); el.hidden = false; el.innerHTML = shareViewHTML(undefined);
+  document.title = 'كشف حساب · دلي'; window.scrollTo(0, 0);
+  shareUnsub = B.watchShare(t, doc => { if (shareOpen === t) el.innerHTML = shareViewHTML(doc); });
+}
+function closeShareView(){
+  if (shareUnsub){ try{ shareUnsub(); }catch(e){} shareUnsub = null; }
+  shareOpen = null; const el = $('#share'); el.hidden = true; el.innerHTML = ''; document.title = BASE_TITLE;
+}
+
 let pendingName = '', unsubData = null, unsubRates = null;
 function purgeOldTrash(){
   const lim = Date.now() - TRASH_DAYS * 864e5;
-  Object.values(S.debts).forEach(d => { if (d.deleted && d.deletedAt && d.deletedAt < lim) remove('debts', d.id); });
+  Object.values(S.debts).forEach(d => { if (d.deleted && d.deletedAt && d.deletedAt < lim){ purgeRc(d.id); remove('debts', d.id); } });
 }
 function onUser(u){
   if (unsubData){ unsubData(); unsubData = null; }
@@ -2515,6 +2970,9 @@ function onUser(u){
   if (u && !u.name && pendingName) u.name = pendingName;
   S.user = u;
   $('#boot').classList.add('out');
+  if (shareRouteToken()){ LOCK.hide(); openShareView(shareRouteToken()); return; }
+  for (const k in RC) delete RC[k];
+  if (u) LOCK.check(); else LOCK.hide();
   if (!u){
     $('#app').hidden = true; $('#landing').hidden = false;
     if (location.hash.startsWith('#/')) history.replaceState(null, '', location.pathname + location.search);
