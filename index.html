@@ -505,6 +505,45 @@ body.auth-lock{overflow:hidden}
 .sh-miss{text-align:center;padding-top:60px}
 .sh-miss p{color:var(--muted)}
 #share .btn{text-decoration:none}
+
+/* ---------- شرح الاستخدام ---------- */
+.l-tut{padding-top:6px;padding-bottom:8px}
+.tut-cta{display:flex;align-items:center;gap:14px;width:100%;max-width:520px;margin:0 auto;padding:14px 16px;border-radius:var(--r-lg);border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;text-align:right;cursor:pointer;transition:transform .15s}
+.tut-cta:active{transform:scale(.98)}
+.tut-play{flex:none;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;background:var(--brass);color:#2A2108;box-shadow:0 0 0 6px var(--brass-soft)}
+.tut-play svg{width:24px;height:24px;fill:currentColor;margin-left:3px}
+.tut-tx{display:grid;gap:2px}.tut-tx b{font-size:17px}.tut-tx span{font-size:14px;color:var(--muted)}
+.tut-link{display:inline-flex;align-items:center;gap:6px;margin-top:14px}
+#tut{position:fixed;inset:0;z-index:56;background:#06120D;color:#fff;display:flex;flex-direction:column}
+#tut[hidden]{display:none}
+.tut-top{display:flex;align-items:center;gap:10px;padding:calc(10px + env(safe-area-inset-top)) 14px 10px}
+.tut-x{flex:none;width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:#fff;display:grid;place-items:center}
+.tut-seg{flex:1;display:grid;grid-template-columns:1fr 1fr;background:rgba(255,255,255,.08);border-radius:14px;padding:4px;max-width:360px;margin:0 auto}
+.tut-seg button{border:0;background:none;color:#CFE0D6;font-family:inherit;font-size:15px;font-weight:600;line-height:1;padding:10px 6px;border-radius:10px;cursor:pointer}
+.tut-seg button[aria-selected="true"]{background:var(--brass);color:#2A2108}
+.tut-top::after{content:"";width:42px;flex:none}
+.tut-body{flex:1;min-height:0;display:flex}
+.tut-pane{flex:1;min-width:0;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6px 12px calc(14px + var(--safe-b))}
+.tut-pane[hidden]{display:none}
+#tut-v{display:block;max-width:100%;max-height:100%;aspect-ratio:9/16;border-radius:18px;background:#000;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+.tut-track{flex:1;min-height:0;width:100%;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.tut-track::-webkit-scrollbar{display:none}
+.tut-sl{flex:0 0 100%;scroll-snap-align:center;scroll-snap-stop:always;display:flex;align-items:center;justify-content:center;padding:0 4px;min-height:0}
+.tut-sl img{display:block;max-width:100%;max-height:100%;aspect-ratio:4/5;object-fit:contain;border-radius:16px;box-shadow:0 10px 40px rgba(0,0,0,.45)}
+.tut-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;max-width:420px;padding-top:12px}
+.tut-nav button{width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:#fff;display:grid;place-items:center;flex:none}
+.tut-nav button:disabled{opacity:.3}
+.tut-dots{display:flex;gap:7px;justify-content:center;flex-wrap:wrap}
+.tut-dots i{width:7px;height:7px;border-radius:9px;background:rgba(255,255,255,.28);transition:width .25s,background .25s}
+.tut-dots i.on{width:20px;background:var(--brass)}
+.tut-load{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:#CFE0D6;text-align:center;padding:20px}
+.tut-load[hidden]{display:none}
+.tut-spin{width:42px;height:42px;border-radius:50%;border:3px solid rgba(255,255,255,.15);border-top-color:var(--brass);animation:tspin .9s linear infinite}
+@keyframes tspin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion: reduce){.tut-spin{animation-duration:2.5s}}
+.steps{margin:4px 0 14px;padding-inline-start:22px;display:grid;gap:8px;line-height:1.7}
+.steps b{color:var(--green2)}
+a.btn{text-decoration:none}
 </style>
 </head>
 <body>
@@ -589,6 +628,13 @@ body.auth-lock{overflow:hidden}
       </div>
         </div>
   </div>
+
+  <section class="l-sec l-tut">
+    <button type="button" class="tut-cta" data-act="tutorial">
+      <span class="tut-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+      <span class="tut-tx"><b>شاهد كيف يعمل دلي</b><span>شرح كامل بالفيديو والصور، في دقيقة وربع</span></span>
+    </button>
+  </section>
 
   <section class="l-sec l-feats">
     <h2>كل ما يحتاجه دفتر الديون</h2>
@@ -680,6 +726,20 @@ body.auth-lock{overflow:hidden}
   <div class="vw-img" data-act="rcClose"><img id="vw-img" alt="صورة الإيصال"></div>
 </div>
 <div id="share" hidden></div>
+<div id="tut" hidden role="dialog" aria-modal="true" aria-label="طريقة استخدام دلي">
+  <div class="tut-top">
+    <button type="button" class="tut-x" data-act="tutClose" aria-label="إغلاق"><svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <div class="tut-seg" role="tablist"><button type="button" role="tab" data-tt="video" aria-selected="true">فيديو</button><button type="button" role="tab" data-tt="slides" aria-selected="false">خطوات بالصور</button></div>
+  </div>
+  <div class="tut-body">
+    <div class="tut-load" id="tut-load"><div class="tut-spin"></div><p id="tut-msg">يحمّل الشرح…</p><button type="button" class="btn brass" id="tut-retry" hidden>إعادة المحاولة</button></div>
+    <div class="tut-pane" id="tut-video" hidden><video id="tut-v" playsinline controls preload="auto"></video></div>
+    <div class="tut-pane" id="tut-slides" hidden>
+      <div class="tut-track" id="tut-track"></div>
+      <div class="tut-nav"><button type="button" id="tut-prev" aria-label="السابق"><svg class="i" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button><div class="tut-dots" id="tut-dots"></div><button type="button" id="tut-next" aria-label="التالي"><svg class="i" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button></div>
+    </div>
+  </div>
+</div>
 <div id="toast" role="status" aria-live="polite"></div>
 <div id="print-area"></div>
 
@@ -763,6 +823,7 @@ function icon(name){
     file:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/>',
     key:'<circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l3 3"/>',
     out:'<path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h11"/>',
+    play:'<circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l6-3.5z"/>',
     lock:'<rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>',
     link:'<path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1.2 1.2"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1.2-1.2"/>',
     clip:'<path d="m20 11.5-8.2 8.2a5 5 0 0 1-7.1-7.1l8.6-8.6a3.4 3.4 0 0 1 4.8 4.8l-8.6 8.6a1.7 1.7 0 0 1-2.4-2.4l7.9-7.9"/>',
@@ -1558,7 +1619,8 @@ function vHome(){
   if (!list.length){
     return `<h1 class="h1">${greet}${name ? '، ' + esc(name) : ''}</h1>
       <div class="panel empty" style="margin-top:18px"><div class="em">دلي</div><h3>دفترك فارغ</h3><p>سجّل أول دين لك أو عليك، ويبدأ دلي بالحساب.</p>
-      <a class="btn brass" href="#/add">${icon('plus')} إضافة أول دين</a></div>`;
+      <a class="btn brass" href="#/add">${icon('plus')} إضافة أول دين</a>
+      <div><button type="button" class="linkbtn tut-link" data-act="tutorial">${icon('play')} أول مرة؟ شاهد طريقة الاستخدام</button></div></div>`;
   }
   const tc = S.prefs.totalCur;
   const b = balances(list), t = convTotals(b, tc);
@@ -1899,6 +1961,9 @@ function vSettings(){
         <button class="switch" role="switch" aria-checked="${!!S.prefs.sypOwn}" data-act="ownRate" aria-label="سعري الخاص لليرة"></button></div>
       <div class="setting"><div class="mid"><div>أصوات الحركات</div><div class="s">أصوات خفيفة عند الإضافة والسداد والحذف</div></div>
         <button class="switch" role="switch" aria-checked="${S.prefs.sound !== false}" data-act="toggleSound" aria-label="أصوات الحركات"></button></div>
+    </div></section>
+    <section class="sec"><div class="sec-h"><h2>مساعدة</h2></div><div class="panel list">
+      <button class="row" data-act="tutorial"><span class="av" style="width:38px;height:38px">${icon('play')}</span><div class="mid"><div class="t">طريقة الاستخدام</div><div class="s">شرح بالفيديو وبالصور خطوة خطوة</div></div></button>
     </div></section>
     <section class="sec"><div class="sec-h"><h2>بياناتي</h2></div><div class="panel list">
       <a class="row" href="#/report"><span class="av" style="width:38px;height:38px">${icon('report')}</span><div class="mid"><div class="t">الجرد الكامل</div><div class="s">ملخص كل الديون مع ملف PDF</div></div></a>
@@ -2526,6 +2591,8 @@ const ACT = {
     catch(e){ err.style.color = ''; err.textContent = authMsg(e); }
   },
   closeSheet: () => closeSheet(),
+  tutorial: el => TUT.open(el.dataset.tab),
+  tutClose: () => TUT.close(),
   lockToggle: () => LOCK.show(LOCK.on() ? 'off' : 'set1'),
   rcView: el => rcOpen(el.dataset.d, el.dataset.id),
   rcClose: (el, e) => { if (e && e.target && e.target.tagName === 'IMG') return; rcClose(); },
@@ -2579,7 +2646,8 @@ const ACT = {
   installApp: async () => {
     if (installEvt){ installEvt.prompt(); try{ await installEvt.userChoice; }catch(e){} installEvt = null; return; }
     if (window.matchMedia('(display-mode: standalone)').matches){ toast('دلي مثبّت على جوالك'); return; }
-    toast('افتح قائمة Chrome ⋮ واختر «تثبيت التطبيق»، أو نزّل ملف APK');
+    if (/Android/i.test(navigator.userAgent)){ if (inAppBrowser()) openInChromeSheet(); else apkSheet(true); return; }
+    toast('افتح الموقع من جوالك لتثبيت دلي');
   },
   pdf: el => printPDF(el.dataset.id || null),
   csv: exportCSV,
@@ -2956,6 +3024,124 @@ function openShareView(t){
 function closeShareView(){
   if (shareUnsub){ try{ shareUnsub(); }catch(e){} shareUnsub = null; }
   shareOpen = null; const el = $('#share'); el.hidden = true; el.innerHTML = ''; document.title = BASE_TITLE;
+}
+
+
+/* =====================================================
+   شرح الاستخدام: فيديو + صور (تُحمّل عند الطلب فقط)
+   ===================================================== */
+const TUT = (() => {
+  let loading = null, built = false, tab = 'video', idx = 0, n = 0, raf = 0;
+  const el = id => document.getElementById(id);
+  function load(){
+    if (window.DALY_TUT) return Promise.resolve(window.DALY_TUT);
+    if (loading) return loading;
+    loading = new Promise((res, rej) => {
+      const sc = document.createElement('script'); sc.src = 'tutorial-assets.js?v=1'; sc.async = true;
+      sc.onload = () => window.DALY_TUT ? res(window.DALY_TUT) : rej(new Error('empty'));
+      sc.onerror = () => { sc.remove(); rej(new Error('net')); };
+      document.head.appendChild(sc);
+    }).catch(e => { loading = null; throw e; });
+    return loading;
+  }
+  async function build(d){
+    if (built) return;
+    const v = el('tut-v');
+    if (d.video){
+      const blob = await (await fetch('data:video/mp4;base64,' + d.video)).blob();
+      v.src = URL.createObjectURL(blob); d.video = '';
+    }
+    if (d.poster) v.poster = d.poster;
+    n = (d.slides || []).length;
+    el('tut-track').innerHTML = (d.slides || []).map((s, i) => `<div class="tut-sl"><img src="${s}" alt="الخطوة ${i + 1} من ${n}" decoding="async"></div>`).join('');
+    el('tut-dots').innerHTML = (d.slides || []).map(() => '<i></i>').join('');
+    el('tut-track').addEventListener('scroll', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(sync); }, {passive:true});
+    built = true; sync();
+  }
+  function sync(){
+    const t = el('tut-track'); const w = t.clientWidth || 1;
+    idx = Math.max(0, Math.min(n - 1, Math.round(Math.abs(t.scrollLeft) / w)));
+    [...el('tut-dots').children].forEach((d, i) => d.classList.toggle('on', i === idx));
+    el('tut-prev').disabled = idx <= 0; el('tut-next').disabled = idx >= n - 1;
+  }
+  function go(i){ const sl = el('tut-track').children[Math.max(0, Math.min(n - 1, i))]; if (sl) sl.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'}); }
+  function setTab(t){
+    tab = t === 'slides' ? 'slides' : 'video';
+    document.querySelectorAll('#tut [data-tt]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.tt === tab)));
+    if (!built) return;
+    el('tut-video').hidden = tab !== 'video'; el('tut-slides').hidden = tab !== 'slides';
+    if (tab !== 'video') el('tut-v').pause();
+    if (tab === 'slides') requestAnimationFrame(() => { go(idx); sync(); });
+  }
+  async function start(){
+    el('tut-load').hidden = false; el('tut-msg').textContent = 'يحمّل الشرح…'; el('tut-retry').hidden = true;
+    document.querySelector('#tut .tut-spin').hidden = false;
+    try{
+      await build(await load());
+      el('tut-load').hidden = true; setTab(tab);
+      if (tab === 'video'){ const pr = el('tut-v').play(); if (pr && pr.catch) pr.catch(() => {}); }
+    }catch(e){
+      console.error(e);
+      document.querySelector('#tut .tut-spin').hidden = true;
+      el('tut-msg').textContent = 'تعذّر تحميل الشرح، تأكّد من اتصالك بالإنترنت.'; el('tut-retry').hidden = false;
+    }
+  }
+  function open(t){
+    tab = t === 'slides' ? 'slides' : 'video';
+    el('tut').hidden = false; document.body.classList.add('auth-lock');
+    try{ FDECK.pause(true); }catch(e){}
+    setTab(tab);
+    if (built){ el('tut-load').hidden = true; setTab(tab); } else start();
+  }
+  function close(){
+    const m = el('tut'); if (m.hidden) return;
+    el('tut-v').pause(); m.hidden = true;
+    if (el('auth').hidden && el('lock').hidden && el('viewer').hidden) document.body.classList.remove('auth-lock');
+    try{ FDECK.pause(false); }catch(e){}
+  }
+  el('tut').addEventListener('click', e => { const b = e.target.closest('[data-tt]'); if (b) setTab(b.dataset.tt); });
+  el('tut-prev').addEventListener('click', () => go(idx - 1));
+  el('tut-next').addEventListener('click', () => go(idx + 1));
+  el('tut-retry').addEventListener('click', start);
+  document.addEventListener('keydown', e => {
+    if (el('tut').hidden) return;
+    if (e.key === 'Escape') close();
+    else if (tab === 'slides' && e.key === 'ArrowLeft') go(idx + 1);
+    else if (tab === 'slides' && e.key === 'ArrowRight') go(idx - 1);
+  });
+  return {open, close};
+})();
+
+/* =====================================================
+   تثبيت أندرويد: ملف APK مباشرة + تنبيه المتصفحات الداخلية
+   ===================================================== */
+const APK_URL = 'https://github.com/xwerfor-del/Daly/releases/latest/download/daly.apk';
+function inAppBrowser(){ return /FBAN|FBAV|FB_IAB|FBIOS|Instagram|Snapchat|TikTok|musical_ly|BytedanceWebview|Line\/|; wv\)/i.test(navigator.userAgent || ''); }
+function apkSheet(start){
+  if (start){ const a = document.createElement('a'); a.href = APK_URL; a.rel = 'noopener'; document.body.appendChild(a); a.click(); a.remove(); }
+  openSheet(`<h3>تثبيت دلي على أندرويد</h3>
+    <p class="sub">${start ? 'بدأ تنزيل ملف التطبيق. بعد انتهائه:' : 'نزّل ملف التطبيق، ثم:'}</p>
+    <ol class="steps">
+      <li>افتح الملف <b>daly.apk</b> من الإشعارات أو من «التنزيلات».</li>
+      <li>إذا سألك الجوال، اضغط <b>الإعدادات</b> وفعّل <b>السماح من هذا المصدر</b>، ثم ارجع.</li>
+      <li>اضغط <b>تثبيت</b>، ثم <b>فتح</b>.</li>
+    </ol>
+    <a class="btn block ghost" href="${APK_URL}" rel="noopener">${start ? 'لم يبدأ التنزيل؟ اضغط هنا' : 'تنزيل ملف التطبيق'}</a>
+    <p class="hint" style="margin:12px 0 0">قد يظهر تنبيه لأن التطبيق ليس من متجر Play. التطبيق من مطوّر دلي نفسه وآمن.</p>
+    <div class="btns" style="grid-template-columns:1fr;margin-top:14px"><button class="btn" data-act="closeSheet">تم</button></div>`);
+}
+function openInChromeSheet(){
+  const url = location.origin + location.pathname;
+  const intent = 'intent://' + location.host + location.pathname + '#Intent;scheme=https;package=com.android.chrome;end';
+  openSheet(`<h3>افتح دلي في Chrome</h3>
+    <p class="sub">التثبيت لا يعمل من داخل هذا التطبيق. افتح الموقع في متصفح Chrome، ثم اضغط «تثبيت التطبيق» من جديد.</p>
+    <a class="btn block brass" href="${intent}">فتح في Chrome</a>
+    <ol class="steps" style="margin-top:14px"><li>إن لم يعمل الزر: اضغط <b>⋮</b> أو <b>•••</b> أعلى الشاشة.</li><li>اختر <b>فتح في المتصفح</b> أو <b>Open in Chrome</b>.</li></ol>
+    <div class="btns"><button class="btn ghost" data-act="closeSheet">إغلاق</button><button class="btn" id="ic-copy">نسخ الرابط</button></div>`, el => {
+    el.querySelector('#ic-copy').addEventListener('click', async () => {
+      try{ await navigator.clipboard.writeText(url); toast('نُسخ الرابط، الصقه في Chrome'); }catch(e){ toast(url); }
+    });
+  });
 }
 
 let pendingName = '', unsubData = null, unsubRates = null;
