@@ -588,6 +588,8 @@ html[dir="ltr"] .pw .input{padding-left:14px;padding-right:52px}
 .tools{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .tool{position:relative;display:flex;flex-direction:column;gap:6px;min-height:168px;padding:16px;border-radius:var(--r-lg);border:1px solid var(--line);background:var(--card);color:var(--ink);text-decoration:none;text-align:start;font:inherit;cursor:pointer;box-shadow:var(--shadow);transition:transform .15s}
 .tool:active{transform:scale(.97)}
+.t-ex{background:var(--bg);color:var(--green2)}.t-in{background:var(--brass-soft);color:var(--brass-ink)}.t-jm{background:#FFF1DC;color:#9A6A12}.t-bd{background:#E8EEF8;color:#3B5F9A}.t-sh{background:var(--in-soft);color:var(--in)}.t-ai{background:#F1E8FA;color:#7A4BA8}
+[data-theme="dark"] .t-jm{background:#33270F;color:#E8C27A}[data-theme="dark"] .t-bd{background:#16233A;color:#9DB7E8}[data-theme="dark"] .t-ai{background:#2A1C38;color:#C9A4EC}
 .tool .ti{width:48px;height:48px;border-radius:15px;display:grid;place-items:center}
 .tool .ti .i{width:24px;height:24px}
 .tool b{font-size:17px;margin-top:4px}
@@ -613,6 +615,191 @@ html[dir="ltr"] .pw .input{padding-left:14px;padding-right:52px}
 .bulk .btn{min-height:46px;font-size:14px}
 .btn.danger-soft{background:var(--out-soft);color:var(--out);border:0}
 .empty .em .i{width:38px;height:38px}
+
+/* ---------- العوالم: التقسيط · الجمعيات · الميزانية · درع الليرة ---------- */
+.tin{color:var(--in)!important}.tout{color:var(--out)!important}
+.pill.warn{background:var(--brass-soft);color:var(--brass-ink)}
+.pill.mute{background:var(--bg);color:var(--muted);border:1px solid var(--line)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid2 .field{min-width:0}
+.ico.wa{background:#25D366!important;color:#fff}
+.wtabs{margin-bottom:14px}
+.wtabs a{display:grid;place-items:center;border-radius:10px;padding:9px 4px;font-weight:600;color:var(--muted);min-height:42px;font-size:14px;text-decoration:none;transition:background .2s,color .2s}
+.wtabs a[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:var(--shadow)}
+.wtabs.sm a{min-height:34px;padding:5px;font-size:13px}
+.wsum{display:grid;grid-template-columns:1.25fr 1.15fr .6fr;gap:8px;margin-bottom:14px}
+.wsum>div{background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);padding:10px 12px;min-width:0}
+.wsum span{display:block;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wsum b{display:block;font-size:17px;margin-top:2px;white-space:nowrap}
+.wsum b small{font-size:.65em;color:var(--muted)}
+.wlist{display:grid;gap:10px}
+.wcard{display:block;background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:14px;text-decoration:none;color:inherit;box-shadow:var(--shadow);transition:transform .15s;animation:wIn .45s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--d,0) * 45ms)}
+.wcard:active{transform:scale(.98)}
+.wc-top{display:flex;align-items:center;gap:12px}
+.wc-top .av{width:44px;height:44px;font-size:18px}
+.av-out{background:var(--out-soft)!important;color:var(--out)!important}
+.av-jam{background:#FFF1DC!important;color:#9A6A12!important}
+[data-theme="dark"] .av-jam{background:#33270F!important;color:#E8C27A!important}
+.wc-top .mid{flex:1;min-width:0;display:flex;flex-direction:column}
+.wc-top .mid b{font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wc-top .mid span{font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wc-foot{display:flex;justify-content:space-between;gap:8px;font-size:13px;color:var(--muted);flex-wrap:wrap}
+.wbar{height:8px;border-radius:99px;background:var(--bg);overflow:hidden;margin:12px 0 8px;border:1px solid var(--line)}
+.wbar i{display:block;height:100%;width:var(--w);border-radius:inherit;background:linear-gradient(90deg,var(--brass),#E0BE6E);transform-origin:right;animation:wGrow .9s cubic-bezier(.2,.8,.2,1) both}
+[dir="ltr"] .wbar i{transform-origin:left}
+.wbar.ok i{background:linear-gradient(90deg,var(--in),#3FB57E)}
+.wbar.warn i{background:linear-gradient(90deg,#D88A1F,#F0B04A)}
+.wbar.bad i{background:linear-gradient(90deg,var(--out),#E2665D)}
+@keyframes wGrow{from{transform:scaleX(0)}}
+@keyframes wIn{from{opacity:0;transform:translateY(10px)}}
+.wnew{margin-top:16px;min-height:52px}
+.wtrash{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:14px;color:var(--muted);font-size:14px;text-decoration:none}
+.wtrash .i{width:16px;height:16px}
+.whero{position:relative;overflow:hidden;background:var(--green);color:#EAF2EC;border-radius:var(--r-lg);padding:20px 18px 16px;box-shadow:var(--shadow);animation:wIn .4s ease both}
+.whero::after{content:"";position:absolute;inset:auto -40px -70px auto;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(195,154,68,.28),transparent 70%);pointer-events:none}
+.whero .wh-l{font-size:13px;color:#A9C4B5}
+.whero .wh-l b{color:var(--brass)}
+.whero .wh-v{font-size:38px;font-weight:700;line-height:1.25;margin:6px 0 2px;color:#fff!important}
+.whero .wh-v small{font-size:.45em;color:#A9C4B5}
+.whero .wh-v.tin{color:#7FE0B0!important}.whero .wh-v.tout{color:#FFB0A8!important}
+.whero .wh-u{font-weight:500}
+.whero .wh-s{font-size:13px;color:#A9C4B5}
+.whero .wh-f{font-size:13px;color:#CFE0D6}
+.whero .wbar{background:rgba(255,255,255,.1);border-color:transparent}
+.whero .fx-stamp{top:18px;left:16px;border-color:#7FE0B0;color:#7FE0B0}
+[dir="ltr"] .whero .fx-stamp{left:auto;right:16px}
+.whero.mine{background:linear-gradient(135deg,var(--green),#24543F)}
+.wh-who{display:flex;align-items:center;gap:10px;margin-top:12px;background:rgba(255,255,255,.07);border-radius:14px;padding:8px 10px}
+.wh-who .av{width:40px;height:40px;font-size:17px;background:var(--brass)!important;color:var(--green)!important}
+.wh-who b{display:block;font-size:15px;color:#fff}
+.wh-who small{color:#A9C4B5;font-size:12px}
+.wacts{grid-template-columns:repeat(3,1fr)}
+.sched .srow{display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;border:0;border-bottom:1px solid var(--line);background:none;font:inherit;color:inherit;text-align:start;cursor:pointer;transition:background .2s}
+.sched .srow:last-child{border-bottom:0}
+.sched .srow:active{background:var(--bg)}
+.srow .sn{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;font-weight:700;font-size:14px;background:var(--bg);color:var(--muted);flex:none;transition:background .3s,color .3s}
+.srow.s-paid .sn{background:var(--in);color:#fff}
+.srow.s-late .sn{background:var(--out-soft);color:var(--out)}
+.srow.s-soon .sn{background:var(--brass-soft);color:var(--brass-ink)}
+.srow .mid{flex:1;min-width:0;display:flex;flex-direction:column}
+.srow .mid b{font-size:15px}.srow .mid span{font-size:12.5px;color:var(--muted)}
+.srow.s-paid .mid b{color:var(--muted)}
+.srow.just .sn{animation:wPop .5s cubic-bezier(.3,1.6,.5,1)}
+@keyframes wPop{0%{transform:scale(.4)}100%{transform:scale(1)}}
+.sheet-acts{margin:14px 0 18px}
+.wnote{padding:14px 16px;display:grid;gap:6px;color:var(--ink)}
+.wform .seg button small{display:block;font-size:11px;font-weight:500;opacity:.8}
+.nchips{display:flex;gap:6px;flex-wrap:wrap}
+.nchips button{min-width:46px;min-height:42px;border-radius:12px;border:1.5px solid var(--line);background:var(--card);font:inherit;font-weight:700;color:var(--ink)}
+.nchips button[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:#fff}
+.nchips .input{width:76px;min-height:42px;padding:6px 10px;text-align:center}
+.wpreview{display:flex;gap:10px;align-items:flex-start;background:var(--in-soft);color:var(--ink);border-radius:var(--r-md);padding:12px 14px;margin:4px 0 14px;font-size:14px;line-height:1.7;animation:wIn .3s ease both}
+.wpreview[hidden]{display:none}
+.wpreview>.i{color:var(--in);flex:none;margin-top:3px}
+.wpreview small{color:var(--muted)}
+.mf-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.mf-h>span{font-weight:600;font-size:14px}
+.mlist{display:grid;gap:8px}
+.mrow{display:flex;gap:8px;align-items:center;background:var(--bg);border:1px solid var(--line);border-radius:var(--r-md);padding:8px;animation:wIn .3s ease both}
+.mlist.shuf .mrow{animation:wShuf .45s cubic-bezier(.2,.8,.2,1) both}
+.mlist.shuf .mrow:nth-child(2n){animation-delay:.04s}.mlist.shuf .mrow:nth-child(3n){animation-delay:.08s}
+@keyframes wShuf{0%{transform:translateX(18px) rotate(-1.5deg);opacity:.2}100%{transform:none}}
+.mr-n{width:28px;height:28px;border-radius:9px;background:var(--card);display:grid;place-items:center;font-weight:700;font-size:13px;flex:none;color:var(--brass-ink)}
+.mr-f{flex:1;min-width:0;display:grid;gap:6px}
+.mr-f .input{min-height:40px;padding:7px 10px}
+.mr-a{display:grid;grid-template-columns:1fr 1fr;gap:4px;flex:none}
+.mr-a button{min-width:34px;min-height:34px;border-radius:9px;border:1px solid var(--line);background:var(--card);font:inherit;font-size:12px;font-weight:700;color:var(--muted)}
+.mr-a button:disabled{opacity:.35}
+.mr-a button[data-jf="me"]{grid-column:1/-1}
+.mr-a button[data-jf="me"][aria-pressed="true"]{background:var(--brass);border-color:var(--brass);color:var(--green)}
+.mr-a button[data-jf="del"]{color:var(--out)}
+.mstrip{display:flex;gap:8px;overflow-x:auto;padding:14px 2px 6px;scroll-snap-type:x mandatory;scrollbar-width:none}
+.mstrip::-webkit-scrollbar{display:none}
+.mchip{flex:none;scroll-snap-align:center;display:flex;flex-direction:column;align-items:center;gap:4px;text-decoration:none;color:var(--muted);font-size:12px;min-width:52px}
+.mchip i{font-style:normal;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:14px;background:var(--card);border:1.5px solid var(--line);color:var(--ink);transition:transform .2s}
+.mchip.done i{background:var(--in-soft);border-color:var(--in);color:var(--in)}
+.mchip.me i{border-color:var(--brass);color:var(--brass-ink);font-size:12px}
+.mchip.now i{box-shadow:0 0 0 3px var(--brass-soft)}
+.mchip.sel i{background:var(--green);border-color:var(--green);color:#fff;transform:scale(1.08)}
+.mchip.sel span{color:var(--ink);font-weight:600}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mtile{display:flex;align-items:center;gap:10px;padding:12px;border-radius:var(--r-md);border:1.5px dashed var(--out);background:var(--out-soft);font:inherit;color:var(--ink);text-align:start;cursor:pointer;transition:background .25s,border-color .25s}
+.mtile .mt-d{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;flex:none;background:var(--out);color:#fff;font-weight:800;font-size:14px;transition:background .25s}
+.mtile .mt-n{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600;font-size:14px}
+.mtile .mt-n small{color:var(--muted);font-weight:500}
+.mtile.paid{border:1.5px solid var(--in);background:var(--in-soft)}
+.mtile.paid .mt-d{background:var(--in)}
+.mtile.pop .mt-d{animation:wPop .45s cubic-bezier(.3,1.6,.5,1)}
+.wa-btn{background:#25D366;color:#fff;margin-top:14px;min-height:50px}
+.mnav{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.mnav b{font-size:16px}
+.mnav a{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--card);border:1px solid var(--line);color:var(--ink)}
+.kchips{display:flex;gap:6px;flex-wrap:wrap}
+.kchips span{font-size:12px;background:rgba(255,255,255,.09);border-radius:99px;padding:3px 10px;color:#CFE0D6}
+.wtip{display:flex;gap:10px;align-items:center;margin-top:12px;background:var(--brass-soft);color:var(--brass-ink);border-radius:var(--r-md);padding:10px 14px;font-size:13.5px}
+.wtip .i{flex:none}
+.envs{display:grid;gap:8px}
+.env{display:block;width:100%;background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);padding:12px 14px 4px;font:inherit;color:inherit;text-align:start;text-decoration:none;cursor:pointer;animation:wIn .4s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--d,0) * 40ms)}
+.env:active{transform:scale(.985)}
+.eh{display:flex;align-items:center;gap:8px}
+.eh .ei{font-size:20px;line-height:1}
+.eh b{font-size:15px}
+.eh small{margin-inline-start:auto;font-size:13px;color:var(--muted);white-space:nowrap}
+.eh .auto{font-size:10.5px;font-weight:700;background:var(--in-soft);color:var(--in);border-radius:99px;padding:2px 8px}
+.env .wbar{margin:10px 0 8px}
+.elist{display:grid;gap:8px}
+.erow{display:grid;grid-template-columns:44px 1fr 92px 30px;grid-template-areas:"i n a x" "i k k x";gap:6px;align-items:center;background:var(--bg);border:1px solid var(--line);border-radius:var(--r-md);padding:8px;animation:wIn .3s ease both}
+.erow .input{min-height:40px;padding:6px 10px}
+.erow .ei-in{grid-area:i;text-align:center;font-size:20px;padding:4px;height:100%}
+.erow .en{grid-area:n}.erow .ea{grid-area:a;text-align:center}.erow .ek{grid-area:k;min-height:34px;font-size:13px}
+.erow button{grid-area:x;border:0;background:none;color:var(--out);font-weight:700;font-size:15px;min-height:40px}
+.echips{display:flex;gap:6px;flex-wrap:wrap}
+.echips button{border:1.5px solid var(--line);background:var(--card);border-radius:99px;padding:7px 12px;font:inherit;font-size:13.5px;color:var(--ink)}
+.echips button[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:#fff}
+.whero.shd .chg{display:inline-block;margin-top:8px;font-size:13px;font-weight:700;border-radius:99px;padding:3px 10px}
+.chg.bad{background:rgba(240,119,109,.18);color:#FFB0A8}.chg.ok{background:rgba(82,200,144,.18);color:#7FE0B0}
+.whero.shd + .wtabs{margin-top:14px}
+.chartbox{padding:14px 12px 10px}
+.rchart{width:100%;height:150px;display:block;overflow:visible}
+.rchart.up{color:var(--out)}.rchart.down{color:var(--in)}
+.rchart .rl{fill:none;stroke:currentColor;stroke-width:2.4;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.rchart .rd{fill:currentColor;stroke:var(--card);stroke-width:2;vector-effect:non-scaling-stroke}
+.rchart .ra{animation:wFade 1.2s ease both}
+@keyframes wFade{from{opacity:0}}
+.rc-ax{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);margin-top:6px;gap:6px}
+.chart-empty{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:13.5px;padding:18px 6px}
+.chart-empty .i{flex:none}
+.shd-sum{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.shd-sum>div{border-radius:var(--r-md);padding:12px;background:var(--card);border:1px solid var(--line)}
+.shd-sum>div:only-child{grid-column:1/-1}
+.shd-sum span{display:block;font-size:12px;color:var(--muted)}
+.shd-sum b{display:block;font-size:19px;margin:2px 0}
+.shd-sum small{font-size:12px;color:var(--muted)}
+.shd-sum .lost{border-color:var(--out-soft);background:linear-gradient(180deg,var(--out-soft),var(--card))}
+.shd-sum .won{border-color:var(--in-soft);background:linear-gradient(180deg,var(--in-soft),var(--card))}
+.shd-al{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:end;padding:12px}
+.shd-al .field{margin:0}
+.shd-al .btn{min-height:50px}
+.shd-card{padding:14px 16px}
+.shd-card.none{display:flex;align-items:center;gap:12px;width:100%;font:inherit;text-align:start;color:inherit;cursor:pointer}
+.shd-card.none>.i:first-child{color:var(--in);flex:none;width:26px;height:26px}
+.shd-card.none span{flex:1;display:flex;flex-direction:column}
+.shd-card.none small{color:var(--muted);font-size:13px}
+.sc-h{display:flex;align-items:center;gap:8px}
+.sc-h .i{color:var(--in)}
+.sc-h b{flex:1}
+.sc-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;margin:12px 0 6px;text-align:center}
+.sc-row>div{background:var(--bg);border-radius:var(--r-md);padding:10px 6px}
+.sc-row small{display:block;font-size:12px;color:var(--muted)}
+.sc-row b{display:block;font-size:18px;margin:2px 0}
+.sc-row>div>span{font-size:11.5px;color:var(--muted)}
+.sc-arr{color:var(--muted)}
+.shd-card p{margin:6px 0 0;font-size:14px;font-weight:600}
+.shd-card.bad p{color:var(--out)}.shd-card.ok p{color:var(--in)}
+.tool .tk.warn{color:var(--out)}
+.al .ai .i{width:20px;height:20px}
+@media (max-width:370px){.wsum{grid-template-columns:1fr 1fr}.wsum>div:last-child{grid-column:1/-1}.shd-al{grid-template-columns:1fr 1fr}.shd-al .btn{grid-column:1/-1}}
+@media (prefers-reduced-motion:reduce){.wcard,.env,.wbar i,.whero,.mrow,.wpreview,.rchart .ra{animation:none!important}}
 </style>
 </head>
 <body>
@@ -936,13 +1123,17 @@ const I18N = (() => {
   const look = {}; keys.forEach(k => { look[norm(k)] = D[k]; });
   let prot = [], protV = -1, extra = [];
   function protectedList(){
-    const v = (S && S.people ? Object.keys(S.people).length + ':' + Object.keys(S.debts).length : 0) + ':' + (S && S.user ? S.user.name : '') + ':' + extra.length;
+    const wv = c => { let m = 0; Object.values((S && S[c]) || {}).forEach(x => { if ((x.updatedAt || 0) > m) m = x.updatedAt; }); return Object.keys((S && S[c]) || {}).length + '.' + m; };
+    const v = (S && S.people ? Object.keys(S.people).length + ':' + Object.keys(S.debts).length : 0) + ':' + (S && S.user ? S.user.name : '') + ':' + extra.length + ':' + wv('inst') + wv('jam') + wv('bud') + wv('people');
     if (v === protV) return prot;
     const set = new Set(extra);
     try{
       Object.values(S.people || {}).forEach(p => { if (p.name) set.add(p.name); });
       Object.values(S.debts || {}).forEach(d => { if (d.note) set.add(d.note); (d.tx || []).forEach(x => { if (x.n) set.add(x.n); }); });
       if (S.user && S.user.name) set.add(S.user.name);
+      Object.values(S.inst || {}).forEach(x => [x.name, x.item, x.note].forEach(t => t && set.add(t)));
+      Object.values(S.jam || {}).forEach(j => { if (j.name) set.add(j.name); (j.members || []).forEach(m => m.name && set.add(m.name)); });
+      Object.values(S.bud || {}).forEach(b => { (b.envs || []).forEach(e => e.name && set.add(e.name)); (b.spends || []).forEach(x => x.n && set.add(x.n)); });
     }catch(e){}
     prot = [...set].filter(x => x && x.length > 1 && AR.test(x)).sort((a, b) => b.length - a.length); protV = v;
     return prot;
@@ -1080,7 +1271,7 @@ function toast(msg){
    STATE
    ===================================================== */
 const S = {
-  user:null, people:{}, debts:{}, loaded:{people:false, debts:false},
+  user:null, people:{}, debts:{}, inst:{}, jam:{}, bud:{}, loaded:{people:false, debts:false, inst:false, jam:false, bud:false},
   global:null, api:ls.get('daly_api_rates', null), spt:ls.get('daly_spt', null),
   prefs: Object.assign({theme:'auto', totalCur:'USD', sypOwn:null, sort:'recent'}, ls.get('daly_prefs', {})),
   ui:{filter:'all', q:''}
@@ -1162,6 +1353,7 @@ async function fetchSpToday(){
         S.spt = {at: t, USD: s.USD.mid, buy: s.USD.buy, sell: s.USD.sell,
           EUR: s.EUR && s.EUR.mid, KWD: s.KWD && s.KWD.mid};
         ls.set('daly_spt', S.spt);
+        if (j.history && typeof j.history === 'object'){ HIST.remote = j.history; ls.set('daly_hist_remote', j.history); }
         return true;
       }
     }catch(e){}
@@ -1174,7 +1366,8 @@ function rateTime(){
 }
 function onRatesChanged(){
   landingConv();
-  if (S.user && ['home','convert','debt','admin','report','person'].includes(route().name)) render();
+  try{ HIST.snap(); }catch(e){}
+  if (S.user && !sheetOpen && ['home','convert','debt','admin','report','person','tools','shield'].includes(route().name)) render();
 }
 
 /* =====================================================
@@ -1249,11 +1442,11 @@ function LocalBackend(){
     async setName(name){ const me = current(); const us = users(); us[me.email].name = name; ls.set('daly_demo_users', us); S.user.name = name; },
     watch(u, cb){
       dataCb = cb; const d = ls.get(key(u), {people:{}, debts:{}});
-      setTimeout(() => { cb('people', Object.values(d.people || {})); cb('debts', Object.values(d.debts || {})); }, 0);
+      setTimeout(() => { ['people', 'debts', 'inst', 'jam', 'bud'].forEach(c => cb(c, Object.values(d[c] || {}))); }, 0);
       return () => { dataCb = null; };
     },
-    async put(u, col, obj){ const d = ls.get(key(u), {people:{}, debts:{}}); d[col][obj.id] = obj; ls.set(key(u), d); dataCb && dataCb(col, Object.values(d[col])); },
-    async del(u, col, id){ const d = ls.get(key(u), {people:{}, debts:{}}); delete d[col][id]; ls.set(key(u), d); dataCb && dataCb(col, Object.values(d[col])); },
+    async put(u, col, obj){ const d = ls.get(key(u), {people:{}, debts:{}}); d[col] = d[col] || {}; d[col][obj.id] = obj; ls.set(key(u), d); dataCb && dataCb(col, Object.values(d[col])); },
+    async del(u, col, id){ const d = ls.get(key(u), {people:{}, debts:{}}); d[col] = d[col] || {}; delete d[col][id]; ls.set(key(u), d); dataCb && dataCb(col, Object.values(d[col])); },
     watchRates(cb){ rateCb = cb; setTimeout(() => cb(ls.get('daly_demo_global', null)), 0); return () => {}; },
     async putReceipt(u, r){ const k = 'daly_demo_rc_' + u; const m = ls.get(k, {}); m[r.id] = r; localStorage.setItem(k, JSON.stringify(m)); },
     async listReceipts(u, debtId){ return Object.values(ls.get('daly_demo_rc_' + u, {})).filter(r => r.debtId === debtId); },
@@ -1299,7 +1492,7 @@ async function FirebaseBackend(){
       await authM.reauthenticateWithCredential(u, authM.EmailAuthProvider.credential(u.email, pass));
       const id = u.uid;
       for (const p of Object.values(S.people || {})) if (p.share){ try{ await fs.deleteDoc(fs.doc(db, 'shares', p.share)); }catch(e){ console.warn(e); } }
-      for (const col of ['people', 'debts', 'receipts']){
+      for (const col of ['people', 'debts', 'receipts', 'inst', 'jam', 'bud']){
         const q = await fs.getDocs(fs.collection(db, 'users', id, col));
         let batch = fs.writeBatch(db), n = 0;
         for (const d of q.docs){ batch.delete(d.ref); if (++n % 400 === 0){ await batch.commit(); batch = fs.writeBatch(db); } }
@@ -1318,7 +1511,7 @@ async function FirebaseBackend(){
     },
     async setName(name){ await authM.updateProfile(auth.currentUser, {displayName:name}); S.user.name = name; fs.setDoc(fs.doc(db, 'users', S.user.uid), {name}, {merge:true}).catch(()=>{}); },
     watch(u, cb){
-      const subs = ['people','debts'].map(col => fs.onSnapshot(fs.collection(db, 'users', u, col),
+      const subs = ['people','debts','inst','jam','bud'].map(col => fs.onSnapshot(fs.collection(db, 'users', u, col),
         snap => cb(col, snap.docs.map(d => d.data())),
         e => { console.error(e); toast('تعذّر تحميل البيانات: تحقّق من قواعد Firestore'); cb(col, []); }));
       return () => subs.forEach(f => f());
@@ -1846,10 +2039,10 @@ function setTab(name){ $$('#tabbar a').forEach(a => { if (a.dataset.tab === name
 function render(){
   if (!S.user || shareOpen) return;
   const r = route();
-  const views = {home:vHome, people:vPeople, person:vPerson, debt:vDebt, add:vAdd, edit:vAdd, convert:vConvert, settings:vSettings, trash:vTrash, admin:vAdmin, report:vReport, tools:vTools, alerts:vAlerts};
+  const views = {home:vHome, people:vPeople, person:vPerson, debt:vDebt, add:vAdd, edit:vAdd, convert:vConvert, settings:vSettings, trash:vTrash, admin:vAdmin, report:vReport, tools:vTools, alerts:vAlerts, inst:vInst, instv:vInstV, instf:vInstF, instt:vInstT, jam:vJam, jamv:vJamV, jamf:vJamF, jamt:vJamT, bud:vBud, budf:vBudF, shield:vShield};
   const fn = views[r.name] || vHome;
   formShown = (r.name === 'add' || r.name === 'edit') && (r.name === 'add' || dataReady());
-  const tabs = {home:'home', people:'people', person:'people', debt:'people', add:'add', edit:'add', convert:'tools', tools:'tools', alerts:'home', settings:'settings', trash:'settings', admin:'settings', report:'home'};
+  const tabs = {home:'home', people:'people', person:'people', debt:'people', add:'add', edit:'add', convert:'tools', tools:'tools', inst:'tools', instv:'tools', instf:'tools', instt:'tools', jam:'tools', jamv:'tools', jamf:'tools', jamt:'tools', bud:'tools', budf:'tools', shield:'tools', alerts:'home', settings:'settings', trash:'settings', admin:'settings', report:'home'};
   setTab(tabs[r.name] || 'home');
   const v = $('#view');
   const keepScroll = render._last === location.hash;
@@ -2054,6 +2247,7 @@ function vDebt(r){
     <section class="sec"><div class="sec-h"><h2>المتبقي بالعملات الأخرى</h2></div>
       <div class="panel list other-cur">${others}</div>
       <p class="hint">بسعر ${esc(src)}${rateTime() ? '، آخر تحديث ' + rateTime() : ''}.</p></section>
+    ${shieldCard(d)}
     <section class="sec"><div class="sec-h"><h2>التفاصيل</h2><button class="linkbtn" data-act="go" data-to="#/edit/${esc(d.id)}">تعديل</button></div>
       <dl class="panel kv">
         <dt>النوع</dt><dd>${d.dir === 'in' ? 'لي (دين لك)' : 'عليّ (دين عليك)'}</dd>
@@ -2177,6 +2371,7 @@ function submitDebt(){
     save('debts', d); toast('حُفظ التعديل'); go('#/debt/' + d.id);
   } else {
     const d = {id:uid(), personId:pid, dir, cur, amount, date, due, note, tx:[], deleted:false, createdAt:Date.now()};
+    if (cur === 'SYP' && date === today()){ const mr = marketRate(); if (mr > 0) d.r0 = mr; }
     save('debts', d); FX.queue({t:'add', id:d.id, route:'person'}); toast('حُفظ الدين'); go('#/person/' + pid);
   }
 }
@@ -2278,17 +2473,24 @@ function vTrash(){
 /* ---------- الأدوات ---------- */
 const L = (ar, en) => I18N.lang === 'en' ? en : ar;
 function vTools(){
-  topbar('الأدوات', false);
-  const {r} = rates();
-  const card = (href, ic, bg, fg, t, d, k, soon) => `<${soon ? 'button data-act="soon"' : `a href="${href}"`} class="tool${soon ? ' soon' : ''}">
-      <span class="ti" style="background:${bg};color:${fg}">${icon(ic)}</span><b>${t}</b><span class="td">${d}</span>${soon ? '<span class="soon-tag">قريباً</span>' : `<span class="tk">${k}</span>`}</${soon ? 'button' : 'a'}>`;
+  topbar(L('الأدوات', 'Tools'), false);
+  const {r} = rates(), t = today(), ym = thisYM();
+  const card = (href, ic, cls, title, d, k, soon, kc) => `<${soon ? 'button data-act="soon"' : `a href="${href}"`} class="tool${soon ? ' soon' : ''}">
+      <span class="ti ${cls}">${icon(ic)}</span><b>${title}</b><span class="td">${d}</span>${soon ? `<span class="soon-tag">${L('قريباً', 'Soon')}</span>` : `<span class="tk ${kc || ''}">${k}</span>`}</${soon ? 'button' : 'a'}>`;
+  let ik = '', ikc = '', jk = '', bk = '', sk = '';
+  if (S.loaded.inst){ const l = wList('inst'), late = l.filter(INST.late).length, due = l.reduce((a, x) => a + (x.sched || []).filter(s => !s.paid && s.due.slice(0, 7) === ym).length, 0);
+    ik = !l.length ? L('ابدأ أول تقسيط', 'Start your first plan') : late ? L(`${late} متأخر`, `${late} late`) : due ? L(`${due} أقساط هذا الشهر`, `${due} due this month`) : L(`${l.length} خطط`, `${l.length} plans`); ikc = late ? 'warn' : ''; }
+  if (S.loaded.jam){ const l = wList('jam'), mine = l.find(j => JAM.state(j) === 'run' && (JAM.receiver(j, JAM.idx(j)) || {}).me);
+    jk = mine ? L('دورك هذا الشهر 🎉', 'Your turn this month 🎉') : l.length ? L(`${l.length} جمعيات`, `${l.length} circles`) : L('أضف جمعيتك', 'Add your circle'); }
+  if (S.loaded.bud){ const b = S.bud[ym]; if (b){ const x = BUD.totals(b); bk = L(`باقٍ ${fmt(Math.max(0, x.left), b.cur)}`, `${fmt(Math.max(0, x.left), b.cur)} left`); } else bk = L('خطّط لهذا الشهر', 'Plan this month'); }
+  { const ago = HIST.ago(30), v = marketRate(); sk = ago && Math.abs((v - ago) / ago * 100) >= .05 ? L(`${(v - ago) / ago * 100 > 0 ? '▲' : '▼'} ${Math.abs((v - ago) / ago * 100).toFixed(1)}% هذا الشهر`, `${(v - ago) / ago * 100 > 0 ? '▲' : '▼'} ${Math.abs((v - ago) / ago * 100).toFixed(1)}% this month`) : L(`${SHD.sypDebts().length} ديون بالليرة`, `${SHD.sypDebts().length} SYP debts`); }
   return `<div class="tools">
-    ${card('#/convert', 'exch', 'var(--bg)', 'var(--green2)', 'الصرف', 'حوّل بين الدولار والليرة واليورو والدينار', `1 $ = ${nfmt(r.SYP, 'SYP')} ل.س`)}
-    ${card('', 'cal', 'var(--brass-soft)', 'var(--brass-ink)', 'التقسيط', 'عملاؤك وأقساطهم بمواعيدها', '', true)}
-    ${card('', 'cycle', '#FFF1DC', '#9A6A12', 'الجمعيات', 'الأدوار والدفعات وتذكير المتأخرين', '', true)}
-    ${card('', 'wallet', '#E8EEF8', '#3B5F9A', 'الميزانية', 'كم تحتاج في الشهر، وأين تذهب مصاريفك', '', true)}
-    ${card('', 'shield', 'var(--in-soft)', 'var(--in)', 'درع الليرة', 'القيمة الحقيقية لديونك أمام سعر الصرف', '', true)}
-    ${card('', 'spark', '#F1E8FA', '#7A4BA8', 'المساعد الذكي', 'صوّر دفترك الورقي، أو سجّل بصوتك', '', true)}
+    ${card('#/convert', 'exch', 't-ex', L('الصرف', 'Exchange'), L('حوّل بين الدولار والليرة واليورو والدينار', 'Convert between dollar, pound, euro and dinar'), `1 $ = ${nfmt(r.SYP, 'SYP')} ${L('ل.س', 'SYP')}`)}
+    ${card('#/inst', 'cal', 't-in', L('التقسيط', 'Instalments'), L('عملاؤك وأقساطهم بمواعيدها', 'Customers and their instalments on time'), ik, false, ikc)}
+    ${card('#/jam', 'cycle', 't-jm', L('الجمعيات', 'Savings circles'), L('الأدوار والدفعات وتذكير المتأخرين', 'Turns, payments and reminders'), jk)}
+    ${card('#/bud', 'wallet', 't-bd', L('الميزانية', 'Budget'), L('كم تحتاج في الشهر، وأين تذهب مصاريفك', 'What you need each month and where it goes'), bk)}
+    ${card('#/shield', 'shield', 't-sh', L('درع الليرة', 'Lira shield'), L('القيمة الحقيقية لديونك أمام سعر الصرف', 'The real value of your debts against the rate'), sk)}
+    ${card('', 'spark', 't-ai', L('المساعد الذكي', 'Smart assistant'), L('صوّر دفترك الورقي، أو سجّل بصوتك', 'Snap your paper notebook, or record by voice'), '', true)}
   </div>`;
 }
 
@@ -2322,6 +2524,7 @@ const ALERTS = (() => {
           title: L('سعر الليرة تغيّر', 'The pound rate changed'),
           sub: L(`الدولار صار ${nfmt(cur, 'SYP')} ل.س بدلاً من ${nfmt(base.v, 'SYP')} (${ch > 0 ? '+' : ''}${ch.toFixed(1)}%)`, `1 $ is now ${nfmt(cur, 'SYP')} SYP instead of ${nfmt(base.v, 'SYP')} (${ch > 0 ? '+' : ''}${ch.toFixed(1)}%)`)});
       }
+      out.push(...worldAlerts(t));
     }catch(e){ console.error(e); }
     return out.sort((a, b) => b.w - a.w);
   }
@@ -2342,7 +2545,7 @@ function vAlerts(){
   const l = ALERTS.list(), fresh = ALERTS.unreadIds();
   setTimeout(() => { ALERTS.markAll(); const b = $('#topbar .bellbtn .bd'); if (b) b.remove(); }, 400);
   if (!l.length) return `<div class="empty"><div class="em">${icon('bell')}</div><h3>لا توجد تنبيهات</h3><p>كل شيء على ما يرام 👌</p></div>`;
-  const ic = {late:['money', 'var(--out-soft)', 'var(--out)'], soon:['cal', 'var(--brass-soft)', 'var(--brass-ink)'], rate:['exch', 'var(--bg)', 'var(--green2)']};
+  const ic = {late:['money', 'var(--out-soft)', 'var(--out)'], soon:['cal', 'var(--brass-soft)', 'var(--brass-ink)'], rate:['exch', 'var(--bg)', 'var(--green2)'], inst:['cal', 'var(--brass-soft)', 'var(--brass-ink)'], jam:['cycle', '#FFF1DC', '#9A6A12'], bud:['wallet', '#E8EEF8', '#3B5F9A'], shd:['shield', 'var(--in-soft)', 'var(--in)']};
   return `<div class="panel alerts">${l.map(a => { const [n, bg, fg] = ic[a.kind];
     return `<a class="al${fresh.has(a.id) ? ' unread' : ''}" href="${a.href}"><span class="ai" style="background:${bg};color:${fg}">${icon(n)}</span>
       <span class="am"><b>${a.title}</b><span>${a.sub}</span></span>${fresh.has(a.id) ? '<span class="adot"></span>' : ''}</a>`; }).join('')}</div>`;
@@ -2946,12 +3149,12 @@ const ACT = {
     catch(e){ err.style.color = ''; err.textContent = authMsg(e); }
   },
   closeSheet: () => closeSheet(),
-  plusSheet: () => openSheet(`<h3>ماذا تريد أن تسجّل؟</h3><p class="sub">كل شيء من مكان واحد</p>
+  plusSheet: () => openSheet(`<h3>${L('ماذا تريد أن تسجّل؟', 'What do you want to record?')}</h3><p class="sub">${L('كل شيء من مكان واحد', 'Everything from one place')}</p>
     <div class="plus-opts">
-      <a class="popt" href="#/add" data-act="plusGo" data-to="#/add"><span class="pi" style="background:var(--in-soft);color:var(--in)">${icon('money')}</span><span class="pm"><b>دين</b><span>لك أو عليك</span></span>${icon('chev')}</a>
-      <button class="popt soon" data-act="soon"><span class="pi" style="background:var(--brass-soft);color:var(--brass-ink)">${icon('cal')}</span><span class="pm"><b>تقسيط</b><span>عميل ومبلغ مقسوم على أشهر</span></span><span class="soon-tag">قريباً</span></button>
-      <button class="popt soon" data-act="soon"><span class="pi" style="background:#FFF1DC;color:#9A6A12">${icon('cycle')}</span><span class="pm"><b>جمعية</b><span>أعضاء ومبلغ شهري وأدوار</span></span><span class="soon-tag">قريباً</span></button>
-      <button class="popt soon" data-act="soon"><span class="pi" style="background:#E8EEF8;color:#3B5F9A">${icon('wallet')}</span><span class="pm"><b>مصروف</b><span>سجّله في ظرفه بالميزانية</span></span><span class="soon-tag">قريباً</span></button>
+      <a class="popt" href="#/add" data-act="plusGo" data-to="#/add"><span class="pi" style="background:var(--in-soft);color:var(--in)">${icon('money')}</span><span class="pm"><b>${L('دين', 'Debt')}</b><span>${L('لك أو عليك', 'Owed to you or by you')}</span></span>${icon('chev')}</a>
+      <a class="popt" href="#/instf/new" data-act="plusGo" data-to="#/instf/new"><span class="pi t-in">${icon('cal')}</span><span class="pm"><b>${L('تقسيط', 'Instalments')}</b><span>${L('مبلغ مقسوم على أشهر', 'An amount split over months')}</span></span>${icon('chev')}</a>
+      <a class="popt" href="#/jamf/new" data-act="plusGo" data-to="#/jamf/new"><span class="pi t-jm">${icon('cycle')}</span><span class="pm"><b>${L('جمعية', 'Savings circle')}</b><span>${L('أعضاء ومبلغ شهري وأدوار', 'Members, monthly share and turns')}</span></span>${icon('chev')}</a>
+      <button class="popt" data-act="quickSpend"><span class="pi t-bd">${icon('wallet')}</span><span class="pm"><b>${L('مصروف', 'Expense')}</b><span>${L('سجّله في ظرفه بالميزانية', 'Log it in its budget envelope')}</span></span>${icon('chev')}</button>
     </div>`),
   plusGo: el => closeSheet(() => { location.hash = el.dataset.to; }),
   soon: () => toast('قريباً في دلي ✨'),
@@ -3622,13 +3825,796 @@ const VISITS = (() => {
 })();
 
 let pendingName = '', unsubData = null, unsubRates = null;
+
+/* =====================================================
+   العوالم الجديدة: التقسيط · الجمعيات · الميزانية · درع الليرة
+   ===================================================== */
+const mAdd = (iso, k) => {
+  const [y, m, d] = iso.split('-').map(Number);
+  const t = new Date(Date.UTC(y, m - 1 + k, 1));
+  const last = new Date(Date.UTC(t.getUTCFullYear(), t.getUTCMonth() + 1, 0)).getUTCDate();
+  return `${t.getUTCFullYear()}-${String(t.getUTCMonth() + 1).padStart(2, '0')}-${String(Math.min(d || 1, last)).padStart(2, '0')}`;
+};
+const thisYM = () => today().slice(0, 7);
+const ymAdd = (ym, k) => mAdd(ym + '-01', k).slice(0, 7);
+const ymDiff = (a, b) => { const [y1, m1] = a.split('-').map(Number), [y2, m2] = b.split('-').map(Number); return (y1 - y2) * 12 + (m1 - m2); };
+const ymLabel = (ym, mode) => { const [y, m] = ym.split('-').map(Number); return new Date(y, m - 1, 15).toLocaleDateString(I18N.lang === 'en' ? 'en-GB' : 'ar-u-nu-latn', mode === 'short' ? {month:'short'} : mode === 'm' ? {month:'long'} : {month:'long', year:'numeric'}); };
+const dDiff = (a, b) => Math.round((Date.parse(a + 'T12:00:00') - Date.parse(b + 'T12:00:00')) / 864e5);
+const daysTxt = n => L(n === 1 ? 'يوم واحد' : n === 2 ? 'يومان' : n <= 10 ? `${n} أيام` : `${n} يوماً`, n === 1 ? '1 day' : `${n} days`);
+const shortDate = iso => dateAr(iso, {day:'numeric', month:'short'});
+const whenTxt = iso => { const n = dDiff(iso, today()); return n === 0 ? L('اليوم', 'today') : n === 1 ? L('غداً', 'tomorrow') : n === -1 ? L('أمس', 'yesterday') : n < 0 ? L(`متأخر ${daysTxt(-n)}`, `${-n} days late`) : n <= 6 ? L(`بعد ${daysTxt(n)}`, `in ${n} days`) : shortDate(iso); };
+const segHTML = (key, opts, val) => `<div class="seg" data-seg="${key}">${opts.map(([v, l, s]) => `<button type="button" data-v="${v}" aria-pressed="${v === val}">${l}${s ? `<small>${s}</small>` : ''}</button>`).join('')}</div>`;
+const curSeg = val => segHTML('cur', CODES.map(c => [c, CUR[c].sym, CUR[c].short]), val);
+function bindSegs(root, st, onChange){
+  $$('[data-seg]', root).forEach(seg => seg.addEventListener('click', e => {
+    const b = e.target.closest('button[data-v]'); if (!b) return;
+    st[seg.dataset.seg] = b.dataset.v;
+    $$('button', seg).forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    onChange && onChange(seg.dataset.seg);
+  }));
+}
+const wReady = c => S.loaded[c] && dataReady();
+const wList = c => Object.values(S[c] || {}).filter(x => x && !x.deleted);
+const bar = (pct, cls) => `<div class="wbar ${cls || ''}"><i style="--w:${Math.max(0, Math.min(100, pct)).toFixed(1)}%"></i></div>`;
+const tc = () => S.prefs.totalCur || 'USD';
+function waOpen(phone, text){
+  const ph = waPhone(phone), t = encodeURIComponent(text);
+  window.open(ph ? `https://wa.me/${ph}?text=${t}` : `https://wa.me/?text=${t}`, '_blank', 'noopener');
+}
+function wTrashView(col, title, back, rowFn){
+  topbar(title, back);
+  if (!wReady(col)) return loading();
+  const list = Object.values(S[col]).filter(x => x.deleted).sort((a, b) => (b.deletedAt || 0) - (a.deletedAt || 0));
+  if (!list.length) return `<div class="empty"><div class="em">${icon('trash')}</div><h3>${L('السلة فارغة', 'The trash is empty')}</h3><p>${L(`العناصر المحذوفة تبقى هنا ${TRASH_DAYS} يوماً.`, `Deleted items stay here for ${TRASH_DAYS} days.`)}</p></div>`;
+  return `<div class="bulk"><button class="btn soft" data-act="wRestoreAll" data-col="${col}">${icon('restore')} ${L('استرجاع الكل', 'Restore all')}</button><button class="btn danger-soft" data-act="wPurgeAll" data-col="${col}">${icon('trash')} ${L('حذف الكل نهائياً', 'Delete all forever')}</button></div>
+    <div class="panel list">${list.map(x => {
+      const left = Math.max(0, TRASH_DAYS - Math.floor((Date.now() - (x.deletedAt || Date.now())) / 864e5));
+      return `<div class="row fx-ghost">${rowFn(x, ' · ' + L(`يبقى ${daysTxt(left)}`, `${left} days left`))}
+        <button class="btn small soft" data-act="wRestore" data-col="${col}" data-id="${esc(x.id)}">${icon('restore')} ${L('استرجاع', 'Restore')}</button>
+        <button class="del-x" data-act="wPurge" data-col="${col}" data-id="${esc(x.id)}" aria-label="${L('حذف نهائي', 'Delete forever')}">${icon('trash')}</button></div>`;
+    }).join('')}</div>`;
+}
+function wDelete(col, x, back){
+  return confirmBox(L('نقل إلى السلة؟', 'Move to trash?'), L(`يمكنك استرجاعه خلال ${TRASH_DAYS} يوماً.`, `You can restore it within ${TRASH_DAYS} days.`), L('نقل إلى السلة', 'Move to trash'), true).then(ok => {
+    if (!ok) return;
+    save(col, Object.assign({}, x, {deleted:true, deletedAt:Date.now()}));
+    toast(L('نُقل إلى السلة', 'Moved to trash')); go(back);
+  });
+}
+
+/* ---------- سعر السوق والسجل (درع الليرة) ---------- */
+function marketRate(){ const own = S.prefs.sypOwn; S.prefs.sypOwn = null; let v; try{ v = rates().r.SYP; } finally { S.prefs.sypOwn = own; } return v; }
+const HIST = {
+  remote: ls.get('daly_hist_remote', {}),
+  snap(){
+    const v = marketRate(); if (!(v > 0)) return;
+    const m = ls.get('daly_hist_local', {}), t = today();
+    if (m[t] === v) return;
+    m[t] = v; const ks = Object.keys(m).sort(); while (ks.length > 900) delete m[ks.shift()];
+    ls.set('daly_hist_local', m);
+  },
+  all(){
+    const m = Object.assign({}, ls.get('daly_hist_local', {}), HIST.remote);
+    const t = today(), v = marketRate(); if (v > 0) m[t] = v;
+    return Object.keys(m).sort().map(d => ({d, v:+m[d]})).filter(x => x.v > 0);
+  },
+  at(date){
+    if (!date) return null;
+    const a = HIST.all(); let best = null;
+    for (const x of a){ if (x.d <= date) best = x; else break; }
+    return best ? best.v : null;
+  },
+  ago(days){ const d = new Date(); d.setDate(d.getDate() - days); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return HIST.at(d.toISOString().slice(0, 10)); }
+};
+function debtR0(d){ return d.r0 > 0 ? +d.r0 : HIST.at(d.date); }
+
+/* =====================================================
+   📆 التقسيط
+   ===================================================== */
+const INST = {
+  paid: x => (x.sched || []).filter(s => s.paid).reduce((a, s) => a + (+s.a || 0), 0) + (+x.down || 0),
+  rem: x => Math.max(0, (+x.total || 0) - INST.paid(x)),
+  next: x => (x.sched || []).find(s => !s.paid),
+  done: x => (x.sched || []).length > 0 && x.sched.every(s => s.paid),
+  late: x => (x.sched || []).some(s => !s.paid && s.due < today()),
+  build(total, down, n, start, cur, keep){
+    const dec = CUR[cur].d, paid = (keep || []).filter(s => s.paid);
+    const left = Math.max(0, total - down - paid.reduce((a, s) => a + (+s.a || 0), 0));
+    const k = Math.max(0, n - paid.length), base = k ? round(left / k, dec) : 0;
+    const out = paid.map(s => Object.assign({}, s));
+    for (let i = 0; i < k; i++){
+      const idx = paid.length + i;
+      out.push({due: mAdd(start, idx), a: i === k - 1 ? round(left - base * (k - 1), dec) : base, paid:false});
+    }
+    out.forEach((s, i) => { s.i = i; });
+    return out;
+  },
+  stateOf(s){ if (s.paid) return 'paid'; const n = dDiff(s.due, today()); return n < 0 ? 'late' : n <= 3 ? 'soon' : 'up'; }
+};
+function vInst(r){
+  topbar(L('التقسيط', 'Instalments'), '#/tools');
+  if (!wReady('inst')) return loading();
+  const dir = r.q.d === 'out' ? 'out' : 'in', c = tc();
+  const all = wList('inst').filter(x => (x.dir || 'in') === dir);
+  const list = all.slice().sort((a, b) => (INST.done(a) - INST.done(b)) || ((INST.next(a) || {}).due || '9').localeCompare((INST.next(b) || {}).due || '9'));
+  const ym = thisYM();
+  const remSum = all.reduce((a, x) => a + convert(INST.rem(x), x.cur, c), 0);
+  const monthSum = all.reduce((a, x) => a + (x.sched || []).filter(s => !s.paid && s.due.slice(0, 7) <= ym).reduce((b, s) => b + convert(+s.a, x.cur, c), 0), 0);
+  const lateN = all.filter(INST.late).length;
+  const trashN = Object.values(S.inst).filter(x => x.deleted).length;
+  return `<div class="seg wtabs">${[['in', L('لي · عملائي', 'Owed to me')], ['out', L('عليّ · أقساطي', 'I pay')]].map(([v, l]) => `<a href="#/inst?d=${v}" aria-pressed="${v === dir}">${l}</a>`).join('')}</div>
+    <div class="wsum">
+      <div><span>${dir === 'in' ? L('باقي لك', 'Left to collect') : L('باقي عليك', 'Left to pay')}</span><b class="${dir === 'in' ? 'tin' : 'tout'}">${fmtH(remSum, c)}</b></div>
+      <div><span>${L('مستحق هذا الشهر', 'Due this month')}</span><b>${fmtH(monthSum, c)}</b></div>
+      <div><span>${L('متأخر', 'Late')}</span><b class="${lateN ? 'tout' : ''}">${lateN}</b></div>
+    </div>
+    ${list.length ? `<div class="wlist">${list.map((x, i) => {
+      const nx = INST.next(x), done = INST.done(x), st = nx ? INST.stateOf(nx) : 'paid';
+      const pc = (x.sched || []).filter(s => s.paid).length, n = (x.sched || []).length;
+      const pill = done ? `<span class="pill in">${L('اكتمل ✓', 'Done ✓')}</span>` : st === 'late' ? `<span class="pill out">${whenTxt(nx.due)}</span>` : `<span class="pill ${st === 'soon' ? 'warn' : 'mute'}">${whenTxt(nx.due)}</span>`;
+      return `<a class="wcard" href="#/instv/${esc(x.id)}" style="--d:${i}"><div class="wc-top"><span class="av ${st === 'late' && !done ? 'av-out' : ''}">${esc(initial(x.name))}</span>
+        <span class="mid"><b>${esc(x.name)}</b><span>${esc(x.item || '')}${x.item ? ' · ' : ''}${L(`${pc} من ${n} أقساط`, `${pc} of ${n} paid`)}</span></span>${pill}</div>
+        ${bar(INST.paid(x) / (x.total || 1) * 100, done ? 'ok' : st === 'late' ? 'bad' : '')}
+        <div class="wc-foot"><span>${L('الباقي', 'Left')} ${fmtH(INST.rem(x), x.cur)}</span>${nx ? `<span>${L('القسط القادم', 'Next')} ${fmtH(nx.a, x.cur)}</span>` : ''}</div></a>`;
+    }).join('')}</div>`
+    : `<div class="empty"><div class="em">${icon('cal')}</div><h3>${dir === 'in' ? L('لا يوجد عملاء تقسيط', 'No instalment customers') : L('لا توجد أقساط عليك', 'No instalments to pay')}</h3><p>${dir === 'in' ? L('سجّل بيعاً بالتقسيط، ودلي يقسّمه ويذكّرك بكل قسط في موعده.', 'Record a sale on instalments and Daly splits it and reminds you of each payment.') : L('سجّل ما تدفعه بالتقسيط، ودلي يذكّرك بكل قسط، ويضيفه لميزانيتك تلقائياً.', 'Record what you pay in instalments; Daly reminds you and adds it to your budget.')}</p></div>`}
+    <a class="btn block brass wnew" href="#/instf/new?d=${dir}">${icon('plus')} ${L('تقسيط جديد', 'New instalment plan')}</a>
+    ${trashN ? `<a class="wtrash" href="#/instt">${icon('trash')} ${L(`سلة التقسيط (${trashN})`, `Instalments trash (${trashN})`)}</a>` : ''}`;
+}
+function vInstV(r){
+  const x = S.inst[r.id];
+  if (!wReady('inst')){ topbar(L('التقسيط', 'Instalments'), '#/inst'); return loading(); }
+  if (!x || x.deleted){ topbar(L('غير موجود', 'Not found'), '#/inst'); return `<div class="empty"><h3>${L('هذا التقسيط غير موجود', 'This plan does not exist')}</h3><p><a href="#/instt">${L('افتح سلة التقسيط', 'Open the instalments trash')}</a></p></div>`; }
+  const dir = x.dir || 'in';
+  topbar(x.name, '#/inst?d=' + dir);
+  const nx = INST.next(x), done = INST.done(x), n = x.sched.length, pc = x.sched.filter(s => s.paid).length;
+  const pct = INST.paid(x) / (x.total || 1) * 100;
+  return `<div class="whero ${done ? 'done' : ''}">
+      <div class="wh-l">${esc(x.item || L('تقسيط', 'Instalments'))} · ${L(`${n} أقساط`, `${n} instalments`)} · ${dir === 'in' ? L('لك', 'owed to you') : L('عليك', 'you pay')}</div>
+      <div class="wh-v ${dir === 'in' ? 'tin' : 'tout'}" data-count>${fmtH(INST.rem(x), x.cur)}</div>
+      <div class="wh-s">${L('باقي من', 'left of')} ${fmtH(x.total, x.cur)}${x.down > 0 ? ` · ${L('دفعة أولى', 'down payment')} ${fmtH(x.down, x.cur)}` : ''}</div>
+      ${bar(pct, done ? 'ok' : INST.late(x) ? 'bad' : '')}
+      <div class="wh-f">${done ? L('اكتمل التقسيط بالكامل 🎉', 'Fully paid 🎉') : `${L(`${pc} من ${n} مدفوعة`, `${pc} of ${n} paid`)} · ${L('القسط القادم', 'next:')} ${whenTxt(nx.due)}`}</div>
+      ${done ? `<div class="fx-stamp">${L('مكتمل', 'Paid')}</div>` : ''}
+    </div>
+    <div class="actions wacts">
+      ${dir === 'in' && nx ? `<button class="act" data-act="instWA" data-id="${esc(x.id)}"><span class="ico wa">${icon('wa')}</span>${L('تذكير', 'Remind')}</button>` : ''}
+      <a class="act" href="#/instf/${esc(x.id)}"><span class="ico">${icon('edit')}</span>${L('تعديل', 'Edit')}</a>
+      <button class="act" data-act="instDel" data-id="${esc(x.id)}"><span class="ico" style="color:var(--out)">${icon('trash')}</span>${L('حذف', 'Delete')}</button>
+    </div>
+    <section class="sec"><div class="sec-h"><h2>${L('جدول الأقساط', 'Schedule')}</h2></div>
+      <div class="panel sched">${x.sched.map(s => { const st = INST.stateOf(s);
+        return `<button class="srow s-${st}" data-act="instRow" data-id="${esc(x.id)}" data-i="${s.i}"><span class="sn">${st === 'paid' ? '✓' : s.i + 1}</span>
+          <span class="mid"><b>${L(`القسط ${s.i + 1}`, `Instalment ${s.i + 1}`)}</b><span>${dateAr(s.due)}${st === 'paid' && s.paidAt ? ' · ' + L('دُفع', 'paid') + ' ' + shortDate(s.paidAt) : st === 'late' ? ' · ' + whenTxt(s.due) : ''}</span></span>
+          <span class="pill ${st === 'paid' ? 'in' : st === 'late' ? 'out' : st === 'soon' ? 'warn' : 'mute'}">${fmtH(s.a, x.cur)}</span></button>`; }).join('')}</div></section>
+    ${x.phone || x.note ? `<section class="sec"><div class="panel wnote">${x.phone ? `<div dir="ltr" class="muted">${esc(x.phone)}</div>` : ''}${x.note ? `<div>${esc(x.note)}</div>` : ''}</div></section>` : ''}`;
+}
+let instForm = null;
+function vInstF(r){
+  const editing = r.id && r.id !== 'new';
+  const x = editing ? S.inst[r.id] : null;
+  if (editing && !wReady('inst')){ topbar(L('تعديل', 'Edit'), '#/inst'); return loading(); }
+  if (editing && (!x || x.deleted)){ topbar(L('غير موجود', 'Not found'), '#/inst'); return `<div class="empty"><h3>${L('هذا التقسيط غير موجود', 'This plan does not exist')}</h3></div>`; }
+  const nextMonth = mAdd(today(), 1);
+  instForm = editing ? {dir:x.dir || 'in', cur:x.cur, n:String(x.sched.length)} : {dir:r.q.d === 'out' ? 'out' : 'in', cur:S.prefs.lastCur || 'USD', n:'6'};
+  topbar(editing ? L('تعديل التقسيط', 'Edit plan') : L('تقسيط جديد', 'New instalment plan'), editing ? '#/instv/' + x.id : '#/inst?d=' + instForm.dir);
+  return `<form data-form="inst" data-id="${editing ? esc(x.id) : ''}" novalidate autocomplete="off" class="wform">
+    <div class="field"><span>${L('النوع', 'Type')}</span>${segHTML('dir', [['in', L('لي', 'Owed to me'), L('عميل يقسّط لي', 'A customer pays me')], ['out', L('عليّ', 'I pay'), L('أنا أقسّط لغيري', 'I pay someone')]], instForm.dir)}</div>
+    <label class="field"><span id="if-name-l">${instForm.dir === 'in' ? L('اسم العميل', 'Customer name') : L('لمن تدفع؟', 'Who do you pay?')}</span><input class="input" id="if-name" value="${editing ? esc(x.name) : ''}" placeholder="${L('مثلاً: أبو سامي', 'e.g. Abu Sami')}" required></label>
+    <div class="grid2">
+      <label class="field"><span>${L('البضاعة أو الوصف', 'Item')}</span><input class="input" id="if-item" value="${editing ? esc(x.item || '') : ''}" placeholder="${L('جوال، براد…', 'Phone, fridge…')}"></label>
+      <label class="field"><span>${L('الهاتف (اختياري)', 'Phone (optional)')}</span><input class="input" id="if-phone" type="tel" inputmode="tel" dir="ltr" value="${editing ? esc(x.phone || '') : ''}" placeholder="09xxxxxxxx"></label>
+    </div>
+    <div class="field"><span>${L('العملة', 'Currency')}</span>${curSeg(instForm.cur)}</div>
+    <div class="grid2">
+      <label class="field"><span>${L('المبلغ الكلي', 'Total amount')}</span><input class="input big" id="if-total" inputmode="decimal" value="${editing ? esc(String(x.total)) : ''}" placeholder="0" required></label>
+      <label class="field"><span>${L('دفعة أولى (اختياري)', 'Down payment (optional)')}</span><input class="input big" id="if-down" inputmode="decimal" value="${editing && x.down ? esc(String(x.down)) : ''}" placeholder="0"></label>
+    </div>
+    <div class="field"><span>${L('عدد الأقساط (شهرياً)', 'Number of monthly instalments')}</span>
+      <div class="nchips">${[3, 6, 10, 12, 24].map(v => `<button type="button" data-n="${v}" aria-pressed="${String(v) === instForm.n}">${v}</button>`).join('')}<input class="input" id="if-n" inputmode="numeric" value="${esc(instForm.n)}" aria-label="${L('عدد آخر', 'Other number')}"></div></div>
+    <label class="field"><span>${L('موعد القسط الأول', 'First instalment date')}</span><input class="input" id="if-start" type="date" value="${editing ? esc(x.sched[0] ? x.sched[0].due : nextMonth) : nextMonth}"></label>
+    <label class="field"><span>${L('ملاحظة (اختياري)', 'Note (optional)')}</span><input class="input" id="if-note" value="${editing ? esc(x.note || '') : ''}" maxlength="140"></label>
+    <div class="wpreview" id="if-prev"></div>
+    <div class="err" id="if-err" role="alert"></div>
+    <button class="btn block brass" type="submit" style="min-height:54px;font-size:17px">${editing ? L('حفظ التعديل', 'Save changes') : L('حفظ التقسيط', 'Save plan')}</button>
+  </form>`;
+}
+vInstF.mount = r => {
+  const f = $('form[data-form=inst]'); if (!f) return;
+  const prev = () => {
+    const total = toNum($('#if-total').value), down = toNum($('#if-down').value) || 0, n = parseInt($('#if-n').value, 10), start = $('#if-start').value;
+    const el = $('#if-prev');
+    if (!(total > 0) || !(n > 0) || !start || down >= total){ el.innerHTML = ''; el.hidden = true; return; }
+    const sc = INST.build(total, down, n, start, instForm.cur, []);
+    el.hidden = false;
+    el.innerHTML = `${icon('cal')}<span>${L(`${n} أقساط × ${fmtH(sc[0].a, instForm.cur)}`, `${n} × ${fmtH(sc[0].a, instForm.cur)}`)}${sc[n - 1].a !== sc[0].a ? L(` (الأخير ${fmtH(sc[n - 1].a, instForm.cur)})`, ` (last ${fmtH(sc[n - 1].a, instForm.cur)})`) : ''}<br><small>${L('من', 'from')} ${dateAr(sc[0].due)} ${L('إلى', 'to')} ${dateAr(sc[n - 1].due)}</small></span>`;
+  };
+  bindSegs(f, instForm, k => { if (k === 'dir') $('#if-name-l').textContent = instForm.dir === 'in' ? L('اسم العميل', 'Customer name') : L('لمن تدفع؟', 'Who do you pay?'); prev(); });
+  f.addEventListener('click', e => { const b = e.target.closest('[data-n]'); if (!b) return; $('#if-n').value = b.dataset.n; $$('[data-n]', f).forEach(x => x.setAttribute('aria-pressed', String(x === b))); prev(); });
+  $('#if-n').addEventListener('input', () => { $$('[data-n]', f).forEach(x => x.setAttribute('aria-pressed', String(x.dataset.n === $('#if-n').value))); prev(); });
+  ['#if-total', '#if-down', '#if-start'].forEach(s => $(s).addEventListener('input', prev));
+  prev();
+};
+function submitInst(f){
+  const err = $('#if-err'); err.textContent = '';
+  const id = f.dataset.id, x = id ? S.inst[id] : null;
+  const name = $('#if-name').value.trim(), total = toNum($('#if-total').value), down = toNum($('#if-down').value) || 0;
+  const n = parseInt($('#if-n').value, 10), start = $('#if-start').value;
+  if (!name) return err.textContent = L('اكتب الاسم.', 'Enter a name.');
+  if (!(total > 0)) return err.textContent = L('اكتب مبلغاً أكبر من صفر.', 'Enter an amount greater than zero.');
+  if (down < 0 || down >= total) return err.textContent = L('الدفعة الأولى يجب أن تكون أقل من المبلغ الكلي.', 'The down payment must be less than the total.');
+  if (!(n >= 1 && n <= 120)) return err.textContent = L('عدد الأقساط بين 1 و120.', 'Instalments must be between 1 and 120.');
+  if (!start) return err.textContent = L('اختر موعد القسط الأول.', 'Pick the first instalment date.');
+  const keep = x ? x.sched.filter(s => s.paid) : [];
+  if (x && keep.length > n) return err.textContent = L(`يوجد ${keep.length} أقساط مدفوعة، فلا يمكن أن يكون العدد أقل.`, `${keep.length} instalments are already paid; the number can't be lower.`);
+  if (x && keep.reduce((a, s) => a + s.a, 0) + down > total + 1e-9) return err.textContent = L('المدفوع أكبر من المبلغ الكلي الجديد.', 'What is already paid exceeds the new total.');
+  const cur = instForm.cur;
+  const sched = INST.build(round(total, CUR[cur].d), round(down, CUR[cur].d), n, start, cur, x && x.cur === cur ? keep : []);
+  const obj = Object.assign({}, x || {id:uid(), createdAt:Date.now(), deleted:false}, {dir:instForm.dir, name, item:$('#if-item').value.trim(), phone:$('#if-phone').value.trim(), note:$('#if-note').value.trim(), cur, total:round(total, CUR[cur].d), down:round(down, CUR[cur].d), sched});
+  S.prefs.lastCur = cur; savePrefs();
+  save('inst', obj); try{ SND.play('add'); }catch(e){}
+  toast(x ? L('حُفظ التعديل', 'Changes saved') : L('حُفظ التقسيط', 'Plan saved'));
+  go('#/instv/' + obj.id);
+}
+function instRowSheet(x, i){
+  const s = x.sched[i]; if (!s) return;
+  const st = INST.stateOf(s);
+  openSheet(`<h3>${L(`القسط ${i + 1}`, `Instalment ${i + 1}`)} · ${fmtH(s.a, x.cur)}</h3>
+    <p class="sub">${esc(x.name)} · ${dateAr(s.due)} · ${st === 'paid' ? L('مدفوع', 'paid') : st === 'late' ? whenTxt(s.due) : L('لم يُدفع بعد', 'not paid yet')}</p>
+    <div class="sheet-acts">
+      ${s.paid ? `<button class="btn ghost block" data-act="instUnpay" data-id="${esc(x.id)}" data-i="${i}">${icon('restore')} ${L('إلغاء تسجيل الدفع', 'Undo payment')}</button>`
+        : `<button class="btn brass block" data-act="instPay" data-id="${esc(x.id)}" data-i="${i}">${icon('check')} ${(x.dir || 'in') === 'in' ? L('استلمت هذا القسط', 'I received it') : L('دفعت هذا القسط', 'I paid it')}</button>`}
+    </div>
+    <form data-form="instEdit" data-id="${esc(x.id)}" data-i="${i}" novalidate class="sheet-form">
+      <div class="grid2"><label class="field"><span>${L('المبلغ', 'Amount')}</span><input class="input" id="ie-a" inputmode="decimal" value="${esc(String(s.a))}"></label>
+      <label class="field"><span>${L('الموعد', 'Due date')}</span><input class="input" id="ie-d" type="date" value="${esc(s.due)}"></label></div>
+      <div class="err" id="ie-err"></div>
+      <div class="btns"><button type="button" class="btn ghost" data-act="closeSheet">${L('إغلاق', 'Close')}</button><button class="btn">${L('حفظ التعديل', 'Save changes')}</button></div>
+    </form>`);
+}
+
+/* =====================================================
+   🔄 الجمعيات
+   ===================================================== */
+const JAM = {
+  n: j => (j.members || []).length,
+  pot: j => (+j.amount || 0) * JAM.n(j),
+  idx: (j, ym) => ymDiff(ym || thisYM(), j.start),
+  state(j){ const k = JAM.idx(j), n = JAM.n(j); return k < 0 ? 'soon' : k >= n ? 'over' : 'run'; },
+  ymOf: (j, k) => ymAdd(j.start, k),
+  receiver: (j, k) => (j.members || [])[k],
+  me: j => (j.members || []).find(m => m.me),
+  myTurn: j => { const i = (j.members || []).findIndex(m => m.me); return i; },
+  paid: (j, ym) => new Set((j.pays || {})[ym] || []),
+  unpaid: (j, ym) => (j.members || []).filter(m => !JAM.paid(j, ym).has(m.id))
+};
+function jamCur(j){ const k = Math.max(0, Math.min(JAM.n(j) - 1, JAM.idx(j))); return k; }
+function vJam(){
+  topbar(L('الجمعيات', 'Savings circles'), '#/tools');
+  if (!wReady('jam')) return loading();
+  const list = wList('jam').sort((a, b) => ({run:0, soon:1, over:2}[JAM.state(a)] - {run:0, soon:1, over:2}[JAM.state(b)]) || (b.createdAt || 0) - (a.createdAt || 0));
+  const trashN = Object.values(S.jam).filter(x => x.deleted).length;
+  return `${list.length ? `<div class="wlist">${list.map((j, i) => {
+      const st = JAM.state(j), n = JAM.n(j), k = jamCur(j), rc = JAM.receiver(j, k), mi = JAM.myTurn(j);
+      const mine = st === 'run' && rc && rc.me;
+      const pill = mine ? `<span class="pill in">${L('دورك! 🎉', 'Your turn! 🎉')}</span>` : st === 'soon' ? `<span class="pill mute">${L('تبدأ', 'Starts')} ${ymLabel(j.start, 'short')}</span>` : st === 'over' ? `<span class="pill mute">${L('انتهت ✓', 'Finished ✓')}</span>` : `<span class="pill warn">${L(`الشهر ${k + 1}`, `Month ${k + 1}`)}</span>`;
+      const ym = thisYM(), up = st === 'run' ? JAM.unpaid(j, ym).length : 0;
+      return `<a class="wcard" href="#/jamv/${esc(j.id)}" style="--d:${i}"><div class="wc-top"><span class="av av-jam">${icon('cycle')}</span>
+        <span class="mid"><b>${esc(j.name)}</b><span>${L(`${n} أعضاء`, `${n} members`)} · ${fmtH(j.amount, j.cur)} ${L('شهرياً', 'monthly')}</span></span>${pill}</div>
+        ${bar(st === 'over' ? 100 : st === 'soon' ? 0 : (k + 1) / n * 100, st === 'over' ? 'ok' : '')}
+        <div class="wc-foot"><span>${st === 'run' ? L('يستلم الآن:', 'Receiving:') + ' ' + esc(rc ? rc.name : '') : st === 'soon' ? L('لم تبدأ بعد', 'Not started yet') : L('اكتملت الدورة', 'Cycle complete')}</span>
+        <span>${st === 'run' && up ? `<b class="tout">${L(`${up} لم يدفعوا`, `${up} unpaid`)}</b>` : mi >= 0 ? L(`دورك: ${ymLabel(JAM.ymOf(j, mi), 'short')}`, `Your turn: ${ymLabel(JAM.ymOf(j, mi), 'short')}`) : ''}</span></div></a>`;
+    }).join('')}</div>`
+    : `<div class="empty"><div class="em">${icon('cycle')}</div><h3>${L('لا توجد جمعيات', 'No savings circles')}</h3><p>${L('أضف جمعيتك: الأعضاء، والمبلغ الشهري، وترتيب الأدوار. ودلي يتابع من دفع ومن عليه الدور.', 'Add your circle: members, the monthly amount and the order of turns. Daly tracks who paid and whose turn it is.')}</p></div>`}
+    <a class="btn block brass wnew" href="#/jamf/new">${icon('plus')} ${L('جمعية جديدة', 'New savings circle')}</a>
+    ${trashN ? `<a class="wtrash" href="#/jamt">${icon('trash')} ${L(`سلة الجمعيات (${trashN})`, `Circles trash (${trashN})`)}</a>` : ''}`;
+}
+function vJamV(r){
+  const j = S.jam[r.id];
+  if (!wReady('jam')){ topbar(L('الجمعيات', 'Savings circles'), '#/jam'); return loading(); }
+  if (!j || j.deleted){ topbar(L('غير موجود', 'Not found'), '#/jam'); return `<div class="empty"><h3>${L('هذه الجمعية غير موجودة', 'This circle does not exist')}</h3><p><a href="#/jamt">${L('افتح سلة الجمعيات', 'Open the circles trash')}</a></p></div>`; }
+  topbar(j.name, '#/jam');
+  const n = JAM.n(j), st = JAM.state(j), cur = jamCur(j);
+  const k = r.q.m !== undefined && r.q.m !== '' ? Math.max(0, Math.min(n - 1, parseInt(r.q.m, 10) || 0)) : cur;
+  const ym = JAM.ymOf(j, k), rc = JAM.receiver(j, k), paid = JAM.paid(j, ym), pn = j.members.filter(m => paid.has(m.id)).length;
+  const isNow = st === 'run' && k === cur;
+  return `<div class="whero jam ${rc && rc.me ? 'mine' : ''}">
+      <div class="wh-l">${L(`الشهر ${k + 1} من ${n}`, `Month ${k + 1} of ${n}`)} · ${ymLabel(ym)}${isNow ? ` · <b>${L('الآن', 'now')}</b>` : ''}</div>
+      <div class="wh-v">${fmtH(JAM.pot(j), j.cur)}</div>
+      <div class="wh-who"><span class="av">${esc(initial(rc ? rc.name : '?'))}</span><span><b>${esc(rc ? rc.name : '')}${rc && rc.me ? ' ' + L('(أنت) 🎉', '(you) 🎉') : ''}</b><small>${isNow ? L('يستلم هذا الشهر', 'receives this month') : k < cur || st === 'over' ? L('استلم', 'received') : L('سيستلم', 'will receive')}</small></span></div>
+    </div>
+    <div class="mstrip" role="tablist">${j.members.map((m, i) => { const y = JAM.ymOf(j, i), full = JAM.paid(j, y).size >= n, past = st === 'over' || (st === 'run' && i < cur);
+      return `<a href="#/jamv/${esc(j.id)}?m=${i}" class="mchip ${i === k ? 'sel' : ''} ${st === 'run' && i === cur ? 'now' : ''} ${past && full ? 'done' : ''} ${m.me ? 'me' : ''}" aria-selected="${i === k}"><i>${m.me ? L('أنت', 'You') : past && full ? '✓' : i + 1}</i><span>${ymLabel(y, 'short')}</span></a>`; }).join('')}</div>
+    <section class="sec"><div class="sec-h"><h2>${L('دفعات', 'Payments')} ${ymLabel(ym, 'm')}</h2><span class="muted">${L(`${pn} من ${n}`, `${pn} of ${n}`)}</span></div>
+      <div class="mgrid">${j.members.map(m => { const p = paid.has(m.id);
+        return `<button class="mtile ${p ? 'paid' : ''}" data-act="jamPay" data-id="${esc(j.id)}" data-ym="${ym}" data-mid="${esc(m.id)}" aria-pressed="${p}"><span class="mt-d">${p ? '✓' : '!'}</span><span class="mt-n">${esc(m.name)}${m.me ? ` <small>${L('(أنت)', '(you)')}</small>` : ''}</span></button>`; }).join('')}</div>
+      <p class="hint">${L('اضغط على العضو لتسجيل دفعته أو إلغائها.', 'Tap a member to mark or unmark their payment.')}</p></section>
+    ${pn < n ? `<button class="btn block wa-btn" data-act="jamRemind" data-id="${esc(j.id)}" data-ym="${ym}">${icon('wa')} ${L('ذكّر من لم يدفع بالواتساب', 'Remind unpaid members on WhatsApp')}</button>` : ''}
+    <div class="actions wacts" style="margin-top:14px">
+      <a class="act" href="#/jamf/${esc(j.id)}"><span class="ico">${icon('edit')}</span>${L('تعديل', 'Edit')}</a>
+      <button class="act" data-act="jamMenu" data-id="${esc(j.id)}"><span class="ico">${icon('cycle')}</span>${L('خيارات', 'Options')}</button>
+    </div>`;
+}
+let jamForm = null;
+function vJamF(r){
+  const editing = r.id && r.id !== 'new';
+  const j = editing ? S.jam[r.id] : null;
+  if (editing && !wReady('jam')){ topbar(L('تعديل', 'Edit'), '#/jam'); return loading(); }
+  if (editing && (!j || j.deleted)){ topbar(L('غير موجود', 'Not found'), '#/jam'); return `<div class="empty"><h3>${L('هذه الجمعية غير موجودة', 'This circle does not exist')}</h3></div>`; }
+  jamForm = editing ? {cur:j.cur, members:j.members.map(m => Object.assign({}, m))}
+    : {cur:S.prefs.lastCur || 'USD', members:[{id:uid(), name:S.user && S.user.name || '', phone:'', me:true}, {id:uid(), name:'', phone:''}, {id:uid(), name:'', phone:''}]};
+  topbar(editing ? L('تعديل الجمعية', 'Edit circle') : L('جمعية جديدة', 'New savings circle'), editing ? '#/jamv/' + j.id : '#/jam');
+  return `<form data-form="jam" data-id="${editing ? esc(j.id) : ''}" novalidate autocomplete="off" class="wform">
+    <label class="field"><span>${L('اسم الجمعية', 'Circle name')}</span><input class="input" id="jf-name" value="${editing ? esc(j.name) : ''}" placeholder="${L('مثلاً: جمعية الحارة', 'e.g. Neighbourhood circle')}" required></label>
+    <div class="field"><span>${L('العملة', 'Currency')}</span>${curSeg(jamForm.cur)}</div>
+    <div class="grid2">
+      <label class="field"><span>${L('القسط الشهري لكل عضو', 'Monthly share per member')}</span><input class="input big" id="jf-amt" inputmode="decimal" value="${editing ? esc(String(j.amount)) : ''}" placeholder="0" required></label>
+      <label class="field"><span>${L('شهر البداية', 'Start month')}</span><input class="input" id="jf-start" type="month" value="${editing ? esc(j.start) : thisYM()}"></label>
+    </div>
+    <div class="field"><div class="mf-h"><span>${L('الأعضاء بترتيب الأدوار', 'Members in turn order')}</span><button type="button" class="linkbtn" data-jf="shuffle">🎲 ${L('قرعة', 'Draw')}</button></div>
+      <div id="jf-mem" class="mlist"></div>
+      <button type="button" class="btn soft block" data-jf="add" style="margin-top:8px">${icon('plus')} ${L('إضافة عضو', 'Add member')}</button></div>
+    <div class="wpreview" id="jf-prev"></div>
+    <div class="err" id="jf-err" role="alert"></div>
+    <button class="btn block brass" type="submit" style="min-height:54px;font-size:17px">${editing ? L('حفظ التعديل', 'Save changes') : L('حفظ الجمعية', 'Save circle')}</button>
+  </form>`;
+}
+vJamF.mount = () => {
+  const f = $('form[data-form=jam]'); if (!f) return;
+  const box = $('#jf-mem');
+  const sync = () => { $$('.mrow', box).forEach((row, i) => { const m = jamForm.members[i]; if (m){ m.name = $('.mn', row).value; m.phone = $('.mp', row).value; } }); };
+  const prev = () => {
+    const amt = toNum($('#jf-amt').value), n = jamForm.members.length, st = $('#jf-start').value, el = $('#jf-prev');
+    if (!(amt > 0) || n < 2 || !st){ el.hidden = true; return; }
+    el.hidden = false;
+    el.innerHTML = `${icon('cycle')}<span>${L(`يستلم كل شهر عضو واحد ${fmtH(amt * n, jamForm.cur)}`, `Each month one member receives ${fmtH(amt * n, jamForm.cur)}`)}<br><small>${n} × ${fmtH(amt, jamForm.cur)} · ${L('من', 'from')} ${ymLabel(st)} ${L('إلى', 'to')} ${ymLabel(ymAdd(st, n - 1))}</small></span>`;
+  };
+  const draw = () => {
+    box.innerHTML = jamForm.members.map((m, i) => `<div class="mrow" data-i="${i}"><span class="mr-n">${i + 1}</span>
+      <div class="mr-f"><input class="input mn" value="${esc(m.name)}" placeholder="${L('اسم العضو', 'Member name')}"><input class="input mp" type="tel" inputmode="tel" dir="ltr" value="${esc(m.phone || '')}" placeholder="${L('الهاتف (اختياري)', 'Phone (optional)')}"></div>
+      <div class="mr-a"><button type="button" data-jf="me" aria-pressed="${!!m.me}" title="${L('هذا أنا', 'This is me')}">${L('أنا', 'Me')}</button>
+      <button type="button" data-jf="up" ${i === 0 ? 'disabled' : ''} aria-label="${L('أعلى', 'Up')}">▲</button><button type="button" data-jf="down" ${i === jamForm.members.length - 1 ? 'disabled' : ''} aria-label="${L('أسفل', 'Down')}">▼</button>
+      <button type="button" data-jf="del" aria-label="${L('حذف', 'Remove')}">✕</button></div></div>`).join('');
+    prev();
+  };
+  f.addEventListener('click', e => {
+    const b = e.target.closest('[data-jf]'); if (!b) return;
+    sync();
+    const row = b.closest('.mrow'), i = row ? +row.dataset.i : -1, M = jamForm.members;
+    if (b.dataset.jf === 'add'){ M.push({id:uid(), name:'', phone:''}); draw(); const ins = $$('.mn', box); ins[ins.length - 1].focus(); return; }
+    if (b.dataset.jf === 'shuffle'){ for (let a = M.length - 1; a > 0; a--){ const z = Math.floor(Math.random() * (a + 1)); [M[a], M[z]] = [M[z], M[a]]; } draw(); try{ SND.play('tick'); }catch(e){} box.classList.remove('shuf'); void box.offsetWidth; box.classList.add('shuf'); return; }
+    if (b.dataset.jf === 'up' && i > 0){ [M[i - 1], M[i]] = [M[i], M[i - 1]]; draw(); return; }
+    if (b.dataset.jf === 'down' && i < M.length - 1){ [M[i + 1], M[i]] = [M[i], M[i + 1]]; draw(); return; }
+    if (b.dataset.jf === 'del'){ M.splice(i, 1); draw(); return; }
+    if (b.dataset.jf === 'me'){ const was = M[i].me; M.forEach(m => m.me = false); M[i].me = !was; draw(); }
+  });
+  box.addEventListener('input', () => { sync(); prev(); });
+  bindSegs(f, jamForm, prev);
+  ['#jf-amt', '#jf-start'].forEach(s => $(s).addEventListener('input', prev));
+  draw();
+};
+function submitJam(f){
+  const err = $('#jf-err'); err.textContent = '';
+  $$('#jf-mem .mrow').forEach((row, i) => { const m = jamForm.members[i]; if (m){ m.name = $('.mn', row).value.trim(); m.phone = $('.mp', row).value.trim(); } });
+  const id = f.dataset.id, j = id ? S.jam[id] : null;
+  const name = $('#jf-name').value.trim(), amount = toNum($('#jf-amt').value), start = $('#jf-start').value;
+  const members = jamForm.members.filter(m => m.name);
+  if (!name) return err.textContent = L('اكتب اسم الجمعية.', 'Enter the circle name.');
+  if (!(amount > 0)) return err.textContent = L('اكتب القسط الشهري.', 'Enter the monthly share.');
+  if (!/^\d{4}-\d{2}$/.test(start)) return err.textContent = L('اختر شهر البداية.', 'Pick the start month.');
+  if (members.length < 2) return err.textContent = L('أضف عضوين على الأقل.', 'Add at least two members.');
+  if (jamForm.members.some(m => !m.name && m.phone)) return err.textContent = L('يوجد عضو بدون اسم.', 'A member has no name.');
+  const ids = new Set(members.map(m => m.id)), pays = {};
+  Object.entries((j && j.pays) || {}).forEach(([k, v]) => { const keep = (v || []).filter(x => ids.has(x)); if (keep.length) pays[k] = keep; });
+  const obj = Object.assign({}, j || {id:uid(), createdAt:Date.now(), deleted:false, cycle:1}, {name, cur:jamForm.cur, amount:round(amount, CUR[jamForm.cur].d), start, members:members.map(m => ({id:m.id, name:m.name, phone:m.phone || '', me:!!m.me})), pays});
+  save('jam', obj); try{ SND.play('add'); }catch(e){}
+  toast(j ? L('حُفظ التعديل', 'Changes saved') : L('حُفظت الجمعية', 'Circle saved'));
+  go('#/jamv/' + obj.id);
+}
+function jamMenu(j){
+  const canRestore = j.prev && Date.now() - j.prev.at < TRASH_DAYS * 864e5;
+  openSheet(`<h3>${L('خيارات الجمعية', 'Circle options')}</h3><p class="sub">${esc(j.name)} · ${L(`${JAM.n(j)} أعضاء`, `${JAM.n(j)} members`)}</p>
+    <div class="plus-opts">
+      <a class="popt" href="#/jamf/${esc(j.id)}" data-act="plusGo" data-to="#/jamf/${esc(j.id)}"><span class="pi" style="background:var(--bg);color:var(--green2)">${icon('edit')}</span><span class="pm"><b>${L('تعديل الأعضاء والأدوار', 'Edit members and turns')}</b><span>${L('إضافة، حذف، تغيير الترتيب', 'Add, remove, reorder')}</span></span>${icon('chev')}</a>
+      <button class="popt" data-act="jamReset" data-id="${esc(j.id)}"><span class="pi" style="background:var(--brass-soft);color:var(--brass-ink)">${icon('cycle')}</span><span class="pm"><b>${L('بدء دورة جديدة', 'Start a new cycle')}</b><span>${L('مسح كل الدفعات والبدء من هذا الشهر', 'Clear all payments and start from this month')}</span></span></button>
+      ${canRestore ? `<button class="popt" data-act="jamUndo" data-id="${esc(j.id)}"><span class="pi" style="background:var(--in-soft);color:var(--in)">${icon('restore')}</span><span class="pm"><b>${L('استرجاع كل الدفعات', 'Restore all payments')}</b><span>${L('التراجع عن آخر مسح', 'Undo the last reset')}</span></span></button>` : ''}
+      <button class="popt" data-act="jamDel" data-id="${esc(j.id)}" style="border-color:var(--out-soft)"><span class="pi" style="background:var(--out-soft);color:var(--out)">${icon('trash')}</span><span class="pm"><b style="color:var(--out)">${L('حذف الجمعية', 'Delete circle')}</b><span>${L('تنتقل إلى سلة الجمعيات', 'Moves to the circles trash')}</span></span></button>
+    </div>`);
+}
+
+/* =====================================================
+   💰 الميزانية
+   ===================================================== */
+const BUD = {
+  defaults: () => [
+    {ic:'🏠', name:L('السكن والأجار', 'Rent & housing'), p:25, kind:'need'},
+    {ic:'🍽️', name:L('الأكل', 'Food'), p:15, kind:'need'},
+    {ic:'💡', name:L('الفواتير والأمبيرات', 'Bills & generator'), p:5, kind:'need'},
+    {ic:'🚌', name:L('المواصلات', 'Transport'), p:5, kind:'need'},
+    {ic:'🎉', name:L('الترفيه', 'Fun'), p:20, kind:'want'},
+    {ic:'🛟', name:L('الطوارئ والادخار', 'Emergency & savings'), p:20, kind:'save'},
+    {ic:'📈', name:L('الاستثمار', 'Investing'), p:10, kind:'inv'}
+  ],
+  kinds: () => ({need:L('أساسيات', 'Needs'), want:L('ترفيه', 'Wants'), save:L('طوارئ وادخار', 'Savings'), inv:L('استثمار', 'Investing')}),
+  spentEnv(b, e){ return (b.spends || []).filter(s => s.env === e.id).reduce((a, s) => a + convert(+s.a, s.cur || b.cur, e.cur || b.cur), 0); },
+  autos(b){
+    const ym = b.id, out = [];
+    let plan = 0, done = 0;
+    wList('inst').filter(x => x.dir === 'out').forEach(x => (x.sched || []).forEach(s => { if (s.due.slice(0, 7) === ym){ const v = convert(+s.a, x.cur, b.cur); plan += v; if (s.paid) done += v; } }));
+    if (plan > 0) out.push({id:'auto-inst', ic:'📆', name:L('أقساطي', 'My instalments'), a:plan, spent:done, kind:'need', auto:'#/inst?d=out'});
+    plan = 0; done = 0;
+    wList('jam').forEach(j => { const me = JAM.me(j); if (!me) return; const k = JAM.idx(j, ym); if (k < 0 || k >= JAM.n(j)) return; const v = convert(+j.amount, j.cur, b.cur); plan += v; if (JAM.paid(j, ym).has(me.id)) done += v; });
+    if (plan > 0) out.push({id:'auto-jam', ic:'🔄', name:L('الجمعية', 'Savings circle'), a:plan, spent:done, kind:'save', auto:'#/jam'});
+    return out;
+  },
+  rows(b){ return (b.envs || []).map(e => Object.assign({}, e, {spent:BUD.spentEnv(b, e)})).concat(BUD.autos(b)); },
+  totals(b){
+    const rows = BUD.rows(b), plan = rows.reduce((a, e) => a + convert(+e.a, e.cur || b.cur, b.cur), 0), spent = rows.reduce((a, e) => a + convert(+e.spent, e.cur || b.cur, b.cur), 0);
+    return {plan, spent, income:+b.income || 0, left:(+b.income || 0) - spent};
+  },
+  cls: pct => pct >= 100 ? 'bad' : pct >= 85 ? 'warn' : 'ok'
+};
+function vBud(r){
+  const ym = /^\d{4}-\d{2}$/.test(r.q.m || '') ? r.q.m : thisYM();
+  topbar(L('الميزانية', 'Budget'), '#/tools');
+  if (!wReady('bud')) return loading();
+  const b = S.bud[ym], prevB = S.bud[ymAdd(ym, -1)];
+  const nav = `<div class="mnav"><a href="#/bud?m=${ymAdd(ym, -1)}" aria-label="${L('الشهر السابق', 'Previous month')}">${icon('back')}</a><b>${ymLabel(ym)}</b><a href="#/bud?m=${ymAdd(ym, 1)}" aria-label="${L('الشهر التالي', 'Next month')}">${icon('chev')}</a></div>`;
+  if (!b) return nav + `<div class="empty"><div class="em">${icon('wallet')}</div><h3>${L(`لا توجد ميزانية لـ ${ymLabel(ym, 'm')}`, `No budget for ${ymLabel(ym, 'm')}`)}</h3><p>${L('اكتب دخلك، ودلي يقترح عليك تقسيماً ذكياً، ويضيف أقساطك وجمعيتك تلقائياً.', 'Enter your income; Daly suggests a smart split and adds your instalments and circle automatically.')}</p>
+    <a class="btn brass" href="#/budf?m=${ym}">${icon('plus')} ${L('ابدأ الميزانية', 'Start the budget')}</a>
+    ${prevB ? `<div style="margin-top:12px"><button class="linkbtn" data-act="budCopy" data-m="${ym}">${L('أو انسخ ميزانية الشهر الماضي', 'or copy last month\'s budget')}</button></div>` : ''}</div>`;
+  const t = BUD.totals(b), rows = BUD.rows(b), pct = t.income ? t.spent / t.income * 100 : 0, K = BUD.kinds();
+  const share = {}; rows.forEach(e => { share[e.kind] = (share[e.kind] || 0) + convert(+e.a, e.cur || b.cur, b.cur); });
+  const ended = ym < thisYM(), pt = prevB && ym === thisYM() ? BUD.totals(prevB) : null;
+  return nav + `<div class="whero bud">
+      <div class="wh-l">${L('الدخل', 'Income')} ${fmtH(t.income, b.cur)} · ${L('صُرف', 'spent')} ${Math.round(pct)}%</div>
+      <div class="wh-v ${t.left < 0 ? 'tout' : ''}">${fmtH(Math.abs(t.left), b.cur)} <small class="wh-u">${t.left < 0 ? L('تجاوزت الدخل', 'over income') : ended ? L('وفّرت', 'saved') : L('باقٍ لآخر الشهر', 'left this month')}</small></div>
+      ${bar(pct, BUD.cls(pct))}
+      <div class="kchips">${Object.keys(K).filter(k => share[k]).map(k => `<span>${K[k]} ${t.income ? Math.round(share[k] / t.income * 100) : 0}%</span>`).join('')}</div>
+    </div>
+    ${pt ? `<div class="wtip">${icon('wallet')}<span>${L(`الشهر الماضي: صرفت ${pt.income ? Math.round(pt.spent / pt.income * 100) : 0}% من دخلك`, `Last month: you spent ${pt.income ? Math.round(pt.spent / pt.income * 100) : 0}% of your income`)}${pt.left > 0 ? L(` ووفّرت ${fmt(pt.left, prevB.cur)}`, ` and saved ${fmt(pt.left, prevB.cur)}`) : ''}.</span></div>` : ''}
+    <section class="sec"><div class="sec-h"><h2>${L('الظروف', 'Envelopes')}</h2><a class="linkbtn" href="#/budf?m=${ym}">${L('تعديل', 'Edit')}</a></div>
+      <div class="envs">${rows.map((e, i) => { const ec = e.cur || b.cur, p = e.a > 0 ? e.spent / e.a * 100 : 0;
+        return `<${e.auto ? `a href="${e.auto}"` : `button data-act="budEnv" data-m="${ym}" data-e="${esc(e.id)}"`} class="env" style="--d:${i}">
+          <span class="eh"><span class="ei">${e.ic || '•'}</span><b>${esc(e.name)}</b>${e.auto ? `<span class="auto">${L('تلقائي', 'auto')}</span>` : ''}<small>${fmtH(e.spent, ec)} ${L('من', 'of')} ${fmtH(e.a, ec)}</small></span>
+          ${bar(p, e.auto ? (p >= 99.9 ? 'ok' : '') : BUD.cls(p))}</${e.auto ? 'a' : 'button'}>`; }).join('')}</div></section>
+    <button class="btn block brass" data-act="quickSpend" data-m="${ym}">${icon('plus')} ${L('سجّل مصروفاً', 'Log an expense')}</button>`;
+}
+let budForm = null;
+function vBudF(r){
+  const ym = /^\d{4}-\d{2}$/.test(r.q.m || '') ? r.q.m : thisYM();
+  if (!wReady('bud')){ topbar(L('الميزانية', 'Budget'), '#/bud'); return loading(); }
+  const b = S.bud[ym];
+  budForm = b ? {cur:b.cur, income:String(b.income || ''), envs:(b.envs || []).map(e => Object.assign({}, e))} : {cur:tc(), income:'', envs:[]};
+  topbar(L(`ميزانية ${ymLabel(ym, 'm')}`, `${ymLabel(ym, 'm')} budget`), '#/bud?m=' + ym);
+  return `<form data-form="bud" data-m="${ym}" novalidate autocomplete="off" class="wform">
+    <div class="field"><span>${L('عملة الميزانية', 'Budget currency')}</span>${curSeg(budForm.cur)}</div>
+    <label class="field"><span>${L('دخلك الشهري', 'Monthly income')}</span><input class="input big" id="bf-inc" inputmode="decimal" value="${esc(budForm.income)}" placeholder="0"></label>
+    <button type="button" class="btn soft block" data-bf="suggest">✨ ${L('اقترح تقسيماً (50% أساسيات · 20% ترفيه · 20% ادخار · 10% استثمار)', 'Suggest a split (50% needs · 20% wants · 20% savings · 10% investing)')}</button>
+    <div class="field" style="margin-top:14px"><span>${L('الظروف', 'Envelopes')}</span><div id="bf-envs" class="elist"></div>
+      <button type="button" class="btn soft block" data-bf="add" style="margin-top:8px">${icon('plus')} ${L('ظرف جديد', 'New envelope')}</button></div>
+    <p class="hint">${L('أقساطك وجمعيتك تُضاف تلقائياً كظروف، فلا داعي لإضافتها هنا.', 'Your instalments and circle are added automatically as envelopes.')}</p>
+    <div class="wpreview" id="bf-prev"></div>
+    <div class="err" id="bf-err" role="alert"></div>
+    <button class="btn block brass" type="submit" style="min-height:54px;font-size:17px">${L('حفظ الميزانية', 'Save budget')}</button>
+  </form>`;
+}
+vBudF.mount = r => {
+  const f = $('form[data-form=bud]'); if (!f) return;
+  const ym = f.dataset.m, box = $('#bf-envs'), K = BUD.kinds();
+  const autosPlan = () => S.bud[ym] ? BUD.autos(Object.assign({}, S.bud[ym], {cur:budForm.cur})).reduce((a, e) => a + e.a, 0) : BUD.autos({id:ym, cur:budForm.cur, envs:[], spends:[]}).reduce((a, e) => a + e.a, 0);
+  const sync = () => $$('.erow', box).forEach((row, i) => { const e = budForm.envs[i]; if (!e) return; e.ic = $('.ei-in', row).value || '•'; e.name = $('.en', row).value; e.a = toNum($('.ea', row).value) || 0; e.kind = $('.ek', row).value; });
+  const prev = () => {
+    const inc = toNum($('#bf-inc').value) || 0, sum = budForm.envs.reduce((a, e) => a + (+e.a || 0), 0) + autosPlan(), el = $('#bf-prev');
+    if (!inc){ el.hidden = true; return; }
+    el.hidden = false; const d = inc - sum;
+    el.innerHTML = `${icon('wallet')}<span>${L('موزّع', 'Allocated')} ${fmtH(sum, budForm.cur)} ${L('من', 'of')} ${fmtH(inc, budForm.cur)}<br><small class="${d < 0 ? 'tout' : ''}">${Math.abs(d) < 0.01 ? L('كل دخلك موزّع ✓', 'Every pound has a job ✓') : d > 0 ? L(`باقٍ ${fmt(d, budForm.cur)} بلا ظرف`, `${fmt(d, budForm.cur)} unallocated`) : L(`تجاوزت دخلك بـ ${fmt(-d, budForm.cur)}`, `${fmt(-d, budForm.cur)} over your income`)}</small></span>`;
+  };
+  const draw = () => {
+    box.innerHTML = budForm.envs.map((e, i) => `<div class="erow" data-i="${i}"><input class="input ei-in" value="${esc(e.ic || '')}" maxlength="4" aria-label="${L('رمز', 'Icon')}">
+      <input class="input en" value="${esc(e.name || '')}" placeholder="${L('اسم الظرف', 'Envelope name')}"><input class="input ea" inputmode="decimal" value="${e.a ? esc(String(e.a)) : ''}" placeholder="0">
+      <select class="input ek">${Object.keys(K).map(k => `<option value="${k}" ${e.kind === k ? 'selected' : ''}>${K[k]}</option>`).join('')}</select>
+      <button type="button" data-bf="del" aria-label="${L('حذف', 'Remove')}">✕</button></div>`).join('') || `<p class="muted" style="margin:4px 0">${L('لا توجد ظروف بعد. اضغط «اقترح تقسيماً».', 'No envelopes yet. Tap “Suggest a split”.')}</p>`;
+    prev();
+  };
+  f.addEventListener('click', e => {
+    const b = e.target.closest('[data-bf]'); if (!b) return; sync();
+    if (b.dataset.bf === 'add'){ budForm.envs.push({id:uid(), ic:'•', name:'', a:0, kind:'need'}); draw(); const ins = $$('.en', box); ins[ins.length - 1].focus(); }
+    else if (b.dataset.bf === 'del'){ budForm.envs.splice(+b.closest('.erow').dataset.i, 1); draw(); }
+    else if (b.dataset.bf === 'suggest'){
+      const inc = toNum($('#bf-inc').value);
+      if (!(inc > 0)){ $('#bf-err').textContent = L('اكتب دخلك أولاً.', 'Enter your income first.'); $('#bf-inc').focus(); return; }
+      $('#bf-err').textContent = '';
+      const avail = Math.max(0, inc - autosPlan()), dec = CUR[budForm.cur].d;
+      budForm.envs = BUD.defaults().map(d => ({id:uid(), ic:d.ic, name:d.name, a:round(avail * d.p / 100, dec), kind:d.kind}));
+      draw(); try{ SND.play('add'); }catch(e){}
+    }
+  });
+  box.addEventListener('input', () => { sync(); prev(); });
+  box.addEventListener('change', sync);
+  $('#bf-inc').addEventListener('input', prev);
+  bindSegs(f, budForm, prev);
+  draw();
+};
+function submitBud(f){
+  const ym = f.dataset.m, err = $('#bf-err'); err.textContent = '';
+  $$('#bf-envs .erow').forEach((row, i) => { const e = budForm.envs[i]; if (!e) return; e.ic = $('.ei-in', row).value || '•'; e.name = $('.en', row).value.trim(); e.a = toNum($('.ea', row).value) || 0; e.kind = $('.ek', row).value; });
+  const inc = toNum($('#bf-inc').value) || 0;
+  if (!(inc > 0)) return err.textContent = L('اكتب دخلك الشهري.', 'Enter your monthly income.');
+  const envs = budForm.envs.filter(e => e.name);
+  const old = S.bud[ym];
+  save('bud', Object.assign({}, old || {id:ym, spends:[], createdAt:Date.now()}, {cur:budForm.cur, income:round(inc, CUR[budForm.cur].d), envs:envs.map(e => ({id:e.id, ic:e.ic, name:e.name, a:round(+e.a || 0, CUR[budForm.cur].d), kind:e.kind}))}));
+  try{ SND.play('add'); }catch(e){}
+  toast(L('حُفظت الميزانية', 'Budget saved')); go('#/bud?m=' + ym);
+}
+function quickSpend(ym, envId){
+  ym = ym || thisYM();
+  const b = S.bud[ym];
+  if (!b){ toast(L('ابدأ ميزانية هذا الشهر أولاً', 'Start this month\'s budget first')); go('#/budf?m=' + ym); return; }
+  if (!(b.envs || []).length){ toast(L('أضف ظرفاً واحداً على الأقل', 'Add at least one envelope')); go('#/budf?m=' + ym); return; }
+  const st = {cur:b.cur, env:envId || b.envs[0].id};
+  openSheet(`<h3>${L('مصروف جديد', 'New expense')}</h3><p class="sub">${ymLabel(ym)}</p>
+    <form data-form="spend" data-m="${ym}" novalidate>
+      <label class="field"><span>${L('المبلغ', 'Amount')}</span><input class="input big" id="sp-a" inputmode="decimal" placeholder="0"></label>
+      <div class="field"><span>${L('العملة', 'Currency')}</span>${curSeg(st.cur)}</div>
+      <div class="field"><span>${L('الظرف', 'Envelope')}</span><div class="echips">${b.envs.map(e => `<button type="button" data-env="${esc(e.id)}" aria-pressed="${e.id === st.env}">${e.ic || ''} ${esc(e.name)}</button>`).join('')}</div></div>
+      <div class="grid2"><label class="field"><span>${L('التاريخ', 'Date')}</span><input class="input" id="sp-d" type="date" value="${ym === thisYM() ? today() : ym + '-01'}"></label>
+      <label class="field"><span>${L('ملاحظة', 'Note')}</span><input class="input" id="sp-n" maxlength="80" placeholder="${L('اختياري', 'Optional')}"></label></div>
+      <div class="err" id="sp-err"></div>
+      <div class="btns"><button type="button" class="btn ghost" data-act="closeSheet">${L('إلغاء', 'Cancel')}</button><button class="btn">${L('حفظ', 'Save')}</button></div>
+    </form>`, el => {
+      bindSegs(el, st);
+      el.addEventListener('click', e => { const x = e.target.closest('[data-env]'); if (!x) return; st.env = x.dataset.env; $$('[data-env]', el).forEach(y => y.setAttribute('aria-pressed', String(y === x))); });
+      el.querySelector('form').__st = st;
+    });
+}
+function budEnvSheet(ym, envId){
+  const b = S.bud[ym]; if (!b) return; const e = (b.envs || []).find(x => x.id === envId); if (!e) return;
+  const sp = (b.spends || []).filter(s => s.env === envId).sort((a, c) => (c.d || '').localeCompare(a.d || '')), spent = BUD.spentEnv(b, e);
+  openSheet(`<h3>${e.ic || ''} ${esc(e.name)}</h3><p class="sub">${fmtH(spent, b.cur)} ${L('من', 'of')} ${fmtH(e.a, b.cur)}</p>
+    ${bar(e.a ? spent / e.a * 100 : 0, BUD.cls(e.a ? spent / e.a * 100 : 0))}
+    <div class="btns" style="margin:14px 0"><button class="btn brass" data-act="quickSpend" data-m="${ym}" data-e="${esc(envId)}">${icon('plus')} ${L('مصروف هنا', 'Add expense')}</button><a class="btn ghost" href="#/budf?m=${ym}" data-act="plusGo" data-to="#/budf?m=${ym}">${icon('edit')} ${L('تعديل', 'Edit')}</a></div>
+    ${sp.length ? `<div class="panel list">${sp.map(s => `<div class="row"><div class="mid"><div class="t">${fmtH(s.a, s.cur || b.cur)}</div><div class="s">${shortDate(s.d)}${s.n ? ' · ' + esc(s.n) : ''}</div></div>
+      <button class="del-x" data-act="budSpDel" data-m="${ym}" data-s="${esc(s.id)}" aria-label="${L('حذف', 'Delete')}">${icon('trash')}</button></div>`).join('')}</div>` : `<p class="muted">${L('لا مصاريف مسجّلة في هذا الظرف.', 'No expenses in this envelope yet.')}</p>`}`);
+}
+
+/* =====================================================
+   🛡️ درع الليرة
+   ===================================================== */
+const SHD = {
+  sypDebts: () => activeDebts().filter(d => d.cur === 'SYP' && !isSettled(d)),
+  info(d){
+    const r0 = debtR0(d), r1 = marketRate(), rem = debtRem(d);
+    if (!(r0 > 0) || !(r1 > 0)) return {rem, r0:null, r1};
+    const then = rem / r0, now = rem / r1;
+    return {rem, r0, r1, then, now, diff:now - then, pct:(r0 / r1 - 1) * 100};
+  },
+  srcTxt(){
+    const {src, at} = rates();
+    const s = S.prefs.sypOwn > 0 ? (S.spt ? L('سعر السوق (دمشق)', 'Market rate (Damascus)') : L('السعر التلقائي', 'Automatic rate')) : src;
+    const t = S.spt && S.spt.at ? S.spt.at : at;
+    return `${esc(s)}${t ? ' · ' + dateAr(t, {day:'numeric', month:'short', hour:'2-digit', minute:'2-digit'}) : ''}`;
+  },
+  chart(days){
+    const all = HIST.all(), from = (() => { const d = new Date(); d.setDate(d.getDate() - days); return d.toISOString().slice(0, 10); })();
+    let pts = all.filter(x => x.d >= from);
+    const before = all.filter(x => x.d < from).pop(); if (before) pts.unshift({d:from, v:before.v});
+    if (pts.length < 2) return `<div class="chart-empty">${icon('report')}<span>${L('يبدأ الرسم البياني بالامتلاء مع الأيام. دلي يحفظ سعر كل يوم تلقائياً.', 'The chart fills in day by day. Daly saves each day\'s rate automatically.')}</span></div>`;
+    const W = 320, H = 130, P = 6, vs = pts.map(p => p.v), mn = Math.min(...vs), mx = Math.max(...vs), rg = mx - mn || mx * .02 || 1;
+    const t0 = Date.parse(pts[0].d), t1 = Date.parse(pts[pts.length - 1].d) || t0 + 1, tx = d => P + (Date.parse(d) - t0) / ((t1 - t0) || 1) * (W - 2 * P), ty = v => H - P - (v - mn + rg * .08) / (rg * 1.16) * (H - 2 * P);
+    const line = pts.map((p, i) => `${i ? 'L' : 'M'}${tx(p.d).toFixed(1)},${ty(p.v).toFixed(1)}`).join('');
+    const last = pts[pts.length - 1], up = last.v >= pts[0].v;
+    return `<svg class="rchart ${up ? 'up' : 'down'}" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="${L('سعر الدولار بالليرة', 'USD to SYP rate')}">
+      <defs><linearGradient id="rcg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="currentColor" stop-opacity=".28"/><stop offset="1" stop-color="currentColor" stop-opacity="0"/></linearGradient></defs>
+      <path d="${line}L${tx(last.d).toFixed(1)},${H}L${tx(pts[0].d).toFixed(1)},${H}Z" fill="url(#rcg)" class="ra"/>
+      <path d="${line}" class="rl" pathLength="1"/>
+      <circle cx="${tx(last.d).toFixed(1)}" cy="${ty(last.v).toFixed(1)}" r="4" class="rd"/></svg>
+      <div class="rc-ax"><span>${shortDate(pts[0].d)}</span><span>${L('أعلى', 'High')} <bdi>${nfmt(mx, 'SYP')}</bdi> · ${L('أدنى', 'Low')} <bdi>${nfmt(mn, 'SYP')}</bdi></span><span>${L('اليوم', 'Today')}</span></div>`;
+  },
+  alerts(){ return S.prefs.shield || {}; }
+};
+function vShield(r){
+  topbar(L('درع الليرة', 'Lira shield'), '#/tools');
+  if (!dataReady()) return loading();
+  const r1 = marketRate(), span = ['30', '90', '365'].includes(r.q.p) ? +r.q.p : 30;
+  const ago = HIST.ago(span), ch = ago ? (r1 - ago) / ago * 100 : null;
+  const list = SHD.sypDebts().map(d => Object.assign({d}, SHD.info(d)));
+  const known = list.filter(x => x.r0);
+  const sum = (dir, k) => known.filter(x => x.d.dir === dir).reduce((a, x) => a + x[k], 0);
+  const inThen = sum('in', 'then'), inNow = sum('in', 'now'), outThen = sum('out', 'then'), outNow = sum('out', 'now');
+  const al = SHD.alerts();
+  return `<div class="whero shd">
+      <div class="wh-l">${L('سعر الدولار في السوق', 'Market USD rate')}</div>
+      <div class="wh-v"><bdi>${nfmt(r1, 'SYP')}</bdi> <small class="wh-u">${L('ل.س', 'SYP')}</small></div>
+      <div class="wh-s">${SHD.srcTxt()}</div>
+      ${ch !== null && Math.abs(ch) >= .05 ? `<div class="chg ${ch > 0 ? 'bad' : 'ok'}">${ch > 0 ? '▲' : '▼'} <bdi>${Math.abs(ch).toFixed(1)}%</bdi> ${L(`خلال ${span === 30 ? 'شهر' : span === 90 ? '3 أشهر' : 'سنة'}`, `over ${span === 30 ? '1 month' : span === 90 ? '3 months' : '1 year'}`)}</div>` : ''}
+    </div>
+    <div class="seg wtabs sm">${[[30, L('شهر', '1M')], [90, L('3 أشهر', '3M')], [365, L('سنة', '1Y')]].map(([v, l]) => `<a href="#/shield?p=${v}" aria-pressed="${v === span}">${l}</a>`).join('')}</div>
+    <div class="panel chartbox">${SHD.chart(span)}</div>
+    <section class="sec"><div class="sec-h"><h2>${L('ديونك بالليرة: القيمة الحقيقية', 'Your SYP debts: real value')}</h2></div>
+    ${list.length ? `${known.length ? `<div class="shd-sum">
+        ${inThen ? `<div class="${inNow < inThen ? 'lost' : 'won'}"><span>${L('لك عند الناس', 'Owed to you')}</span><b>${fmtH(inNow, 'USD')}</b><small>${L('كانت', 'was')} ${fmt(inThen, 'USD')} · ${inNow < inThen ? L('خسرت', 'lost') : L('ربحت', 'gained')} <bdi>${fmt(Math.abs(inNow - inThen), 'USD')}</bdi></small></div>` : ''}
+        ${outThen ? `<div class="${outNow < outThen ? 'won' : 'lost'}"><span>${L('عليك للناس', 'You owe')}</span><b>${fmtH(outNow, 'USD')}</b><small>${L('كانت', 'was')} ${fmt(outThen, 'USD')} · ${outNow < outThen ? L('خفّت عليك', 'lighter by') : L('ثقلت عليك', 'heavier by')} <bdi>${fmt(Math.abs(outNow - outThen), 'USD')}</bdi></small></div>` : ''}
+      </div>` : ''}
+      <div class="panel list">${list.map(x => `<a class="row" href="#/debt/${esc(x.d.id)}"><div class="av ${x.d.dir === 'out' ? 'av-out' : ''}">${esc(initial(personName(x.d.personId)))}</div>
+        <div class="mid"><div class="t">${esc(personName(x.d.personId))}</div><div class="s">${fmtH(x.rem, 'SYP')} · ${dateAr(x.d.date, {day:'numeric', month:'short', year:'numeric'})}</div></div>
+        <div class="end">${x.r0 ? `<span class="pill ${(x.d.dir === 'in') === (x.diff < 0) ? 'out' : 'in'}"><bdi>${x.pct < 0 ? '−' : '+'}${Math.abs(x.pct).toFixed(1)}%</bdi></span>` : `<span class="pill mute">${L('حدّد السعر', 'Set rate')}</span>`}</div></a>`).join('')}</div>
+      <p class="hint">${L('نقارن قيمة الدين بالدولار يوم تسجيله بقيمته اليوم. الدين نفسه يبقى بالليرة كما هو.', 'We compare the debt\'s dollar value on the day it was recorded with today. The debt itself stays in SYP.')}</p>`
+    : `<div class="panel wnote">${L('لا توجد ديون مفتوحة بالليرة السورية.', 'No open debts in Syrian pounds.')}</div>`}</section>
+    <section class="sec"><div class="sec-h"><h2>${L('نبّهني عندما يصل الدولار إلى', 'Alert me when USD reaches')}</h2></div>
+      <form class="panel shd-al" data-form="shdAl" novalidate>
+        <label class="field"><span>${L('أعلى من', 'Above')}</span><input class="input" id="sa-hi" inputmode="decimal" value="${al.hi ? esc(String(al.hi)) : ''}" placeholder="${nfmt(round(r1 * 1.05, 0), 'SYP')}"></label>
+        <label class="field"><span>${L('أقل من', 'Below')}</span><input class="input" id="sa-lo" inputmode="decimal" value="${al.lo ? esc(String(al.lo)) : ''}" placeholder="${nfmt(round(r1 * .95, 0), 'SYP')}"></label>
+        <button class="btn">${L('حفظ', 'Save')}</button>
+      </form><p class="hint">${L('يظهر التنبيه في الجرس 🔔 عندما يتجاوز السعر الحدّ.', 'The alert shows in the bell 🔔 when the rate crosses the limit.')}</p></section>`;
+}
+vShield.mount = () => { const p = $('#view .rchart .rl'); if (p && !FX.reduce()){ p.style.strokeDasharray = '1'; p.style.strokeDashoffset = '1'; requestAnimationFrame(() => requestAnimationFrame(() => { p.style.transition = 'stroke-dashoffset 1.1s cubic-bezier(.3,.7,.2,1)'; p.style.strokeDashoffset = '0'; })); } };
+function shieldCard(d){
+  if (d.cur !== 'SYP') return '';
+  const x = SHD.info(d);
+  if (!x.r0) return `<section class="sec"><button class="panel shd-card none" data-act="shdRate" data-id="${esc(d.id)}">${icon('shield')}<span><b>${L('درع الليرة', 'Lira shield')}</b><small>${L('حدّد سعر الدولار يوم الدين لنعرف قيمته الحقيقية', 'Set the USD rate on the debt date to see its real value')}</small></span>${icon('chev')}</button></section>`;
+  const bad = (d.dir === 'in') === (x.diff < 0);
+  return `<section class="sec"><div class="panel shd-card ${bad ? 'bad' : 'ok'}">
+    <div class="sc-h">${icon('shield')}<b>${L('درع الليرة', 'Lira shield')}</b><button class="linkbtn" data-act="shdRate" data-id="${esc(d.id)}">${L('تعديل السعر', 'Edit rate')}</button></div>
+    <div class="sc-row"><div><small>${L('يوم الدين', 'On debt date')}</small><b>${fmtH(x.then, 'USD')}</b><span>1 $ = <bdi>${nfmt(x.r0, 'SYP')}</bdi></span></div><span class="sc-arr">${icon("chev")}</span>
+    <div><small>${L('اليوم', 'Today')}</small><b>${fmtH(x.now, 'USD')}</b><span>1 $ = <bdi>${nfmt(x.r1, 'SYP')}</bdi></span></div></div>
+    <p>${Math.abs(x.diff) < .005 ? L('لم تتغيّر قيمة الدين.', 'The debt\'s value hasn\'t changed.') : d.dir === 'in' ? (x.diff < 0 ? L(`خسر هذا الدين ${fmt(-x.diff, 'USD')} من قيمته.`, `This debt lost ${fmt(-x.diff, 'USD')} of its value.`) : L(`زادت قيمة هذا الدين ${fmt(x.diff, 'USD')}.`, `This debt gained ${fmt(x.diff, 'USD')} in value.`)) : (x.diff < 0 ? L(`خفّ عليك هذا الدين ${fmt(-x.diff, 'USD')}.`, `This debt got lighter by ${fmt(-x.diff, 'USD')}.`) : L(`ثقل عليك هذا الدين ${fmt(x.diff, 'USD')}.`, `This debt got heavier by ${fmt(x.diff, 'USD')}.`))}</p>
+  </div></section>`;
+}
+
+/* ---------- تنبيهات العوالم الجديدة ---------- */
+function worldAlerts(t){
+  const out = [];
+  if (S.loaded.inst) wList('inst').forEach(x => {
+    const s = INST.next(x); if (!s) return;
+    const n = dDiff(s.due, t), nm = '<bdi>' + esc(x.name) + '</bdi>', amt = fmtH(s.a, x.cur), mine = (x.dir || 'in') === 'in';
+    if (n < 0) out.push({id:`il:${x.id}:${s.i}`, kind:'late', w:900 - n, href:'#/instv/' + x.id, title:mine ? L(`قسط ${nm} متأخر`, `${nm}'s instalment is late`) : L(`قسطك لـ ${nm} متأخر`, `Your instalment to ${nm} is late`), sub:whenTxt(s.due) + ' · ' + amt});
+    else if (n <= 3) out.push({id:`is:${x.id}:${s.i}`, kind:'inst', w:450 - n, href:'#/instv/' + x.id, title:mine ? L(`قسط ${nm} ${whenTxt(s.due)}`, `${nm}'s instalment is due ${whenTxt(s.due)}`) : L(`قسطك لـ ${nm} ${whenTxt(s.due)}`, `Your instalment to ${nm} is due ${whenTxt(s.due)}`), sub:L(`القسط ${s.i + 1}`, `Instalment ${s.i + 1}`) + ' · ' + amt});
+  });
+  if (S.loaded.jam) wList('jam').forEach(j => {
+    if (JAM.state(j) !== 'run') return;
+    const ym = thisYM(), k = JAM.idx(j), rc = JAM.receiver(j, k), nm = '<bdi>' + esc(j.name) + '</bdi>';
+    if (rc && rc.me) out.push({id:`jt:${j.id}:${ym}:${j.cycle || 1}`, kind:'jam', w:800, href:'#/jamv/' + j.id, title:L(`دورك في ${nm} هذا الشهر 🎉`, `It's your turn in ${nm} this month 🎉`), sub:L('تستلم', 'You receive') + ' ' + fmtH(JAM.pot(j), j.cur)});
+    const up = JAM.unpaid(j, ym);
+    if (+t.slice(8) >= 5 && up.length) out.push({id:`ju:${j.id}:${ym}:${up.length}`, kind:'jam', w:300, href:'#/jamv/' + j.id, title:L(`${up.length} لم يدفعوا في ${nm}`, `${up.length} unpaid in ${nm}`), sub:up.slice(0, 3).map(m => '<bdi>' + esc(m.name) + '</bdi>').join('، ') + (up.length > 3 ? '…' : '')});
+  });
+  if (S.loaded.bud){ const b = S.bud[thisYM()]; if (b) BUD.rows(b).forEach(e => { if (e.auto || !(e.a > 0)) return; const p = e.spent / e.a * 100; if (p >= 85) out.push({id:`be:${b.id}:${e.id}:${p >= 100 ? 1 : 0}`, kind:'bud', w:250 + p, href:'#/bud', title:p >= 100 ? L(`تجاوزت ظرف ${esc(e.name)}`, `You went over ${esc(e.name)}`) : L(`ظرف ${esc(e.name)} شارف على النهاية`, `${esc(e.name)} is almost used up`), sub:`${Math.round(p)}% · ${fmtH(e.spent, e.cur || b.cur)} ${L('من', 'of')} ${fmtH(e.a, e.cur || b.cur)}`}); }); }
+  const al = SHD.alerts(), r1 = marketRate();
+  if (al.hi > 0 && r1 >= al.hi) out.push({id:`sh:${al.hi}:${t}`, kind:'shd', w:700, href:'#/shield', title:L(`الدولار تجاوز ${nfmt(al.hi, 'SYP')} ل.س`, `USD went above ${nfmt(al.hi, 'SYP')} SYP`), sub:L(`السعر الآن ${nfmt(r1, 'SYP')} ل.س`, `Now ${nfmt(r1, 'SYP')} SYP`)});
+  if (al.lo > 0 && r1 <= al.lo) out.push({id:`sl:${al.lo}:${t}`, kind:'shd', w:700, href:'#/shield', title:L(`الدولار نزل تحت ${nfmt(al.lo, 'SYP')} ل.س`, `USD fell below ${nfmt(al.lo, 'SYP')} SYP`), sub:L(`السعر الآن ${nfmt(r1, 'SYP')} ل.س`, `Now ${nfmt(r1, 'SYP')} SYP`)});
+  return out;
+}
+
+/* ---------- أفعال وأنماط العوالم ---------- */
+const WACT = {
+  wRestore: el => { const x = S[el.dataset.col][el.dataset.id]; if (!x) return; save(el.dataset.col, Object.assign({}, x, {deleted:false, deletedAt:null})); try{ SND.play('gather'); }catch(e){} toast(L('استُرجع', 'Restored')); render(); },
+  wPurge: async el => { const col = el.dataset.col, id = el.dataset.id; if (!await confirmBox(L('حذف نهائي؟', 'Delete forever?'), L('لا يمكن استرجاعه بعد ذلك.', 'It can\'t be restored after this.'), L('حذف نهائياً', 'Delete forever'), true)) return; remove(col, id); render(); toast(L('حُذف نهائياً', 'Deleted forever')); },
+  wRestoreAll: async el => {
+    const col = el.dataset.col, list = Object.values(S[col]).filter(x => x.deleted); if (!list.length) return;
+    if (!await confirmBox(L('استرجاع الكل؟', 'Restore all?'), L(`سيُسترجع ${list.length} من السلة.`, `${list.length} items will be restored.`), L('استرجاع الكل', 'Restore all'))) return;
+    try{ SND.play('gather'); }catch(e){} list.forEach(x => save(col, Object.assign({}, x, {deleted:false, deletedAt:null}))); render(); toast(L(`استُرجع ${list.length}`, `${list.length} restored`));
+  },
+  wPurgeAll: async el => {
+    const col = el.dataset.col, list = Object.values(S[col]).filter(x => x.deleted); if (!list.length) return;
+    if (!await confirmBox(L('حذف الكل نهائياً؟', 'Delete all forever?'), L(`سيُحذف ${list.length} نهائياً، ولا يمكن استرجاعها أبداً.`, `${list.length} items will be deleted forever.`), L('حذف الكل', 'Delete all'), true)) return;
+    try{ SND.play('dust'); await dissolve($$('#view .panel .row')); }catch(e){} list.forEach(x => remove(col, x.id)); render(); toast(L('حُذف الكل نهائياً', 'All deleted forever'));
+  },
+  instRow: el => { const x = S.inst[el.dataset.id]; if (x) instRowSheet(x, +el.dataset.i); },
+  instPay: el => {
+    const x = S.inst[el.dataset.id]; if (!x) return; const i = +el.dataset.i;
+    const sched = x.sched.map(s => s.i === i ? Object.assign({}, s, {paid:true, paidAt:today()}) : s);
+    const nx = Object.assign({}, x, {sched}); save('inst', nx);
+    closeSheet(() => { render(); try{ SND.play('coin'); }catch(e){} const row = $(`#view .srow[data-i="${i}"]`); if (row){ row.classList.add('just'); } if (INST.done(nx)){ try{ SND.play('stamp'); confetti($('#view .whero')); }catch(e){} toast(L('اكتمل التقسيط 🎉', 'Plan fully paid 🎉')); } else toast(L('سُجّل القسط', 'Instalment recorded')); });
+  },
+  instUnpay: el => { const x = S.inst[el.dataset.id]; if (!x) return; const i = +el.dataset.i; save('inst', Object.assign({}, x, {sched:x.sched.map(s => s.i === i ? Object.assign({}, s, {paid:false, paidAt:null}) : s)})); closeSheet(() => { render(); toast(L('أُلغي تسجيل الدفع', 'Payment undone')); }); },
+  instWA: el => {
+    const x = S.inst[el.dataset.id]; if (!x) return; const s = INST.next(x); if (!s) return;
+    const late = s.due < today();
+    waOpen(x.phone, L(`مرحباً ${x.name}، تذكير لطيف${late ? ' بأن' : ' بموعد'} القسط رقم ${s.i + 1}${x.item ? ` (${x.item})` : ''} بقيمة ${fmt(s.a, x.cur)} ${late ? 'كان مستحقاً بتاريخ' : 'المستحق بتاريخ'} ${dateAr(s.due)}. الباقي الكلي: ${fmt(INST.rem(x), x.cur)}. شكراً لك 🌷`, `Hi ${x.name}, a friendly reminder about instalment ${s.i + 1}${x.item ? ` (${x.item})` : ''} of ${fmt(s.a, x.cur)} ${late ? 'that was due on' : 'due on'} ${dateAr(s.due)}. Total left: ${fmt(INST.rem(x), x.cur)}. Thank you 🌷`));
+  },
+  instDel: el => { const x = S.inst[el.dataset.id]; if (x) wDelete('inst', x, '#/inst?d=' + (x.dir || 'in')); },
+  jamPay: el => {
+    const j = S.jam[el.dataset.id]; if (!j) return; const ym = el.dataset.ym, mid = el.dataset.mid;
+    const set = JAM.paid(j, ym), was = set.has(mid); was ? set.delete(mid) : set.add(mid);
+    const pays = Object.assign({}, j.pays || {}); pays[ym] = [...set];
+    FX.hold(700); save('jam', Object.assign({}, j, {pays}));
+    try{ SND.play(was ? 'tick' : 'coin'); }catch(e){}
+    el.classList.toggle('paid', !was); el.setAttribute('aria-pressed', String(!was)); $('.mt-d', el).textContent = was ? '!' : '✓';
+    el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop');
+    if (!was && set.size >= JAM.n(j)){ try{ confetti(el); }catch(e){} toast(L('اكتملت دفعات هذا الشهر 🎉', 'Everyone paid this month 🎉')); }
+    setTimeout(() => { if (!sheetOpen) render(); }, 720);
+  },
+  jamRemind: el => {
+    const j = S.jam[el.dataset.id]; if (!j) return; const ym = el.dataset.ym, up = JAM.unpaid(j, ym).filter(m => !m.me);
+    if (!up.length){ toast(L('الكل دفع ✓', 'Everyone paid ✓')); return; }
+    const msg = m => L(`مرحباً ${m.name}، تذكير لطيف بقسط ${j.name} لشهر ${ymLabel(ym, 'm')}: ${fmt(j.amount, j.cur)}. شكراً لك 🌷`, `Hi ${m.name}, a friendly reminder about the ${j.name} share for ${ymLabel(ym, 'm')}: ${fmt(j.amount, j.cur)}. Thank you 🌷`);
+    if (up.length === 1){ waOpen(up[0].phone, msg(up[0])); return; }
+    openSheet(`<h3>${L('ذكّر من لم يدفع', 'Remind unpaid members')}</h3><p class="sub">${esc(j.name)} · ${ymLabel(ym)}</p>
+      <div class="panel list">${up.map(m => `<a class="row" href="https://wa.me/${waPhone(m.phone) || ''}?text=${encodeURIComponent(msg(m))}" target="_blank" rel="noopener"><div class="av">${esc(initial(m.name))}</div><div class="mid"><div class="t">${esc(m.name)}</div><div class="s" dir="ltr">${esc(m.phone || L('بدون رقم', 'no number'))}</div></div><span class="ico wa">${icon('wa')}</span></a>`).join('')}</div>`);
+  },
+  jamMenu: el => { const j = S.jam[el.dataset.id]; if (j) jamMenu(j); },
+  jamReset: async el => {
+    const j = S.jam[el.dataset.id]; if (!j) return;
+    closeSheet(async () => {
+      if (!await confirmBox(L('بدء دورة جديدة؟', 'Start a new cycle?'), L('ستُمسح كل الدفعات المسجّلة، وتبدأ الجمعية من هذا الشهر بنفس الأعضاء والأدوار. يمكنك استرجاع الدفعات خلال 30 يوماً.', 'All recorded payments will be cleared and the circle restarts this month with the same members and order. You can restore the payments within 30 days.'), L('ابدأ من جديد', 'Start over'), true)) return;
+      save('jam', Object.assign({}, j, {prev:{pays:j.pays || {}, start:j.start, cycle:j.cycle || 1, at:Date.now()}, pays:{}, start:thisYM(), cycle:(j.cycle || 1) + 1}));
+      try{ SND.play('dust'); }catch(e){} render(); toast(L('بدأت دورة جديدة', 'New cycle started'));
+    });
+  },
+  jamUndo: el => {
+    const j = S.jam[el.dataset.id]; if (!j || !j.prev) return;
+    save('jam', Object.assign({}, j, {pays:j.prev.pays || {}, start:j.prev.start || j.start, cycle:j.prev.cycle || j.cycle, prev:null}));
+    closeSheet(() => { try{ SND.play('gather'); }catch(e){} render(); toast(L('استُرجعت كل الدفعات', 'All payments restored')); });
+  },
+  jamDel: el => { const j = S.jam[el.dataset.id]; if (j) closeSheet(() => wDelete('jam', j, '#/jam')); },
+  budCopy: el => {
+    const ym = el.dataset.m, p = S.bud[ymAdd(ym, -1)]; if (!p) return;
+    save('bud', {id:ym, cur:p.cur, income:p.income, envs:(p.envs || []).map(e => Object.assign({}, e)), spends:[], createdAt:Date.now()});
+    try{ SND.play('add'); }catch(e){} render(); toast(L('نُسخت ميزانية الشهر الماضي', 'Last month\'s budget copied'));
+  },
+  quickSpend: el => { const ym = el.dataset.m || thisYM(), e = el.dataset.e; if (sheetOpen) closeSheet(() => quickSpend(ym, e)); else quickSpend(ym, e); },
+  budEnv: el => budEnvSheet(el.dataset.m, el.dataset.e),
+  budSpDel: el => {
+    const b = S.bud[el.dataset.m]; if (!b) return; const s = (b.spends || []).find(x => x.id === el.dataset.s); if (!s) return;
+    save('bud', Object.assign({}, b, {spends:b.spends.filter(x => x.id !== s.id)}));
+    const row = el.closest('.row'); if (row){ row.style.transition = 'opacity .25s, transform .25s'; row.style.opacity = '0'; row.style.transform = 'translateX(20px)'; setTimeout(() => row.remove(), 260); }
+    toast(L('حُذف المصروف', 'Expense deleted'));
+    afterClose = null; setTimeout(() => { if (!sheetOpen) render(); }, 300);
+  },
+  shdRate: el => {
+    const d = S.debts[el.dataset.id]; if (!d) return; const h = HIST.at(d.date);
+    openSheet(`<h3>${L('سعر الدولار يوم الدين', 'USD rate on the debt date')}</h3><p class="sub">${dateAr(d.date)}${h ? ' · ' + L(`السعر المحفوظ لهذا اليوم: ${nfmt(h, 'SYP')}`, `Saved rate for that day: ${nfmt(h, 'SYP')}`) : ''}</p>
+      <form data-form="shdRate" data-id="${esc(d.id)}" novalidate><label class="field"><span>1 $ =</span><input class="input big" id="sr-v" inputmode="decimal" value="${d.r0 ? esc(String(d.r0)) : h ? esc(String(h)) : ''}" placeholder="${nfmt(marketRate(), 'SYP')}"></label>
+      <div class="err" id="sr-err"></div><div class="btns"><button type="button" class="btn ghost" data-act="closeSheet">${L('إلغاء', 'Cancel')}</button><button class="btn">${L('حفظ', 'Save')}</button></div></form>`);
+  }
+};
+const WFORMS = {
+  inst: f => submitInst(f),
+  jam: f => submitJam(f),
+  bud: f => submitBud(f),
+  instEdit: f => {
+    const x = S.inst[f.dataset.id], i = +f.dataset.i, err = $('#ie-err'); if (!x) return;
+    const a = toNum($('#ie-a').value), d = $('#ie-d').value;
+    if (!(a > 0)) return err.textContent = L('اكتب مبلغاً صحيحاً.', 'Enter a valid amount.');
+    if (!d) return err.textContent = L('اختر التاريخ.', 'Pick a date.');
+    const sched = x.sched.map(s => s.i === i ? Object.assign({}, s, {a:round(a, CUR[x.cur].d), due:d}) : s);
+    const total = round(sched.reduce((t, s) => t + s.a, 0) + (+x.down || 0), CUR[x.cur].d);
+    save('inst', Object.assign({}, x, {sched, total}));
+    closeSheet(() => { render(); toast(L('حُفظ التعديل', 'Changes saved')); });
+  },
+  spend: f => {
+    const ym = f.dataset.m, b = S.bud[ym], st = f.__st, err = $('#sp-err'); if (!b || !st) return;
+    const a = toNum($('#sp-a').value);
+    if (!(a > 0)) return err.textContent = L('اكتب المبلغ.', 'Enter the amount.');
+    const sp = {id:uid(), env:st.env, a:round(a, CUR[st.cur].d), cur:st.cur, d:$('#sp-d').value || today(), n:$('#sp-n').value.trim()};
+    save('bud', Object.assign({}, b, {spends:(b.spends || []).concat(sp)}));
+    try{ SND.play('coin'); }catch(e){}
+    const e = b.envs.find(x => x.id === st.env);
+    closeSheet(() => { if (route().name !== 'bud') go('#/bud?m=' + ym); else render(); toast(L(`سُجّل في ${e ? e.name : ''}`, `Logged in ${e ? e.name : ''}`)); });
+  },
+  shdAl: () => {
+    const hi = toNum($('#sa-hi').value) || null, lo = toNum($('#sa-lo').value) || null;
+    S.prefs.shield = {hi, lo}; savePrefs(); toast(L('حُفظ التنبيه', 'Alert saved')); render();
+  },
+  shdRate: f => {
+    const d = S.debts[f.dataset.id], v = toNum($('#sr-v').value); if (!d) return;
+    if (!(v > 0)) return $('#sr-err').textContent = L('اكتب السعر.', 'Enter the rate.');
+    save('debts', Object.assign({}, d, {r0:v})); closeSheet(() => { render(); toast(L('حُفظ السعر', 'Rate saved')); });
+  }
+};
+
+function vInstT(){ return wTrashView('inst', L('سلة التقسيط', 'Instalments trash'), '#/inst', (x, lt) => `<div class="av">${esc(initial(x.name))}</div><div class="mid"><div class="t">${esc(x.name)}</div><div class="s">${fmtH(x.total, x.cur)}${lt}</div></div>`); }
+function vJamT(){ return wTrashView('jam', L('سلة الجمعيات', 'Circles trash'), '#/jam', (x, lt) => `<div class="av av-jam">${icon('cycle')}</div><div class="mid"><div class="t">${esc(x.name)}</div><div class="s">${L(`${(x.members || []).length} أعضاء`, `${(x.members || []).length} members`)}${lt}</div></div>`); }
+Object.assign(ACT, WACT); Object.assign(FORMS, WFORMS);
+
 function purgeOldTrash(){
   const lim = Date.now() - TRASH_DAYS * 864e5;
   Object.values(S.debts).forEach(d => { if (d.deleted && d.deletedAt && d.deletedAt < lim){ purgeRc(d.id); remove('debts', d.id); } });
+  ['inst', 'jam'].forEach(c => S.loaded[c] && Object.values(S[c]).forEach(x => { if (x.deleted && x.deletedAt && x.deletedAt < lim) remove(c, x.id); }));
 }
 function onUser(u){
   if (unsubData){ unsubData(); unsubData = null; }
-  S.people = {}; S.debts = {}; S.loaded = {people:false, debts:false};
+  S.people = {}; S.debts = {}; S.inst = {}; S.jam = {}; S.bud = {}; S.loaded = {people:false, debts:false, inst:false, jam:false, bud:false};
   closeSheet();
   if (u && !u.name && pendingName) u.name = pendingName;
   S.user = u;
@@ -3654,9 +4640,10 @@ function onUser(u){
   unsubData = B.watch(u.uid, (col, arr) => {
     const m = {}; arr.forEach(x => { if (x && x.id) m[x.id] = x; });
     S[col] = m; S.loaded[col] = true;
-    if (!purged && S.loaded.debts){ purged = true; purgeOldTrash(); }
+    if (!purged && S.loaded.debts && S.loaded.inst && S.loaded.jam){ purged = true; purgeOldTrash(); }
     const onForm = ['add','edit'].includes(route().name);
-    if (!sheetOpen && !(onForm && formShown)) renderSoon();
+    const onW = !!$('#view form[data-form=inst], #view form[data-form=jam], #view form[data-form=bud]');
+    if (!sheetOpen && !(onForm && formShown) && !onW) renderSoon();
   });
 }
 function updateOnline(){ const o = $('#offline'); if (o) o.hidden = navigator.onLine !== false; }

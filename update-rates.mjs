@@ -44,14 +44,19 @@ for (const [code, v] of Object.entries(raw)) {
   syp[code] = { buy, sell, mid: buy && sell ? Math.round((buy + sell) / 2 * 100) / 100 : (buy || sell), updated_at: v.updated_at };
 }
 
-const out = { source: 'sp-today', city: CITY, unit: 'new SYP per 1 unit', fetchedAt: new Date().toISOString(), syp };
+// سجل يومي لسعر الدولار (لدرع الليرة): تاريخ ← السعر الوسطي، نحتفظ بآخر 3 سنوات تقريباً
+const day = new Date(Date.now() + 3 * 3600e3).toISOString().slice(0, 10); // توقيت دمشق
+let old = null;
+if (existsSync('rates.json')) { try { old = JSON.parse(readFileSync('rates.json', 'utf8')); } catch {} }
+const history = Object.assign({}, (old && old.history) || {});
+const hadToday = history[day] === syp.USD.mid;
+history[day] = syp.USD.mid;
+const days = Object.keys(history).sort();
+while (days.length > 1100) delete history[days.shift()];
 
-// لا نكتب الملف إلا إذا تغيّرت الأسعار، حتى لا تتكرر التحديثات بلا داعٍ
-if (existsSync('rates.json')) {
-  try {
-    const old = JSON.parse(readFileSync('rates.json', 'utf8'));
-    if (JSON.stringify(old.syp) === JSON.stringify(syp)) { console.log('لا تغيير في الأسعار'); process.exit(0); }
-  } catch {}
-}
+const out = { source: 'sp-today', city: CITY, unit: 'new SYP per 1 unit', fetchedAt: new Date().toISOString(), syp, history };
+
+// لا نكتب الملف إلا إذا تغيّرت الأسعار أو بدأ يوم جديد، حتى لا تتكرر التحديثات بلا داعٍ
+if (old && hadToday && JSON.stringify(old.syp) === JSON.stringify(syp)) { console.log('لا تغيير في الأسعار'); process.exit(0); }
 writeFileSync('rates.json', JSON.stringify(out, null, 2) + '\n');
 console.log('تم التحديث: الدولار', syp.USD.buy, '/', syp.USD.sell, 'ل.س');
