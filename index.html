@@ -4856,7 +4856,7 @@ function vAI(){
       <button class="linkbtn" data-act="aiCancel">${L('إلغاء', 'Cancel')}</button>
     </div>
     <div class="ai-dict" id="ai-dict" hidden>
-      <b>${icon('mic')} ${L('احكِ عبر مايك الكيبورد', 'Speak with the keyboard mic')}</b>
+      <b>${icon('mic')} ${L('لم يفتح الميكروفون، احكِ عبر مايك الكيبورد', 'The mic didn\'t open; use the keyboard mic')}</b>
       <small>${L('اضغط زر 🎙️ في الكيبورد واحكِ الدين، أو اكتبه بيدك، ثم اضغط «استخرج».', 'Tap 🎙️ on your keyboard and say the debt, or type it, then tap “Extract”.')}</small>
       <textarea class="input" id="ai-dt" dir="auto" rows="3" placeholder="${L('مثلاً: أبو سامي أخذ مني 200 دولار ويرجعها أول الشهر', 'e.g. Sami borrowed 200 dollars, pays back at the start of the month')}"></textarea>
       <div class="btns"><button class="btn ghost" data-act="aiDictClose">${L('إغلاق', 'Close')}</button><button class="btn" data-act="aiDictGo">${icon('spark')} ${L('استخرج الدين', 'Extract')}</button></div>
@@ -4934,11 +4934,14 @@ async function aiMic(){
   if (AI.busy){ toast(L('لحظة، المساعد يعمل على طلبك السابق…', 'One moment, the assistant is still working…')); return; }
   if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !window.MediaRecorder){ aiPush({k:'err', t:aiErr('nomic')}); return; }
   let stream;
+  // Safari يرفض التسجيل (InvalidStateError) إذا كانت جلسة الصوت «ambient»، وهي ما نضبطه لأصوات الحركات
+  const setSession = t => { try{ if (navigator.audioSession) navigator.audioSession.type = t; }catch(e){} };
+  setSession('play-and-record');
   const gum = () => navigator.mediaDevices.getUserMedia({audio:true});
   try{ stream = await gum(); }
   catch(e){
     if (e && e.name === 'InvalidStateError'){ try{ await new Promise(r => setTimeout(r, 400)); stream = await gum(); }catch(e2){ e = e2; } }
-    if (!stream){ console.warn('mic', e); aiDictOpen((e && e.name) || ''); return; }
+    if (!stream){ console.warn('mic', e); setSession('ambient'); aiDictOpen((e && e.name) || ''); return; }
   }
   const rec = new MediaRecorder(stream), chunks = [], t0 = Date.now();
   AI.rec = {rec, stream, chunks, t0, cancel:false};
@@ -4971,6 +4974,7 @@ async function aiRecDone(){
   const r = AI.rec; if (!r) return; AI.rec = null;
   try{ r.stream.getTracks().forEach(t => t.stop()); }catch(e){}
   try{ r.ac && r.ac.close(); }catch(e){}
+  setTimeout(() => { try{ if (navigator.audioSession) navigator.audioSession.type = 'ambient'; }catch(e){} }, 300);
   const acts = $('#ai-acts'), box = $('#ai-rec'); if (acts) acts.hidden = false; if (box) box.hidden = true;
   const dur = Math.round((Date.now() - r.t0) / 1000);
   if (r.cancel || !r.chunks.length) return;
