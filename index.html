@@ -800,6 +800,108 @@ html[dir="ltr"] .pw .input{padding-left:14px;padding-right:52px}
 .al .ai .i{width:20px;height:20px}
 @media (max-width:370px){.wsum{grid-template-columns:1fr 1fr}.wsum>div:last-child{grid-column:1/-1}.shd-al{grid-template-columns:1fr 1fr}.shd-al .btn{grid-column:1/-1}}
 @media (prefers-reduced-motion:reduce){.wcard,.env,.wbar i,.whero,.mrow,.wpreview,.rchart .ra{animation:none!important}}
+
+/* ---------- المساعد الذكي ---------- */
+:root{--ai:#7A4BA8;--ai-soft:#F1E8FA}
+[data-theme="dark"]{--ai:#C9A4EC;--ai-soft:#2A1C38}
+.ai-hero{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.ai-hero b{display:block;font-size:19px}
+.ai-hero span{font-size:14px;color:var(--muted)}
+.ai-orb{width:56px;height:56px;border-radius:18px;flex:none;display:grid;place-items:center;color:#fff;background:conic-gradient(from 0deg,#7A4BA8,#B07CE0,#C39A44,#7A4BA8);background-size:200% 200%;box-shadow:0 10px 24px -10px rgba(122,75,168,.6);animation:aiOrb 6s linear infinite;position:relative}
+.ai-orb::after{content:"";position:absolute;inset:3px;border-radius:15px;background:radial-gradient(circle at 30% 25%,rgba(255,255,255,.35),transparent 60%),#7A4BA8;z-index:0}
+.ai-orb .i{position:relative;z-index:1;width:28px;height:28px;animation:aiTw 2.6s ease-in-out infinite}
+@keyframes aiOrb{to{filter:hue-rotate(40deg)}}
+@keyframes aiTw{50%{transform:scale(.86) rotate(12deg)}}
+.ai-acts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.ai-acts[hidden]{display:none}
+.ai-act{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;padding:14px 6px 12px;border-radius:var(--r-lg);border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;cursor:pointer;box-shadow:var(--shadow);animation:wIn .45s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--d) * 60ms);transition:transform .15s}
+.ai-act:active{transform:scale(.96)}
+.ai-ic{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;background:var(--ai-soft);color:var(--ai);margin-bottom:2px}
+.ai-ic .i{width:24px;height:24px}
+.ai-act b{font-size:15px}
+.ai-act small{font-size:11.5px;color:var(--muted);line-height:1.4}
+.ai-rec{display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px 12px;border-radius:var(--r-lg);background:var(--ai-soft);text-align:center;animation:wIn .3s ease both}
+.ai-rec[hidden]{display:none}
+.ai-rec b{font-size:22px;font-variant-numeric:tabular-nums;color:var(--ai)}
+.ai-rec small{color:var(--muted);font-size:13px;max-width:320px;line-height:1.6}
+.ai-mic{--lv:0;position:relative;width:96px;height:96px;border-radius:50%;border:0;background:none;display:grid;place-items:center;cursor:pointer}
+.ai-mic>span{position:relative;z-index:2;width:76px;height:76px;border-radius:50%;display:grid;place-items:center;background:var(--ai);color:#fff;box-shadow:0 8px 24px -8px var(--ai);transform:scale(calc(1 + var(--lv) * .12));transition:transform .08s}
+[data-theme="dark"] .ai-mic>span{color:#1A1024}
+.ai-mic>span .i{width:32px;height:32px}
+.ai-mic .ring{position:absolute;inset:0;border-radius:50%;background:var(--ai);opacity:.18;transform:scale(calc(1 + var(--lv) * .55));transition:transform .1s}
+.ai-mic .ring.r2{opacity:.1;animation:aiRing 1.6s ease-out infinite}
+@keyframes aiRing{from{transform:scale(.8);opacity:.25}to{transform:scale(1.5);opacity:0}}
+.ai-log{display:flex;flex-direction:column;gap:10px;margin:16px 0 8px;min-height:120px}
+.ai-log>*{scroll-margin-bottom:calc(170px + var(--safe-b))}
+.ac-row{scroll-margin-bottom:calc(170px + var(--safe-b))}
+.ai-empty{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+.ai-chip{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:9px 14px;font:inherit;font-size:14px;cursor:pointer;animation:wIn .4s ease both}
+.ai-chip:nth-child(2){animation-delay:.06s}.ai-chip:nth-child(3){animation-delay:.12s}
+.ai-chip::before{content:"✨ "}
+.ai-empty .hint{margin-top:4px}
+.ai-b{max-width:86%;padding:11px 14px;border-radius:18px;font-size:15px;line-height:1.7;word-wrap:break-word}
+.ai-b.me{align-self:flex-end;background:var(--green);color:#fff;border-end-end-radius:6px}
+[data-theme="dark"] .ai-b.me{background:#1E4A39}
+.ai-b.bot{align-self:flex-start;background:var(--card);border:1px solid var(--line);border-end-start-radius:6px}
+.ai-b.voice{display:flex;align-items:center;gap:8px}
+.ai-b.voice .i{width:22px;height:22px}
+.ai-b.wait{display:flex;align-items:center;gap:10px;color:var(--muted)}
+.ai-b.wait small{font-size:13px}
+.dots{display:inline-flex;gap:4px}
+.dots i{width:7px;height:7px;border-radius:50%;background:var(--ai);animation:aiDot 1s ease-in-out infinite}
+.dots i:nth-child(2){animation-delay:.15s}.dots i:nth-child(3){animation-delay:.3s}
+@keyframes aiDot{0%,100%{transform:translateY(0);opacity:.35}50%{transform:translateY(-5px);opacity:1}}
+.ai-b.err{display:flex;gap:8px;align-items:flex-start;border-color:var(--out-soft);background:var(--out-soft);color:var(--out)}
+.ai-b.err .i{flex:none;width:18px;height:18px;margin-top:4px}
+.ai-b.err small{display:block;color:var(--muted);font-size:11px;margin-top:2px}
+.caret{display:inline-block;width:2px;height:1em;background:var(--ai);vertical-align:-2px;margin-inline-start:2px;animation:aiBlink .6s steps(2) infinite}
+@keyframes aiBlink{50%{opacity:0}}
+.ai-new{animation:aiIn .38s cubic-bezier(.2,.9,.3,1.2) both}
+@keyframes aiIn{from{opacity:0;transform:translateY(10px) scale(.96)}}
+.ai-img{align-self:flex-end;position:relative;width:min(240px,70%);border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow)}
+.ai-img img{display:block;width:100%;height:auto;max-height:320px;object-fit:cover}
+.ai-img .scanline{display:none}
+.ai-img.scanning::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(122,75,168,.10),rgba(122,75,168,.22));z-index:1}
+.ai-img.scanning .scanline{display:block;position:absolute;inset-inline:0;top:0;height:70px;z-index:2;background:linear-gradient(180deg,transparent,rgba(201,164,236,.55) 80%,#fff 96%,transparent);box-shadow:0 2px 14px rgba(201,164,236,.9);animation:aiScan 1.6s cubic-bezier(.45,0,.55,1) infinite alternate}
+@keyframes aiScan{from{transform:translateY(-70px)}to{transform:translateY(320px)}}
+.ai-card{align-self:stretch;background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:14px;box-shadow:var(--shadow)}
+.ac-h{display:grid;grid-template-columns:auto 1fr;column-gap:8px;align-items:center}
+.ac-h .i{color:var(--ai);grid-row:span 2}
+.ac-h b{font-size:16px}
+.ac-h small{color:var(--muted);font-size:12.5px}
+.ac-msg{margin:8px 0 0;font-size:13.5px;color:var(--muted);background:var(--bg);border-radius:12px;padding:8px 10px}
+.ac-rows{display:grid;gap:8px;margin:12px 0}
+.ac-row{display:grid;grid-template-columns:auto minmax(0,1fr) 74px 56px 24px;gap:6px;align-items:center;padding:8px;border-radius:14px;background:var(--bg);border:1.5px solid transparent;animation:wIn .4s ease both;animation-delay:calc(var(--d) * 60ms);transition:opacity .25s,transform .25s}
+.ac-row.low{border-color:var(--brass);border-style:dashed}
+.ac-row.bad{border-color:var(--out);border-style:solid}
+.ac-row.out{opacity:0;transform:translateX(30px) scale(.95)}
+.ac-row .input{min-height:40px;padding:6px 8px;font-size:15px}
+.ac-a{text-align:center}
+.ac-c{padding:6px 2px!important;text-align:center}
+.ac-dir{border:0;border-radius:10px;min-height:40px;padding:0 10px;font:inherit;font-size:13px;font-weight:700;color:#fff;cursor:pointer}
+.ac-dir.in{background:var(--in)}.ac-dir.out{background:var(--out)}
+.ac-x{border:0;background:none;color:var(--muted);font-size:15px;min-height:40px;cursor:pointer}
+.ac-sub{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12.5px;color:var(--muted)}
+.ac-d{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:3px 6px;font:inherit;font-size:12.5px}
+.ac-sub .warn{color:var(--brass-ink);font-weight:700}
+.ac-save{min-height:50px}
+.ac-fly{background:var(--card)!important;box-shadow:var(--shadow);border-radius:14px}
+.ai-card.saved{display:flex;align-items:center;gap:12px;background:var(--in-soft);border-color:transparent}
+.ai-card.saved .ok{width:40px;height:40px;border-radius:50%;background:var(--in);color:#fff;display:grid;place-items:center;flex:none;animation:wPop .5s cubic-bezier(.3,1.6,.5,1)}
+.ai-card.saved b{display:block}
+.ai-card.saved a{display:inline-flex;align-items:center;gap:2px;font-size:14px;color:var(--green2);font-weight:600;text-decoration:none}
+.ai-card.saved a .i{width:15px;height:15px}
+#tabbar .ai-bump{animation:aiBump .5s cubic-bezier(.3,1.6,.5,1)}
+@keyframes aiBump{40%{transform:scale(1.25)}}
+.ai-bar{position:sticky;bottom:calc(80px + var(--safe-b));display:flex;gap:8px;padding:8px;margin:0 -8px;background:var(--bg);border-radius:20px;z-index:5}
+.ai-bar .input{border-radius:99px;min-height:48px;padding-inline:18px}
+.ai-send{width:48px;height:48px;flex:none;border-radius:50%;border:0;background:var(--ai);color:#fff;display:grid;place-items:center;cursor:pointer}
+[data-theme="dark"] .ai-send{color:#1A1024}
+.ai-send .i{width:22px;height:22px}
+.ai-send .i{transform:scaleX(-1)}
+html[dir="ltr"] .ai-send .i{transform:none}
+@media (max-width:370px){.ac-row{grid-template-columns:auto 1fr 70px 28px}.ac-c{grid-column:2/4}.ai-act small{display:none}}
+@media (prefers-reduced-motion:reduce){.ai-orb,.ai-orb .i,.ai-mic .ring.r2,.ai-img.scanning .scanline,.dots i{animation:none!important}}
 </style>
 </head>
 <body>
@@ -1008,6 +1110,7 @@ html[dir="ltr"] .pw .input{padding-left:14px;padding-right:52px}
     <ul>
       <li><b>GitHub Pages</b> لاستضافة الموقع، وقد يحتفظ بسجلات تقنية عامة كعنوان الاتصال.</li>
       <li><b>خدمة أسعار صرف عامة</b> لجلب الأسعار، ولا يُرسل إليها شيء من بياناتك.</li>
+      <li><b>Google Gemini</b> للمساعد الذكي. لا يُرسل إليه شيء إلا عندما تستخدم المساعد بنفسك: الصورة أو التسجيل الصوتي أو سؤالك، ومع السؤال ملخص دفترك ليتمكن من الإجابة. لا يحفظ دلي هذه الصور والتسجيلات، وقد تستخدمها Google لتحسين خدماتها وفق شروطها، لذلك لا ترسل عبر المساعد ما لا تريد مشاركته.</li>
     </ul>
     <h2>حقوقك</h2>
     <p>يمكنك تعديل بياناتك أو حذفها في أي وقت، وتصدير كشوفك بصيغة PDF، وحذف حسابك نهائياً مع كل ما يحتويه من «حسابي» ← «حذف حسابي نهائياً».</p>
@@ -1036,6 +1139,7 @@ html[dir="ltr"] .pw .input{padding-left:14px;padding-right:52px}
     <ul>
       <li><b>GitHub Pages</b> hosts the site and may keep general technical logs, such as connection addresses.</li>
       <li><b>A public exchange-rate service</b> provides currency rates. None of your data is sent to it.</li>
+      <li><b>Google Gemini</b> powers the smart assistant. Nothing is sent to it unless you use the assistant yourself: the photo, voice recording or question, plus a summary of your book with questions so it can answer. Daly doesn't keep these photos or recordings; Google may use them to improve its services under its terms, so don't send anything through the assistant that you'd rather not share.</li>
     </ul>
     <h2>Your rights</h2>
     <p>You can edit or delete your data at any time, export your statements as PDF, and permanently delete your account with everything in it from “My account” → “Delete my account forever”.</p>
@@ -1256,7 +1360,12 @@ function icon(name){
     camera:'<path d="M3 8a2 2 0 0 1 2-2h2.5L9 4h6l1.5 2H19a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><circle cx="12" cy="13" r="3.5"/>',
     share:'<path d="M12 3v12M8 7l4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/>',
     chev:'<path d="M15 6l-6 6 6 6"/>',
-    eye:'<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>'
+    eye:'<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+    check:'<path d="m5 12.5 4.5 4.5L19 7.5"/>',
+    mic:'<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/>',
+    chat:'<path d="M4 5h16v11H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/>',
+    send:'<path d="M20 12 4 4.5l2.5 7.5L4 19.5z"/><path d="M6.5 12H12"/>',
+    wave:'<path d="M4 10v4M8 7v10M12 4v16M16 8v8M20 11v2"/>'
   }[name] || '';
   return `<svg class="i${name === 'back' || name === 'chev' ? ' flip' : ''}" viewBox="0 0 24 24" aria-hidden="true">${p}</svg>`;
 }
@@ -2039,10 +2148,10 @@ function setTab(name){ $$('#tabbar a').forEach(a => { if (a.dataset.tab === name
 function render(){
   if (!S.user || shareOpen) return;
   const r = route();
-  const views = {home:vHome, people:vPeople, person:vPerson, debt:vDebt, add:vAdd, edit:vAdd, convert:vConvert, settings:vSettings, trash:vTrash, admin:vAdmin, report:vReport, tools:vTools, alerts:vAlerts, inst:vInst, instv:vInstV, instf:vInstF, instt:vInstT, jam:vJam, jamv:vJamV, jamf:vJamF, jamt:vJamT, bud:vBud, budf:vBudF, shield:vShield};
+  const views = {home:vHome, people:vPeople, person:vPerson, debt:vDebt, add:vAdd, edit:vAdd, convert:vConvert, settings:vSettings, trash:vTrash, admin:vAdmin, report:vReport, tools:vTools, alerts:vAlerts, inst:vInst, instv:vInstV, instf:vInstF, instt:vInstT, jam:vJam, jamv:vJamV, jamf:vJamF, jamt:vJamT, bud:vBud, budf:vBudF, shield:vShield, ai:vAI};
   const fn = views[r.name] || vHome;
   formShown = (r.name === 'add' || r.name === 'edit') && (r.name === 'add' || dataReady());
-  const tabs = {home:'home', people:'people', person:'people', debt:'people', add:'add', edit:'add', convert:'tools', tools:'tools', inst:'tools', instv:'tools', instf:'tools', instt:'tools', jam:'tools', jamv:'tools', jamf:'tools', jamt:'tools', bud:'tools', budf:'tools', shield:'tools', alerts:'home', settings:'settings', trash:'settings', admin:'settings', report:'home'};
+  const tabs = {home:'home', people:'people', person:'people', debt:'people', add:'add', edit:'add', convert:'tools', tools:'tools', inst:'tools', instv:'tools', instf:'tools', instt:'tools', jam:'tools', jamv:'tools', jamf:'tools', jamt:'tools', bud:'tools', budf:'tools', shield:'tools', ai:'tools', alerts:'home', settings:'settings', trash:'settings', admin:'settings', report:'home'};
   setTab(tabs[r.name] || 'home');
   const v = $('#view');
   const keepScroll = render._last === location.hash;
@@ -2490,7 +2599,7 @@ function vTools(){
     ${card('#/jam', 'cycle', 't-jm', L('الجمعيات', 'Savings circles'), L('الأدوار والدفعات وتذكير المتأخرين', 'Turns, payments and reminders'), jk)}
     ${card('#/bud', 'wallet', 't-bd', L('الميزانية', 'Budget'), L('كم تحتاج في الشهر، وأين تذهب مصاريفك', 'What you need each month and where it goes'), bk)}
     ${card('#/shield', 'shield', 't-sh', L('درع الليرة', 'Lira shield'), L('القيمة الحقيقية لديونك أمام سعر الصرف', 'The real value of your debts against the rate'), sk)}
-    ${card('', 'spark', 't-ai', L('المساعد الذكي', 'Smart assistant'), L('صوّر دفترك الورقي، أو سجّل بصوتك', 'Snap your paper notebook, or record by voice'), '', true)}
+    ${card('#/ai', 'spark', 't-ai', L('المساعد الذكي', 'Smart assistant'), L('صوّر دفترك الورقي، أو سجّل بصوتك', 'Snap your paper notebook, or record by voice'), L('صوّر · احكِ · اسأل ✨', 'Snap · speak · ask ✨'))}
   </div>`;
 }
 
@@ -3155,6 +3264,7 @@ const ACT = {
       <a class="popt" href="#/instf/new" data-act="plusGo" data-to="#/instf/new"><span class="pi t-in">${icon('cal')}</span><span class="pm"><b>${L('تقسيط', 'Instalments')}</b><span>${L('مبلغ مقسوم على أشهر', 'An amount split over months')}</span></span>${icon('chev')}</a>
       <a class="popt" href="#/jamf/new" data-act="plusGo" data-to="#/jamf/new"><span class="pi t-jm">${icon('cycle')}</span><span class="pm"><b>${L('جمعية', 'Savings circle')}</b><span>${L('أعضاء ومبلغ شهري وأدوار', 'Members, monthly share and turns')}</span></span>${icon('chev')}</a>
       <button class="popt" data-act="quickSpend"><span class="pi t-bd">${icon('wallet')}</span><span class="pm"><b>${L('مصروف', 'Expense')}</b><span>${L('سجّله في ظرفه بالميزانية', 'Log it in its budget envelope')}</span></span>${icon('chev')}</button>
+      <a class="popt" href="#/ai" data-act="plusGo" data-to="#/ai"><span class="pi t-ai">${icon('spark')}</span><span class="pm"><b>${L('المساعد ✨', 'Assistant ✨')}</b><span>${L('صوّر دفترك أو سجّل بصوتك', 'Snap your notebook or speak')}</span></span>${icon('chev')}</a>
     </div>`),
   plusGo: el => closeSheet(() => { location.hash = el.dataset.to; }),
   soon: () => toast('قريباً في دلي ✨'),
@@ -4605,7 +4715,302 @@ const WFORMS = {
 
 function vInstT(){ return wTrashView('inst', L('سلة التقسيط', 'Instalments trash'), '#/inst', (x, lt) => `<div class="av">${esc(initial(x.name))}</div><div class="mid"><div class="t">${esc(x.name)}</div><div class="s">${fmtH(x.total, x.cur)}${lt}</div></div>`); }
 function vJamT(){ return wTrashView('jam', L('سلة الجمعيات', 'Circles trash'), '#/jam', (x, lt) => `<div class="av av-jam">${icon('cycle')}</div><div class="mid"><div class="t">${esc(x.name)}</div><div class="s">${L(`${(x.members || []).length} أعضاء`, `${(x.members || []).length} members`)}${lt}</div></div>`); }
-Object.assign(ACT, WACT); Object.assign(FORMS, WFORMS);
+
+/* =====================================================
+   ✨ المساعد الذكي (Gemini عبر وسيط Cloudflare)
+   ===================================================== */
+const AI_URL = 'https://daly-ai.xwerfor.workers.dev';
+const AI = {msgs:[], busy:false, rec:null, seq:0};
+const isoOk = s => /^\d{4}-\d{2}-\d{2}$/.test(s || '') && !isNaN(Date.parse(s + 'T12:00:00'));
+function aiErr(code){
+  return ({
+    net:L('لا يوجد اتصال بالإنترنت، أو تعذّر الوصول للمساعد. تحقّق من الاتصال وحاول مجدداً.', 'No connection, or the assistant couldn\'t be reached. Check your connection and try again.'),
+    region:L('خدمة Google للذكاء الاصطناعي غير متاحة من منطقة الاتصال حالياً.', 'Google\'s AI service isn\'t available from this connection\'s region right now.'),
+    busy:L('المساعد مشغول الآن، جرّب بعد دقيقة.', 'The assistant is busy right now. Try again in a minute.'),
+    'too-big':L('الملف كبير جداً. جرّب صورة أوضح وأصغر، أو تسجيلاً أقصر.', 'The file is too large. Try a smaller photo or a shorter recording.'),
+    parse:L('لم أفهم الرد هذه المرة، جرّب مرة أخرى.', 'I couldn\'t read the reply this time. Please try again.'),
+    mic:L('لم أستطع فتح الميكروفون. اسمح لدلي باستخدامه من إعدادات المتصفح.', 'I couldn\'t open the microphone. Allow Daly to use it in your browser settings.'),
+    nomic:L('هذا المتصفح لا يدعم التسجيل الصوتي.', 'This browser doesn\'t support voice recording.'),
+    image:L('تعذّرت قراءة الصورة. جرّب صورة أخرى.', 'Couldn\'t read the photo. Try another one.')
+  })[code] || L('حدث خطأ في المساعد، حاول مجدداً.', 'Something went wrong with the assistant. Please try again.');
+}
+async function aiCall(payload){
+  let r;
+  try{
+    const ctrl = new AbortController(), tm = setTimeout(() => ctrl.abort(), 60000);
+    r = await fetch(AI_URL, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(Object.assign({today:today(), lang:I18N.lang}, payload)), signal:ctrl.signal});
+    clearTimeout(tm);
+  }catch(e){ throw Object.assign(new Error('net'), {code:'net'}); }
+  const j = await r.json().catch(() => null);
+  if (!r.ok || !j || j.error){ const code = (j && j.error) || 'http' + r.status; throw Object.assign(new Error(code), {code, detail:j && (j.detail || j.status)}); }
+  return j;
+}
+function aiContext(){
+  const t = today(), c = tc();
+  const people = {};
+  activeDebts().forEach(d => {
+    const n = personName(d.personId); (people[n] = people[n] || []).push({dir:d.dir, cur:d.cur, total:debtTotal(d), left:round(debtRem(d), CUR[d.cur].d), date:d.date, due:d.due || undefined, late:isLate(d) || undefined, settled:isSettled(d) || undefined, note:d.note || undefined});
+  });
+  const ctx = {today:t, currency_for_totals:c, usd_to_syp:marketRate(), people:Object.entries(people).map(([n, ds]) => ({name:n, debts:ds}))};
+  try{
+    const ins = wList('inst'); if (ins.length) ctx.instalments = ins.map(x => { const nx = INST.next(x); return {name:x.name, dir:x.dir || 'in', item:x.item || undefined, cur:x.cur, total:x.total, left:INST.rem(x), next:nx ? {due:nx.due, amount:nx.a} : undefined, late:INST.late(x) || undefined}; });
+    const js = wList('jam'); if (js.length) ctx.savings_circles = js.map(j => ({name:j.name, cur:j.cur, monthly:j.amount, members:j.members.map(m => m.name + (m.me ? ' (me)' : '')), start:j.start, receiver_this_month:(JAM.receiver(j, JAM.idx(j)) || {}).name, unpaid_this_month:JAM.state(j) === 'run' ? JAM.unpaid(j, thisYM()).map(m => m.name) : undefined}));
+    const b = S.bud[thisYM()]; if (b){ const x = BUD.totals(b); ctx.budget_this_month = {cur:b.cur, income:x.income, spent:round(x.spent, 2), left:round(x.left, 2), envelopes:BUD.rows(b).map(e => ({name:e.name, plan:round(e.a, 2), spent:round(e.spent, 2)}))}; }
+  }catch(e){}
+  return JSON.stringify(ctx);
+}
+
+/* ---------- رسم المحادثة ---------- */
+function aiMsgHTML(m){
+  const anim = m.seen ? '' : ' ai-new'; m.seen = true;
+  if (m.k === 'user') return `<div class="ai-b me${anim}" translate="no" dir="auto">${esc(m.t)}</div>`;
+  if (m.k === 'voice') return `<div class="ai-b me voice${anim}">${icon('wave')}<span>${L('تسجيل صوتي', 'Voice note')} · <bdi>${m.dur}</bdi></span></div>`;
+  if (m.k === 'img') return `<div class="ai-img${anim}${m.scan ? ' scanning' : ''}" id="aim-${m.id}"><img src="${m.src}" alt="${L('صفحة الدفتر', 'Notebook page')}"><i class="scanline"></i></div>`;
+  if (m.k === 'wait') return `<div class="ai-b bot wait${anim}" id="aiw-${m.id}"><span class="dots"><i></i><i></i><i></i></span><small>${esc(m.t || '')}</small></div>`;
+  if (m.k === 'ans') return `<div class="ai-b bot${anim}" translate="no" dir="auto" id="aia-${m.id}">${m.typed ? esc(m.t).replace(/\n/g, '<br>') : ''}</div>`;
+  if (m.k === 'err') return `<div class="ai-b bot err${anim}">${icon('x')}<span>${esc(m.t)}${m.code ? `<small dir="ltr">${esc(m.code)}</small>` : ''}</span></div>`;
+  if (m.k === 'debts') return aiDebtsHTML(m, anim);
+  return '';
+}
+function aiDebtsHTML(m, anim){
+  if (m.saved) return `<div class="ai-card saved${anim}"><span class="ok">${icon('check')}</span><div><b>${L(`حُفظ ${m.saved} ${m.saved === 1 ? 'دين' : 'ديون'} في دفترك`, `${m.saved} ${m.saved === 1 ? 'debt' : 'debts'} saved to your book`)}</b><a href="#/people">${L('عرض الأشخاص', 'See people')} ${icon('chev')}</a></div></div>`;
+  const items = m.items.filter(x => !x.gone);
+  if (!items.length) return `<div class="ai-b bot${anim}">${m.msg ? `<span translate="no">${esc(m.msg)}</span>` : L('لم أجد ديوناً واضحة. جرّب صورة أوضح أو أعد التسجيل.', 'I didn\'t find any clear debts. Try a clearer photo or record again.')}</div>`;
+  return `<div class="ai-card${anim}" data-ai="${m.id}">
+    <div class="ac-h">${icon('spark')}<b>${L(`وجدتُ ${items.length} ${items.length === 1 ? 'ديناً' : items.length <= 10 ? 'ديون' : 'ديناً'}`, `I found ${items.length} ${items.length === 1 ? 'debt' : 'debts'}`)}</b><small>${L('راجعها وعدّل ما تريد قبل الحفظ', 'Check and edit before saving')}</small></div>
+    ${m.msg ? `<p class="ac-msg" translate="no">${esc(m.msg)}</p>` : ''}
+    <div class="ac-rows">${m.items.map((x, i) => x.gone ? '' : `<div class="ac-row ${x.low ? 'low' : ''}" data-i="${i}" style="--d:${i}">
+      <button type="button" class="ac-dir ${x.dir}" data-aif="dir">${x.dir === 'in' ? L('لي', 'Mine') : L('عليّ', 'I owe')}</button>
+      <input class="input ac-n" dir="auto" data-aif="name" value="${esc(x.name)}" aria-label="${L('الاسم', 'Name')}">
+      <input class="input ac-a" data-aif="amount" inputmode="decimal" value="${esc(String(x.amount))}" aria-label="${L('المبلغ', 'Amount')}">
+      <select class="input ac-c" data-aif="cur" aria-label="${L('العملة', 'Currency')}">${CODES.map(c => `<option value="${c}" ${c === x.cur ? 'selected' : ''}>${CUR[c].sym}</option>`).join('')}</select>
+      <button type="button" class="ac-x" data-aif="del" aria-label="${L('حذف', 'Remove')}">✕</button>
+      <div class="ac-sub"><input type="date" class="ac-d" data-aif="date" value="${esc(x.date)}">${x.due ? `<span>${L('الموعد', 'due')} ${shortDate(x.due)}</span>` : ''}${x.note ? `<span translate="no">${esc(x.note)}</span>` : ''}${x.low ? `<span class="warn">${L('تأكّد منه', 'please check')}</span>` : ''}</div>
+    </div>`).join('')}</div>
+    <button class="btn block brass ac-save" data-act="aiSave" data-id="${m.id}">${icon('check')} ${L(`حفظ الكل (${items.length})`, `Save all (${items.length})`)}</button>
+  </div>`;
+}
+function aiPush(m){
+  m.id = m.id || ++AI.seq; AI.msgs.push(m);
+  const log = $('#ai-log'); if (!log) return m;
+  log.querySelector('.ai-empty') && log.querySelector('.ai-empty').remove();
+  log.insertAdjacentHTML('beforeend', aiMsgHTML(m));
+  aiScroll(); return m;
+}
+function aiDrop(m){ const i = AI.msgs.indexOf(m); if (i >= 0) AI.msgs.splice(i, 1); const el = $('#aiw-' + m.id) || $('#aim-' + m.id); if (el) el.remove(); }
+function aiScroll(){ requestAnimationFrame(() => { const log = $('#ai-log'); if (log && log.lastElementChild) log.lastElementChild.scrollIntoView({behavior:FX.reduce() ? 'auto' : 'smooth', block:'end'}); }); }
+function aiType(m){
+  const el = $('#aia-' + m.id); if (!el) return;
+  const full = m.t; let i = 0;
+  if (FX.reduce()){ el.innerHTML = esc(full).replace(/\n/g, '<br>'); m.typed = true; return; }
+  const step = Math.max(2, Math.ceil(full.length / 70));
+  const tick = () => { i = Math.min(full.length, i + step); el.innerHTML = esc(full.slice(0, i)).replace(/\n/g, '<br>') + (i < full.length ? '<i class="caret"></i>' : ''); if (i < full.length) setTimeout(tick, 22); else { m.typed = true; aiScroll(); } };
+  tick();
+}
+function aiFail(e, wait){
+  if (wait) aiDrop(wait);
+  console.warn('AI', e);
+  aiPush({k:'err', t:aiErr(e.code), code:e.code && !['net', 'busy', 'region'].includes(e.code) ? e.code + (e.detail ? ' · ' + String(e.detail).slice(0, 80) : '') : ''});
+  try{ SND.play('tick'); }catch(x){}
+}
+function aiDebts(res){
+  const items = (res.debts || []).map(x => ({
+    name:String(x.name || '').trim(), dir:x.dir === 'out' ? 'out' : 'in', amount:+x.amount > 0 ? round(+x.amount, CUR[CODES.includes(x.cur) ? x.cur : 'USD'].d) : '',
+    cur:CODES.includes(x.cur) ? x.cur : 'USD', date:isoOk(x.date) && x.date <= today() ? x.date : today(), due:isoOk(x.due) ? x.due : '', note:String(x.note || '').trim(),
+    low:typeof x.confidence === 'number' && x.confidence < .6
+  })).filter(x => x.name || x.amount);
+  return {k:'debts', items, msg:String(res.message || '').trim()};
+}
+
+/* ---------- الصفحة ---------- */
+function vAI(){
+  topbar(L('المساعد الذكي', 'Smart assistant'), '#/tools');
+  const name = S.user && S.user.name ? S.user.name.split(' ')[0] : '';
+  const sugg = [L('من أكثر شخص مدين لي؟', 'Who owes me the most?'), L('كم سأقبض هذا الشهر؟', 'How much will I collect this month?'), L('من المتأخرون عن السداد؟', 'Who is late paying?')];
+  return `<div class="ai-hero"><span class="ai-orb">${icon('spark')}</span><div><b>${name ? L(`أهلاً ${esc(name)}`, `Hi ${esc(name)}`) : L('أهلاً بك', 'Welcome')}</b><span>${L('صوّر دفترك، أو احكِ، أو اسألني عن ديونك.', 'Snap your notebook, speak, or ask me about your debts.')}</span></div></div>
+    <div class="ai-acts" id="ai-acts">
+      <label class="ai-act" style="--d:0"><span class="ai-ic">${icon('camera')}</span><b>${L('صوّر الدفتر', 'Scan notebook')}</b><small>${L('صفحة من دفترك الورقي', 'A page from your paper book')}</small><input type="file" accept="image/*" class="vh" id="ai-file"></label>
+      <button class="ai-act" data-act="aiMic" style="--d:1"><span class="ai-ic">${icon('mic')}</span><b>${L('احكِ', 'Speak')}</b><small>${L('سجّل ديناً بصوتك', 'Record a debt by voice')}</small></button>
+      <button class="ai-act" data-act="aiFocus" style="--d:2"><span class="ai-ic">${icon('chat')}</span><b>${L('اسأل', 'Ask')}</b><small>${L('عن ديونك وأرقامك', 'About your debts')}</small></button>
+    </div>
+    <div class="ai-rec" id="ai-rec" hidden>
+      <button class="ai-mic" data-act="aiStop" aria-label="${L('إيقاف التسجيل', 'Stop recording')}"><i class="ring"></i><i class="ring r2"></i><span>${icon('mic')}</span></button>
+      <b id="ai-t">0:00</b><small>${L('احكِ بشكل طبيعي، مثلاً: «أبو سامي أخذ مني 200 دولار ويرجعها أول الشهر». اضغط للإيقاف.', 'Speak naturally, e.g. “Sami borrowed 200 dollars, he\'ll pay back at the start of the month.” Tap to stop.')}</small>
+      <button class="linkbtn" data-act="aiCancel">${L('إلغاء', 'Cancel')}</button>
+    </div>
+    <div class="ai-log" id="ai-log">${AI.msgs.length ? AI.msgs.map(aiMsgHTML).join('') : `<div class="ai-empty">${sugg.map(s => `<button class="ai-chip" data-act="aiSugg">${s}</button>`).join('')}<p class="hint">${L('المساعد يقترح فقط، ولا يحفظ شيئاً في دفترك قبل موافقتك.', 'The assistant only suggests; nothing is saved to your book without your OK.')}</p></div>`}</div>
+    <form class="ai-bar" data-form="aiAsk" novalidate autocomplete="off">
+      <input class="input" id="ai-q" dir="auto" placeholder="${L('اسأل دلي…', 'Ask Daly…')}" maxlength="500">
+      <button class="ai-send" aria-label="${L('إرسال', 'Send')}">${icon('send')}</button>
+    </form>`;
+}
+vAI.mount = () => {
+  const f = $('#ai-file'); if (f) f.addEventListener('change', () => { const file = f.files && f.files[0]; f.value = ''; if (file) aiScan(file); });
+  const log = $('#ai-log');
+  if (log){
+    log.addEventListener('input', e => aiEdit(e.target));
+    log.addEventListener('change', e => aiEdit(e.target));
+    log.addEventListener('click', e => { const b = e.target.closest('button[data-aif]'); if (b) aiEdit(b, true); });
+  }
+  if (AI.msgs.length) aiScroll();
+};
+function aiEdit(el, click){
+  const card = el.closest('[data-ai]'), row = el.closest('.ac-row'); if (!card || !row) return;
+  const m = AI.msgs.find(x => String(x.id) === card.dataset.ai); if (!m) return;
+  const x = m.items[+row.dataset.i], k = el.dataset.aif; if (!x || !k) return;
+  if (click && k === 'dir'){ x.dir = x.dir === 'in' ? 'out' : 'in'; el.className = 'ac-dir ' + x.dir; el.textContent = x.dir === 'in' ? L('لي', 'Mine') : L('عليّ', 'I owe'); try{ SND.play('tick'); }catch(e){} return; }
+  if (click && k === 'del'){
+    x.gone = true; row.classList.add('out'); try{ SND.play('dust'); }catch(e){}
+    setTimeout(() => { const n = m.items.filter(y => !y.gone).length; if (!n){ card.outerHTML = aiDebtsHTML(m, ''); } else { row.remove(); const sb = $('.ac-save', card); if (sb) sb.innerHTML = `${icon('check')} ${L(`حفظ الكل (${n})`, `Save all (${n})`)}`; const h = $('.ac-h b', card); if (h) h.textContent = L(`وجدتُ ${n} ${n === 1 ? 'ديناً' : n <= 10 ? 'ديون' : 'ديناً'}`, `I found ${n} ${n === 1 ? 'debt' : 'debts'}`); } }, 260);
+    return;
+  }
+  if (click) return;
+  if (k === 'name') x.name = el.value;
+  else if (k === 'amount') x.amount = el.value;
+  else if (k === 'cur') x.cur = el.value;
+  else if (k === 'date') x.date = el.value;
+  row.classList.remove('bad');
+}
+
+/* ---------- الأفعال ---------- */
+async function aiScan(file){
+  if (AI.busy) return; AI.busy = true;
+  let pic;
+  try{ pic = await compressImage(file); }catch(e){ AI.busy = false; aiPush({k:'err', t:aiErr('image')}); return; }
+  const im = aiPush({k:'img', src:pic.img, scan:true});
+  try{ SND.play('tick'); }catch(e){}
+  try{
+    const res = await aiCall({task:'scan', image:pic.img.split(',')[1], mime:'image/jpeg'});
+    const el = $('#aim-' + im.id); if (el) el.classList.remove('scanning'); im.scan = false;
+    aiPush(aiDebts(res)); try{ SND.play('add'); }catch(e){}
+  }catch(e){ const el = $('#aim-' + im.id); if (el) el.classList.remove('scanning'); im.scan = false; aiFail(e); }
+  finally{ AI.busy = false; }
+}
+async function aiAsk(text){
+  text = String(text || '').trim(); if (!text || AI.busy) return;
+  AI.busy = true;
+  aiPush({k:'user', t:text});
+  const w = aiPush({k:'wait', t:L('يقرأ دفترك…', 'Reading your book…')});
+  try{
+    const res = await aiCall({task:'ask', text, context:aiContext()});
+    aiDrop(w); const m = aiPush({k:'ans', t:String(res.answer || '').trim() || L('لا أملك جواباً لهذا.', 'I don\'t have an answer for that.')}); aiType(m);
+  }catch(e){ aiFail(e, w); }
+  finally{ AI.busy = false; }
+}
+function wavFrom(buf){
+  const rate = 16000, ch = buf.getChannelData(0), ratio = buf.sampleRate / rate, n = Math.floor(ch.length / ratio);
+  const out = new DataView(new ArrayBuffer(44 + n * 2)), w = (o, s) => { for (let i = 0; i < s.length; i++) out.setUint8(o + i, s.charCodeAt(i)); };
+  w(0, 'RIFF'); out.setUint32(4, 36 + n * 2, true); w(8, 'WAVE'); w(12, 'fmt '); out.setUint32(16, 16, true); out.setUint16(20, 1, true); out.setUint16(22, 1, true);
+  out.setUint32(24, rate, true); out.setUint32(28, rate * 2, true); out.setUint16(32, 2, true); out.setUint16(34, 16, true); w(36, 'data'); out.setUint32(40, n * 2, true);
+  for (let i = 0; i < n; i++){ const s = Math.max(-1, Math.min(1, ch[Math.floor(i * ratio)] || 0)); out.setInt16(44 + i * 2, s < 0 ? s * 0x8000 : s * 0x7FFF, true); }
+  return new Blob([out.buffer], {type:'audio/wav'});
+}
+const blob64 = b => new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(String(r.result).split(',')[1]); r.onerror = rej; r.readAsDataURL(b); });
+async function aiMic(){
+  if (AI.busy || AI.rec) return;
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !window.MediaRecorder){ aiPush({k:'err', t:aiErr('nomic')}); return; }
+  let stream;
+  try{ stream = await navigator.mediaDevices.getUserMedia({audio:true}); }catch(e){ aiPush({k:'err', t:aiErr('mic')}); return; }
+  const rec = new MediaRecorder(stream), chunks = [], t0 = Date.now();
+  AI.rec = {rec, stream, chunks, t0, cancel:false};
+  rec.ondataavailable = e => { if (e.data && e.data.size) chunks.push(e.data); };
+  rec.onstop = () => aiRecDone();
+  rec.start(250);
+  $('#ai-acts') && ($('#ai-acts').hidden = true); const box = $('#ai-rec'); if (box){ box.hidden = false; }
+  try{ navigator.vibrate && navigator.vibrate(15); }catch(e){}
+  // نبض الدائرة مع مستوى الصوت
+  try{
+    const A = window.AudioContext || window.webkitAudioContext, ac = new A(), an = ac.createAnalyser(); an.fftSize = 512;
+    ac.createMediaStreamSource(stream).connect(an); AI.rec.ac = ac;
+    const data = new Uint8Array(an.fftSize);
+    const loop = () => {
+      if (!AI.rec || AI.rec.rec !== rec) return;
+      an.getByteTimeDomainData(data); let s = 0; for (let i = 0; i < data.length; i++){ const v = (data[i] - 128) / 128; s += v * v; }
+      const lvl = Math.min(1, Math.sqrt(s / data.length) * 4), mic = $('#ai-rec .ai-mic'); if (mic) mic.style.setProperty('--lv', lvl.toFixed(3));
+      const sec = Math.floor((Date.now() - t0) / 1000), t = $('#ai-t'); if (t) t.textContent = `${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, '0')}`;
+      if (sec >= 60) aiStop(); else requestAnimationFrame(loop);
+    };
+    loop();
+  }catch(e){}
+}
+function aiStop(cancel){
+  const r = AI.rec; if (!r) return;
+  r.cancel = !!cancel;
+  try{ if (r.rec.state !== 'inactive') r.rec.stop(); else aiRecDone(); }catch(e){ aiRecDone(); }
+}
+async function aiRecDone(){
+  const r = AI.rec; if (!r) return; AI.rec = null;
+  try{ r.stream.getTracks().forEach(t => t.stop()); }catch(e){}
+  try{ r.ac && r.ac.close(); }catch(e){}
+  const acts = $('#ai-acts'), box = $('#ai-rec'); if (acts) acts.hidden = false; if (box) box.hidden = true;
+  const dur = Math.round((Date.now() - r.t0) / 1000);
+  if (r.cancel || !r.chunks.length) return;
+  if (dur < 1){ toast(L('التسجيل قصير جداً', 'The recording is too short')); return; }
+  AI.busy = true;
+  aiPush({k:'voice', dur:`${Math.floor(dur / 60)}:${String(dur % 60).padStart(2, '0')}`});
+  const w = aiPush({k:'wait', t:L('يستمع…', 'Listening…')});
+  try{
+    const raw = new Blob(r.chunks, {type:r.rec.mimeType || 'audio/webm'});
+    let audio, mime;
+    try{
+      const A = window.AudioContext || window.webkitAudioContext, ac = new A();
+      const buf = await ac.decodeAudioData(await raw.arrayBuffer()); try{ ac.close(); }catch(e){}
+      audio = await blob64(wavFrom(buf)); mime = 'audio/wav';
+    }catch(e){ audio = await blob64(raw); mime = (raw.type || 'audio/webm').split(';')[0]; }
+    const res = await aiCall({task:'voice', audio, mime});
+    aiDrop(w); aiPush(aiDebts(res)); try{ SND.play('add'); }catch(e){}
+  }catch(e){ aiFail(e, w); }
+  finally{ AI.busy = false; }
+}
+function aiSave(id){
+  const m = AI.msgs.find(x => String(x.id) === String(id)); if (!m) return;
+  const card = $(`[data-ai="${m.id}"]`);
+  const list = m.items.filter(x => !x.gone);
+  let bad = false;
+  list.forEach(x => { const ok = String(x.name || '').trim() && toNum(String(x.amount)) > 0; if (!ok){ bad = true; const row = card && $(`.ac-row[data-i="${m.items.indexOf(x)}"]`, card); if (row) row.classList.add('bad'); } });
+  if (bad){ toast(L('أكمل الاسم والمبلغ للسطور المعلّمة', 'Fill in the name and amount on the marked rows')); return; }
+  const map = {}; Object.values(S.people).forEach(p => { if (!p.deleted) map[norm(p.name)] = p.id; });
+  const t = today();
+  list.forEach(x => {
+    const name = String(x.name).trim(), k = norm(name);
+    let pid = map[k];
+    if (!pid){ pid = uid(); save('people', {id:pid, name, phone:'', note:'', createdAt:Date.now()}); map[k] = pid; }
+    else if (S.people[pid] && S.people[pid].deleted) save('people', Object.assign({}, S.people[pid], {deleted:false}));
+    const cur = CODES.includes(x.cur) ? x.cur : 'USD', date = isoOk(x.date) ? x.date : t;
+    const d = {id:uid(), personId:pid, dir:x.dir === 'out' ? 'out' : 'in', cur, amount:round(toNum(String(x.amount)), CUR[cur].d), date, due:isoOk(x.due) && x.due >= date ? x.due : '', note:x.note || '', tx:[], deleted:false, createdAt:Date.now(), src:'ai'};
+    if (cur === 'SYP' && date === t){ const mr = marketRate(); if (mr > 0) d.r0 = mr; }
+    save('debts', d);
+  });
+  m.saved = list.length;
+  try{ SND.play('coin'); }catch(e){}
+  // الصفوف تطير إلى تبويب الأشخاص
+  const target = $('#tabbar [data-tab="people"]');
+  if (card && target && !FX.reduce()){
+    const tr = target.getBoundingClientRect();
+    $$('.ac-row', card).forEach((row, i) => {
+      const r = row.getBoundingClientRect(), ghost = row.cloneNode(true);
+      Object.assign(ghost.style, {position:'fixed', left:r.left + 'px', top:r.top + 'px', width:r.width + 'px', margin:0, zIndex:60, pointerEvents:'none', transition:`transform .7s cubic-bezier(.5,-.3,.3,1) ${i * 70}ms, opacity .7s ease ${i * 70}ms`});
+      ghost.classList.add('ac-fly'); document.body.appendChild(ghost);
+      requestAnimationFrame(() => requestAnimationFrame(() => { ghost.style.transform = `translate(${tr.left + tr.width / 2 - r.left - r.width / 2}px, ${tr.top - r.top}px) scale(.12)`; ghost.style.opacity = '0'; }));
+      setTimeout(() => ghost.remove(), 900 + i * 70);
+    });
+    setTimeout(() => { target.classList.remove('ai-bump'); void target.offsetWidth; target.classList.add('ai-bump'); }, 650);
+  }
+  if (card) card.outerHTML = aiDebtsHTML(m, ' ai-new');
+  try{ confetti($(`#ai-log .ai-card.saved:last-of-type`) || $('#ai-log')); }catch(e){}
+  toast(L(`حُفظ ${list.length} ${list.length === 1 ? 'دين' : 'ديون'}`, `${list.length} saved`));
+}
+const AIACT = {
+  aiMic: () => aiMic(),
+  aiStop: () => aiStop(false),
+  aiCancel: () => aiStop(true),
+  aiFocus: () => { const q = $('#ai-q'); if (q){ q.focus(); q.scrollIntoView({block:'center', behavior:'smooth'}); } },
+  aiSugg: el => aiAsk(el.textContent),
+  aiSave: el => aiSave(el.dataset.id)
+};
+const AIFORMS = { aiAsk: () => { const q = $('#ai-q'); const v = q.value; q.value = ''; aiAsk(v); } };
+
+Object.assign(ACT, WACT, AIACT); Object.assign(FORMS, WFORMS, AIFORMS);
 
 function purgeOldTrash(){
   const lim = Date.now() - TRASH_DAYS * 864e5;
@@ -4643,7 +5048,8 @@ function onUser(u){
     if (!purged && S.loaded.debts && S.loaded.inst && S.loaded.jam){ purged = true; purgeOldTrash(); }
     const onForm = ['add','edit'].includes(route().name);
     const onW = !!$('#view form[data-form=inst], #view form[data-form=jam], #view form[data-form=bud]');
-    if (!sheetOpen && !(onForm && formShown) && !onW) renderSoon();
+    const onAI = route().name === 'ai' && (AI.busy || AI.rec || !!$('#view .ai-card[data-ai]') || document.activeElement === $('#ai-q'));
+    if (!sheetOpen && !(onForm && formShown) && !onW && !onAI) renderSoon();
   });
 }
 function updateOnline(){ const o = $('#offline'); if (o) o.hidden = navigator.onLine !== false; }
