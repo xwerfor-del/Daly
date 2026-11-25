@@ -4734,7 +4734,17 @@ function aiErr(code){
     image:L('تعذّرت قراءة الصورة. جرّب صورة أخرى.', 'Couldn\'t read the photo. Try another one.')
   })[code] || L('حدث خطأ في المساعد، حاول مجدداً.', 'Something went wrong with the assistant. Please try again.');
 }
-async function aiCall(payload){
+async function aiCall(payload, tries){
+  tries = tries === undefined ? 2 : tries;
+  try{ return await aiCall1(payload); }
+  catch(e){
+    const busy = e.code === 'busy' || (e.code === 'upstream' && /demand|overload|unavailable|try again/i.test(String(e.detail || '')));
+    if (busy && tries > 0){ await new Promise(r => setTimeout(r, (3 - tries) * 1500)); return aiCall(payload, tries - 1); }
+    if (busy) e.code = 'busy';
+    throw e;
+  }
+}
+async function aiCall1(payload){
   let r;
   try{
     const ctrl = new AbortController(), tm = setTimeout(() => ctrl.abort(), 60000);
@@ -4874,7 +4884,7 @@ function aiEdit(el, click){
 
 /* ---------- الأفعال ---------- */
 async function aiScan(file){
-  if (AI.busy) return; AI.busy = true;
+  if (AI.busy){ toast(L('لحظة، المساعد يعمل على طلبك السابق…', 'One moment, the assistant is still working…')); return; } AI.busy = true;
   let pic;
   try{ pic = await compressImage(file); }catch(e){ AI.busy = false; aiPush({k:'err', t:aiErr('image')}); return; }
   const im = aiPush({k:'img', src:pic.img, scan:true});
@@ -4907,10 +4917,11 @@ function wavFrom(buf){
 }
 const blob64 = b => new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(String(r.result).split(',')[1]); r.onerror = rej; r.readAsDataURL(b); });
 async function aiMic(){
-  if (AI.busy || AI.rec) return;
+  if (AI.rec) return;
+  if (AI.busy){ toast(L('لحظة، المساعد يعمل على طلبك السابق…', 'One moment, the assistant is still working…')); return; }
   if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !window.MediaRecorder){ aiPush({k:'err', t:aiErr('nomic')}); return; }
   let stream;
-  try{ stream = await navigator.mediaDevices.getUserMedia({audio:true}); }catch(e){ aiPush({k:'err', t:aiErr('mic')}); return; }
+  try{ stream = await navigator.mediaDevices.getUserMedia({audio:true}); }catch(e){ aiPush({k:'err', t:aiErr('mic') + ' ' + L('على الآيفون: الإعدادات ← Safari ← الميكروفون ← اسمح، أو من زر «aA» بجانب الرابط ← إعدادات الموقع ← الميكروفون.', 'On iPhone: Settings → Safari → Microphone → Allow, or the “aA” button by the address → Website Settings → Microphone.'), code:(e && e.name) || ''}); return; }
   const rec = new MediaRecorder(stream), chunks = [], t0 = Date.now();
   AI.rec = {rec, stream, chunks, t0, cancel:false};
   rec.ondataavailable = e => { if (e.data && e.data.size) chunks.push(e.data); };
