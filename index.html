@@ -940,6 +940,11 @@ html[dir="ltr"] .ai-send .i{transform:none}
 @keyframes icApp{0%,72%{transform:scale(0)}80%{transform:scale(1.15)}86%,100%{transform:scale(1)}}
 @keyframes icTap{0%,6%{opacity:0;inset-inline-end:16px;bottom:9px}8%,14%{opacity:1;inset-inline-end:16px;bottom:9px}20%,38%{opacity:0;inset-inline-end:120px;bottom:70px}42%,50%{opacity:1;inset-inline-end:120px;bottom:70px}56%,100%{opacity:0;inset-inline-end:120px;bottom:70px}}
 @media (prefers-reduced-motion:reduce){.ic-menu{animation:none;transform:none}.ic-home,.ic-tap,.ic-share,.ic-mi.hl{animation:none}}
+
+#offline-first{position:fixed;inset:0;z-index:200;display:grid;place-items:center;background:#0F3D2E;color:#F3EBDD;text-align:center;padding:24px}
+#offline-first b{display:block;font-size:56px;color:#C39A44;margin-bottom:8px}
+#offline-first p{line-height:1.8;margin:0 0 20px;opacity:.92}
+#offline-first button{font:inherit;font-weight:700;border:0;border-radius:14px;padding:14px 28px;background:#C39A44;color:#0F3D2E}
 </style>
 </head>
 <body>
@@ -5221,10 +5226,20 @@ function updateOnline(){ const o = $('#offline'); if (o) o.hidden = navigator.on
 window.addEventListener('online', () => { updateOnline(); fetchApiRates(); });
 window.addEventListener('offline', updateOnline);
 
+/* فتح بدون إنترنت قبل أن تُحفظ مكتبات الحساب: رسالة واضحة بدل «وضع التجربة» الفارغ */
+function offlineFirstRun(){
+  const el = document.createElement('div'); el.id = 'offline-first';
+  el.innerHTML = `<div><b translate="no">دلي</b><p>${L('لا يوجد اتصال بالإنترنت، ولم يكتمل حفظ دلي على هذا الجهاز بعد.', 'No internet connection, and Daly isn\'t fully saved on this device yet.')}<br>${L('افتح دلي مرة واحدة وأنت متصل، وبعدها يعمل بدون إنترنت.', 'Open Daly once while online; after that it works offline.')}</p><button type="button">${L('إعادة المحاولة', 'Try again')}</button></div>`;
+  el.querySelector('button').onclick = () => location.reload();
+  document.body.appendChild(el);
+  window.addEventListener('online', () => location.reload(), {once: true});
+  try{ $('#boot').classList.add('out'); }catch(e){}
+}
 async function boot(){
   try{
     if (FB_ON) B = await FirebaseBackend();
   }catch(e){ console.error('Firebase failed', e); B = null; }
+  if (!B && FB_ON && navigator.onLine === false){ offlineFirstRun(); return; }
   if (!B){ B = LocalBackend(); $('#demo-flag').hidden = false; }
   unsubRates = B.watchRates(g => { S.global = g && g.SYP > 0 ? g : null; onRatesChanged(); });
   setAuthTab('up');
@@ -5239,8 +5254,8 @@ try{ I18N.start(); }catch(e){ console.error(e); }
 boot();
 
 /* PWA: service worker */
-if ('serviceWorker' in navigator && location.protocol === 'https:'){
-  window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')){
+  window.addEventListener('load', () => navigator.serviceWorker.register('sw.js', {updateViaCache: 'none'}).then(r => { try{ r.update(); }catch(e){} }).catch(() => {}));
 }
 })();
 </script>
