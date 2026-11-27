@@ -909,6 +909,37 @@ html[dir="ltr"] .pw .input{padding-left:14px;padding-right:52px}
 html[dir="ltr"] .ai-send .i{transform:none}
 @media (max-width:370px){.ac-row{grid-template-columns:auto 1fr 70px 28px}.ac-c{grid-column:2/4}.ai-act small{display:none}}
 @media (prefers-reduced-motion:reduce){.ai-orb,.ai-orb .i,.ai-mic .ring.r2,.ai-img.scanning .scanline,.dots i{animation:none!important}}
+
+/* ---------- روابط المساعد + بطاقة التثبيت ---------- */
+.ai-links{display:flex;flex-wrap:wrap;gap:8px;align-self:flex-start;margin-top:-2px}
+.ai-go{display:inline-flex;align-items:center;gap:4px;border:1.5px solid var(--ai);color:var(--ai);background:var(--ai-soft);border-radius:99px;padding:8px 14px;font:inherit;font-size:14px;font-weight:700;text-decoration:none;cursor:pointer;animation:aiIn .35s cubic-bezier(.2,.9,.3,1.2) both;animation-delay:calc(var(--d) * 70ms)}
+.ai-go .i{width:15px;height:15px}
+.ai-go:active{transform:scale(.95)}
+.ic-wrap{text-align:center}
+.ic-wrap .steps{text-align:start}
+.ic-wrap .steps .i{width:18px;height:18px;vertical-align:-3px;color:#2F80ED}
+.ic-demo{display:flex;justify-content:center;margin:4px 0 14px}
+.ic-phone{position:relative;width:200px;height:250px;border-radius:30px;background:var(--bg);border:6px solid var(--ink);overflow:hidden}
+.ic-bar{position:absolute;inset-inline:0;bottom:0;height:44px;background:var(--card);border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 12px}
+.ic-url{font-size:11px;color:var(--muted);background:var(--bg);border-radius:8px;padding:3px 10px}
+.ic-share{color:#2F80ED;display:grid;place-items:center;animation:icPulse 4s infinite}
+.ic-share .i{width:20px;height:20px}
+.ic-menu{position:absolute;inset-inline:10px;bottom:52px;background:var(--card);border-radius:14px;box-shadow:var(--shadow);padding:6px;transform:translateY(130%);animation:icMenu 4s infinite}
+.ic-mi{display:flex;align-items:center;gap:8px;padding:8px;font-size:11.5px;border-radius:9px;color:var(--ink)}
+.ic-mi .i{width:14px;height:14px}
+.ic-mi.hl{animation:icHl 4s infinite}
+.ic-mi b{font-size:15px;line-height:1}
+.ic-home{position:absolute;inset:14px 14px 56px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;align-content:start;opacity:0;animation:icHome 4s infinite}
+.ic-home i{aspect-ratio:1;border-radius:12px;background:var(--line)}
+.ic-home .ic-app{background:var(--green);color:var(--brass);font-style:normal;font-weight:800;display:grid;place-items:center;font-size:14px;animation:icApp 4s infinite}
+.ic-tap{position:absolute;width:26px;height:26px;border-radius:50%;background:rgba(47,128,237,.35);border:2px solid #2F80ED;inset-inline-end:16px;bottom:9px;animation:icTap 4s infinite;opacity:0}
+@keyframes icPulse{0%,8%{transform:scale(1)}12%{transform:scale(1.3)}18%,100%{transform:scale(1)}}
+@keyframes icMenu{0%,15%{transform:translateY(130%)}24%,62%{transform:translateY(0)}70%,100%{transform:translateY(130%)}}
+@keyframes icHl{0%,40%{background:transparent}46%,62%{background:var(--brass-soft)}}
+@keyframes icHome{0%,66%{opacity:0}72%,96%{opacity:1}100%{opacity:0}}
+@keyframes icApp{0%,72%{transform:scale(0)}80%{transform:scale(1.15)}86%,100%{transform:scale(1)}}
+@keyframes icTap{0%,6%{opacity:0;inset-inline-end:16px;bottom:9px}8%,14%{opacity:1;inset-inline-end:16px;bottom:9px}20%,38%{opacity:0;inset-inline-end:120px;bottom:70px}42%,50%{opacity:1;inset-inline-end:120px;bottom:70px}56%,100%{opacity:0;inset-inline-end:120px;bottom:70px}}
+@media (prefers-reduced-motion:reduce){.ic-menu{animation:none;transform:none}.ic-home,.ic-tap,.ic-share,.ic-mi.hl{animation:none}}
 </style>
 </head>
 <body>
@@ -1369,6 +1400,7 @@ function icon(name){
     chev:'<path d="M15 6l-6 6 6 6"/>',
     eye:'<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
     check:'<path d="m5 12.5 4.5 4.5L19 7.5"/>',
+    down:'<path d="M12 4v11M7 10l5 5 5-5"/><path d="M5 20h14"/>',
     mic:'<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/>',
     chat:'<path d="M4 5h16v11H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/>',
     send:'<path d="M20 12 4 4.5l2.5 7.5L4 19.5z"/><path d="M6.5 12H12"/>',
@@ -2547,6 +2579,7 @@ function vSettings(){
     <section class="sec"><div class="sec-h"><h2>مساعدة</h2></div><div class="panel list">
       <button class="row" data-act="tutorial"><span class="av" style="width:38px;height:38px">${icon('play')}</span><div class="mid"><div class="t">طريقة الاستخدام</div><div class="s">شرح بالفيديو وبالصور خطوة خطوة</div></div></button>
       <a class="row" href="#/privacy"><span class="av" style="width:38px;height:38px">${icon('lock')}</span><div class="mid"><div class="t">سياسة الخصوصية</div><div class="s">كيف نحمي بياناتك</div></div></a>
+      ${INSTALL.standalone() ? '' : `<button class="row" data-act="installCard"><span class="av" style="width:38px;height:38px">${icon('down')}</span><div class="mid"><div class="t">ثبّت دلي على جوالك</div><div class="s">يفتح كتطبيق بشاشة كاملة</div></div></button>`}
     </div></section>
     <section class="sec"><div class="sec-h"><h2>بياناتي</h2></div><div class="panel list">
       <a class="row" href="#/report"><span class="av" style="width:38px;height:38px">${icon('report')}</span><div class="mid"><div class="t">الجرد الكامل</div><div class="s">ملخص كل الديون مع ملف PDF</div></div></a>
@@ -4726,6 +4759,77 @@ function vJamT(){ return wTrashView('jam', L('سلة الجمعيات', 'Circles
 /* =====================================================
    ✨ المساعد الذكي (Gemini عبر وسيط Cloudflare)
    ===================================================== */
+
+/* =====================================================
+   📘 دليل دلي (يُرسل مع أسئلة المساعد)
+   ===================================================== */
+const GUIDE = `دليل استخدام موقع «دلي» (دفتر ديون). الشريط السفلي: الرئيسية، الأشخاص، زر + (إضافة)، الأدوات، حسابي. الجرس 🔔 أعلى الشاشة للتنبيهات، والعدسة للبحث.
+[home] الرئيسية: تحية، «صافي حسابك» (لي عند الناس ناقص عليّ للناس) بعملة تختارها من القائمة الصغيرة فوق المبلغ، سطر سعر الدولار (اضغطه لفتح الصرف)، جدول «حسب العملة»، الديون «المتأخرة عن موعدها»، و«آخر الحركات».
+[add] زر + في الشريط يفتح خيارات: دين، تقسيط، جمعية، مصروف، المساعد. صفحة «دين جديد»: نوع الدين (شخص مدين لي / أنا مدين لشخص)، الاسم (يقترح الأسماء الموجودة أو ينشئ شخصاً جديداً)، رقم الهاتف اختياري، المبلغ، العملة (دولار، ليرة سورية جديدة، يورو، دينار كويتي)، التاريخ، موعد السداد اختياري، ملاحظة.
+[people] الأشخاص: بحث بالاسم، تصفية (الكل، لي عندهم، عليّ لهم، متأخر، مسدَّد)، ترتيب (الأحدث، الأكبر مبلغاً، الاسم). صفحة الشخص: رصيده وديونه، وأزرار: تذكير واتساب (رسالة جاهزة بالمبلغ)، رابط كشف (رابط يفتحه الشخص بدون حساب ويرى رصيده ودفعاته فقط ويتحدث تلقائياً)، كشف PDF، تعديل الاسم والهاتف، حذف الشخص.
+[debt] صفحة الدين: المبلغ الأصلي والمدفوع والمتبقي، أزرار «سداد جزء» و«خصم جزء» و«زيادة» و«تسجيل سداد كامل المبلغ»، «صور وإيصالات» لإرفاق صورة وصل، تعديل الدين، حذفه (ينتقل للسلة). الدين بالليرة تظهر تحته بطاقة «درع الليرة».
+[trash] سلة المحذوفات (من حسابي): المحذوفات تبقى 30 يوماً، ويمكن «استرجاع» عنصر أو «استرجاع الكل» أو «حذف الكل نهائياً». للتقسيط والجمعيات سلة خاصة داخل كل منهما.
+[report] الجرد الكامل: ملخص كل الديون حسب العملة مع ملف PDF. وفي حسابي أيضاً «تنزيل نسخة Excel» (CSV).
+[tools] الأدوات: الصرف، التقسيط، الجمعيات، الميزانية، درع الليرة، المساعد الذكي.
+[convert] الصرف: تحويل بين الدولار والليرة واليورو والدينار بسعر السوق مع مصدره ووقته.
+[inst] التقسيط: منفصل عن الديون. تبويبان: «لي · عملائي» و«عليّ · أقساطي». تقسيط جديد: الاسم، البضاعة، المبلغ الكلي، دفعة أولى اختيارية، عدد الأقساط الشهرية، موعد أول قسط، مع معاينة فورية. اضغط أي قسط لتسجيل استلامه أو دفعه أو إلغاء التسجيل أو تعديل مبلغه وموعده. تعديل الخطة يحتفظ بالأقساط المدفوعة. تذكير واتساب للعميل.
+[jam] الجمعيات: الاسم، العملة، القسط الشهري لكل عضو، شهر البداية، الأعضاء بترتيب الأدوار (أسهم للترتيب، قرعة 🎲، زر «أنا»). صفحة الجمعية: شريط الأشهر، من يقبض هذا الشهر، اضغط العضو لتسجيل دفعته، «ذكّر من لم يدفع بالواتساب». زر خيارات: تعديل، «بدء دورة جديدة» (يمسح الدفعات)، «استرجاع كل الدفعات» خلال 30 يوماً، حذف.
+[bud] الميزانية: لكل شهر. اكتب دخلك واضغط «اقترح تقسيماً» (50% أساسيات، 20% ترفيه، 20% طوارئ وادخار، 10% استثمار) فتنشأ ظروف قابلة للتعديل. «أقساطي» و«الجمعية» تُضاف تلقائياً. «سجّل مصروفاً» أو من زر +. اضغط الظرف لرؤية مصاريفه وحذف أي منها. تنقّل بين الأشهر وانسخ ميزانية الشهر الماضي. تنبيه عند صرف 85% من الظرف.
+[shield] درع الليرة: سعر الدولار في السوق مع رسم بياني (شهر، 3 أشهر، سنة)، والقيمة الحقيقية لديونك بالليرة (قيمتها بالدولار يوم الدين مقابل اليوم)، وتنبيه عندما يتجاوز السعر حداً تختاره. الدين نفسه يبقى بالليرة.
+[ai] المساعد الذكي: صوّر صفحة من دفترك الورقي، أو احكِ الدين بصوتك، أو اسأل عن أرقامك. لا يُحفظ شيء قبل أن تراجع وتضغط «حفظ الكل».
+[alerts] التنبيهات (الجرس): ديون متأخرة أو قريبة، أقساط، دورك في الجمعية، من لم يدفع في الجمعية، ظرف شارف على النهاية، تغيّر كبير في سعر الدولار، وحدود الدولار التي اخترتها.
+[settings] حسابي: المظهر (حسب الهاتف، فاتح، داكن)، عملة المجموع، «سعري الخاص لليرة»، أصوات الحركات، طريقة الاستخدام (فيديو وصور)، سياسة الخصوصية، الجرد الكامل، تنزيل Excel، سلة المحذوفات، قفل التطبيق برمز من 4 أرقام (يُقفل بعد دقيقة خارج التطبيق، و«نسيت الرمز» يسجّل الخروج)، اللغة (العربية، English)، تغيير الاسم، تغيير كلمة السر، تسجيل الخروج، حذف الحساب نهائياً.
+[install] تثبيت دلي كتطبيق: على الآيفون من Safari زر المشاركة ثم «إضافة إلى الشاشة الرئيسية». على أندرويد زر «تثبيت التطبيق» أو ملف APK. إذا فُتح الموقع من داخل إنستغرام أو تيك توك يجب فتحه في Safari أو Chrome أولاً.
+[privacy] الخصوصية: بياناتك محفوظة في حسابك ولا يراها غيرك، لا إعلانات ولا بيع بيانات. صور وتسجيلات المساعد تذهب إلى Google Gemini للمعالجة فقط.
+عام: كل شيء يُحفظ تلقائياً ويتزامن بين أجهزتك بنفس الحساب. كل شيء قابل للتعديل، والحذف يذهب إلى السلة أولاً.`;
+const AI_LINKS = {
+  home:['#/home', 'الرئيسية', 'Home'], people:['#/people', 'الأشخاص', 'People'], add:['#/add', 'دين جديد', 'New debt'],
+  tools:['#/tools', 'الأدوات', 'Tools'], convert:['#/convert', 'الصرف', 'Exchange'],
+  inst:['#/inst', 'التقسيط', 'Instalments'], instnew:['#/instf/new', 'تقسيط جديد', 'New plan'],
+  jam:['#/jam', 'الجمعيات', 'Circles'], jamnew:['#/jamf/new', 'جمعية جديدة', 'New circle'],
+  bud:['#/bud', 'الميزانية', 'Budget'], budnew:['#/budf', 'إعداد الميزانية', 'Set up budget'],
+  shield:['#/shield', 'درع الليرة', 'Lira shield'], alerts:['#/alerts', 'التنبيهات', 'Alerts'],
+  settings:['#/settings', 'حسابي', 'Account'], trash:['#/trash', 'سلة المحذوفات', 'Trash'], report:['#/report', 'الجرد الكامل', 'Full summary'],
+  privacy:['#/privacy', 'الخصوصية', 'Privacy'], tutorial:['act:tutorial', 'طريقة الاستخدام', 'How to use'], install:['act:install', 'تثبيت دلي', 'Install Daly']
+};
+
+/* =====================================================
+   📲 بطاقة «ثبّت دلي على شاشتك»
+   ===================================================== */
+const INSTALL = {
+  standalone: () => window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true,
+  snoozed(){ const t = ls.get('daly_inst_snooze', 0); return t && Date.now() - t < 7 * 864e5; },
+  maybe(){
+    if (INSTALL.standalone() || INSTALL.snoozed() || sheetOpen || INSTALL.shown) return;
+    if (!IS_IOS && !/Android/i.test(navigator.userAgent)) return;
+    if (!dataReady() || activeDebts().length < 1) return;
+    if (route().name !== 'home') return;
+    INSTALL.shown = true; setTimeout(() => { if (!sheetOpen && route().name === 'home') INSTALL.open(); }, 1600);
+  },
+  open(){
+    if (INSTALL.standalone()){ toast(L('دلي مثبّت على جوالك ✓', 'Daly is already installed ✓')); return; }
+    const inApp = inAppBrowser();
+    if (!IS_IOS){ // أندرويد: نافذة التثبيت الأصلية، أو ملف APK
+      if (installEvt){ installEvt.prompt(); return; }
+      if (inApp) return openInChromeSheet();
+      return apkSheet(false);
+    }
+    openSheet(`<div class="ic-wrap">
+      <div class="ic-demo" aria-hidden="true">
+        <div class="ic-phone"><div class="ic-bar"><span class="ic-url">dalybook</span><span class="ic-share">${icon('share')}</span></div>
+          <div class="ic-menu"><div class="ic-mi">${icon('link')}<span>${L('نسخ', 'Copy')}</span></div><div class="ic-mi hl"><b>＋</b><span>${L('إضافة إلى الشاشة الرئيسية', 'Add to Home Screen')}</span></div></div>
+          <div class="ic-home"><i></i><i></i><i></i><i class="ic-app">دلي</i><i></i><i></i></div>
+          <span class="ic-tap"></span></div>
+      </div>
+      <h3>${L('ثبّت دلي على شاشتك', 'Put Daly on your home screen')}</h3>
+      <p class="sub">${L('يفتح كتطبيق، بشاشة كاملة، وبكبسة واحدة.', 'It opens like an app, full screen, in one tap.')}</p>
+      ${inApp ? `<ol class="steps"><li>${L('اضغط <b>•••</b> أعلى الشاشة.', 'Tap <b>•••</b> at the top.')}</li><li>${L('اختر <b>فتح في Safari</b>، ثم أعد الخطوات.', 'Choose <b>Open in Safari</b>, then follow the steps.')}</li></ol>`
+        : `<ol class="steps"><li>${L(`اضغط زر المشاركة ${icon('share')} في Safari.`, `Tap the Share button ${icon('share')} in Safari.`)}</li><li>${L('اختر <b>إضافة إلى الشاشة الرئيسية</b> (انزل قليلاً إذا لم تجده).', 'Choose <b>Add to Home Screen</b> (scroll a little if needed).')}</li><li>${L('اضغط <b>إضافة</b>. ✓', 'Tap <b>Add</b>. ✓')}</li></ol>`}
+      <div class="btns"><button class="btn ghost" data-act="instLater">${L('لاحقاً', 'Later')}</button><button class="btn" data-act="closeSheet">${L('فهمت', 'Got it')}</button></div>
+    </div>`);
+  }
+};
+
 const AI_URL = 'https://daly-ai.xwerfor.workers.dev';
 const AI = {msgs:[], busy:false, rec:null, seq:0};
 const isoOk = s => /^\d{4}-\d{2}-\d{2}$/.test(s || '') && !isNaN(Date.parse(s + 'T12:00:00'));
@@ -4784,7 +4888,7 @@ function aiMsgHTML(m){
   if (m.k === 'voice') return `<div class="ai-b me voice${anim}">${icon('wave')}<span>${L('تسجيل صوتي', 'Voice note')} · <bdi>${m.dur}</bdi></span></div>`;
   if (m.k === 'img') return `<div class="ai-img${anim}${m.scan ? ' scanning' : ''}" id="aim-${m.id}"><img src="${m.src}" alt="${L('صفحة الدفتر', 'Notebook page')}"><i class="scanline"></i></div>`;
   if (m.k === 'wait') return `<div class="ai-b bot wait${anim}" id="aiw-${m.id}"><span class="dots"><i></i><i></i><i></i></span><small>${esc(m.t || '')}</small></div>`;
-  if (m.k === 'ans') return `<div class="ai-b bot${anim}" translate="no" dir="auto" id="aia-${m.id}">${m.typed ? esc(m.t).replace(/\n/g, '<br>') : ''}</div>`;
+  if (m.k === 'ans') return `<div class="ai-b bot${anim}" translate="no" dir="auto" id="aia-${m.id}">${m.typed ? esc(m.t).replace(/\n/g, '<br>') : ''}</div>${m.typed ? aiLinksHTML(m) : ''}`;
   if (m.k === 'err') return `<div class="ai-b bot err${anim}">${icon('x')}<span>${esc(m.t)}${m.code ? `<small dir="ltr">${esc(m.code)}</small>` : ''}</span></div>`;
   if (m.k === 'debts') return aiDebtsHTML(m, anim);
   return '';
@@ -4816,12 +4920,19 @@ function aiPush(m){
 }
 function aiDrop(m){ const i = AI.msgs.indexOf(m); if (i >= 0) AI.msgs.splice(i, 1); const el = $('#aiw-' + m.id) || $('#aim-' + m.id); if (el) el.remove(); }
 function aiScroll(){ requestAnimationFrame(() => { const log = $('#ai-log'); if (log && log.lastElementChild) log.lastElementChild.scrollIntoView({behavior:FX.reduce() ? 'auto' : 'smooth', block:'end'}); }); }
+function aiLinksHTML(m){
+  const ls_ = (m.links || []).filter(k => AI_LINKS[k]).slice(0, 3);
+  if (!ls_.length) return '';
+  return `<div class="ai-links" id="ail-${m.id}">${ls_.map((k, i) => { const [r, ar, en] = AI_LINKS[k];
+    return r.startsWith('act:') ? `<button class="ai-go" data-act="aiGo" data-to="${r}" style="--d:${i}">${L(ar, en)} ${icon('chev')}</button>` : `<a class="ai-go" href="${r}" style="--d:${i}">${L(ar, en)} ${icon('chev')}</a>`; }).join('')}</div>`;
+}
+function aiShowLinks(m){ const el = $('#aia-' + m.id); if (el && !$('#ail-' + m.id)){ el.insertAdjacentHTML('afterend', aiLinksHTML(m)); aiScroll(); } }
 function aiType(m){
   const el = $('#aia-' + m.id); if (!el) return;
   const full = m.t; let i = 0;
-  if (FX.reduce()){ el.innerHTML = esc(full).replace(/\n/g, '<br>'); m.typed = true; return; }
+  if (FX.reduce()){ el.innerHTML = esc(full).replace(/\n/g, '<br>'); m.typed = true; aiShowLinks(m); return; }
   const step = Math.max(2, Math.ceil(full.length / 70));
-  const tick = () => { i = Math.min(full.length, i + step); el.innerHTML = esc(full.slice(0, i)).replace(/\n/g, '<br>') + (i < full.length ? '<i class="caret"></i>' : ''); if (i < full.length) setTimeout(tick, 22); else { m.typed = true; aiScroll(); } };
+  const tick = () => { i = Math.min(full.length, i + step); el.innerHTML = esc(full.slice(0, i)).replace(/\n/g, '<br>') + (i < full.length ? '<i class="caret"></i>' : ''); if (i < full.length) setTimeout(tick, 22); else { m.typed = true; aiShowLinks(m); aiScroll(); } };
   tick();
 }
 function aiFail(e, wait){
@@ -4843,12 +4954,12 @@ function aiDebts(res){
 function vAI(){
   topbar(L('المساعد الذكي', 'Smart assistant'), '#/tools');
   const name = S.user && S.user.name ? S.user.name.split(' ')[0] : '';
-  const sugg = [L('من أكثر شخص مدين لي؟', 'Who owes me the most?'), L('كم سأقبض هذا الشهر؟', 'How much will I collect this month?'), L('من المتأخرون عن السداد؟', 'Who is late paying?')];
-  return `<div class="ai-hero"><span class="ai-orb">${icon('spark')}</span><div><b>${name ? L(`أهلاً ${esc(name)}`, `Hi ${esc(name)}`) : L('أهلاً بك', 'Welcome')}</b><span>${L('صوّر دفترك، أو احكِ، أو اسألني عن ديونك.', 'Snap your notebook, speak, or ask me about your debts.')}</span></div></div>
+  const sugg = [L('من أكثر شخص مدين لي؟', 'Who owes me the most?'), L('كيف أرسل كشفاً لشخص؟', 'How do I send someone a statement?'), L('كيف أسترجع ديناً حذفته؟', 'How do I restore a deleted debt?'), L('كم سأقبض هذا الشهر؟', 'How much will I collect this month?')];
+  return `<div class="ai-hero"><span class="ai-orb">${icon('spark')}</span><div><b>${name ? L(`أهلاً ${esc(name)}`, `Hi ${esc(name)}`) : L('أهلاً بك', 'Welcome')}</b><span>${L('صوّر دفترك، أو احكِ، أو اسألني عن ديونك وعن أي شيء في دلي.', 'Snap your notebook, speak, or ask me about your debts or anything in Daly.')}</span></div></div>
     <div class="ai-acts" id="ai-acts">
       <label class="ai-act" style="--d:0"><span class="ai-ic">${icon('camera')}</span><b>${L('صوّر الدفتر', 'Scan notebook')}</b><small>${L('صفحة من دفترك الورقي', 'A page from your paper book')}</small><input type="file" accept="image/*" class="vh" id="ai-file"></label>
       <button class="ai-act" data-act="aiMic" style="--d:1"><span class="ai-ic">${icon('mic')}</span><b>${L('احكِ', 'Speak')}</b><small>${L('سجّل ديناً بصوتك', 'Record a debt by voice')}</small></button>
-      <button class="ai-act" data-act="aiFocus" style="--d:2"><span class="ai-ic">${icon('chat')}</span><b>${L('اسأل', 'Ask')}</b><small>${L('عن ديونك وأرقامك', 'About your debts')}</small></button>
+      <button class="ai-act" data-act="aiFocus" style="--d:2"><span class="ai-ic">${icon('chat')}</span><b>${L('اسأل', 'Ask')}</b><small>${L('عن ديونك وعن دلي', 'About your debts & Daly')}</small></button>
     </div>
     <div class="ai-rec" id="ai-rec" hidden>
       <button class="ai-mic" data-act="aiStop" aria-label="${L('إيقاف التسجيل', 'Stop recording')}"><i class="ring"></i><i class="ring r2"></i><span>${icon('mic')}</span></button>
@@ -4915,8 +5026,8 @@ async function aiAsk(text){
   aiPush({k:'user', t:text});
   const w = aiPush({k:'wait', t:L('يقرأ دفترك…', 'Reading your book…')});
   try{
-    const res = await aiCall({task:'ask', text, context:aiContext()});
-    aiDrop(w); const m = aiPush({k:'ans', t:String(res.answer || '').trim() || L('لا أملك جواباً لهذا.', 'I don\'t have an answer for that.')}); aiType(m);
+    const res = await aiCall({task:'ask', text, context:aiContext(), guide:GUIDE, route:'ai'});
+    aiDrop(w); const m = aiPush({k:'ans', t:String(res.answer || '').trim() || L('لا أملك جواباً لهذا.', 'I don\'t have an answer for that.'), links:Array.isArray(res.links) ? res.links : []}); aiType(m);
   }catch(e){ aiFail(e, w); }
   finally{ AI.busy = false; }
 }
@@ -5049,6 +5160,9 @@ async function aiVoiceText(text){
   finally{ AI.busy = false; }
 }
 const AIACT = {
+  aiGo: el => { const k = el.dataset.to; if (k === 'act:tutorial') TUT.open(); else if (k === 'act:install') INSTALL.open(); },
+  instLater: () => { ls.set('daly_inst_snooze', Date.now()); closeSheet(); },
+  installCard: () => INSTALL.open(),
   aiDictGo: () => { const t = $('#ai-dt'); if (!t || !t.value.trim()) return; const v = t.value; t.value = ''; $('#ai-dict').hidden = true; aiVoiceText(v); },
   aiDictClose: () => { const d = $('#ai-dict'); if (d) d.hidden = true; },
   aiMic: () => aiMic(),
@@ -5098,6 +5212,7 @@ function onUser(u){
     if (!purged && S.loaded.debts && S.loaded.inst && S.loaded.jam){ purged = true; purgeOldTrash(); }
     const onForm = ['add','edit'].includes(route().name);
     const onW = !!$('#view form[data-form=inst], #view form[data-form=jam], #view form[data-form=bud]');
+    try{ INSTALL.maybe(); }catch(e){}
     const onAI = route().name === 'ai' && (AI.busy || AI.rec || !!$('#view .ai-card[data-ai]') || document.activeElement === $('#ai-q') || document.activeElement === $('#ai-dt'));
     if (!sheetOpen && !(onForm && formShown) && !onW && !onAI) renderSoon();
   });
